@@ -92,6 +92,9 @@ GEM
     oauth (0.4.7)
     orm_adapter (0.5.0)
     pg (0.18.4)
+    postmark (1.7.1)
+      json
+      rake
     rack (1.6.4)
     rack-cors (0.4.0)
     rack-test (0.6.3)
@@ -171,6 +174,7 @@ DEPENDENCIES
   jwt
   koala (~> 2.2)
   pg
+  postmark
   rack-cors
   rails (= 4.2.2)
   rails-api
