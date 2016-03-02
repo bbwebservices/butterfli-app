@@ -1,0 +1,31 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: MyString
+  subreddit: MyString
+  twit_consumer_key: MyString
+  twit_consumer_secret: MyString
+  twit_access_token: MyString
+  twit_access_token_secret: MyString
+  giphy_search: MyString
+  twitter_pic_search: MyString
+  tumblr_pic_search: MyString
+  tumblr_consumer_key: MyString
+  tumblr_consumer_secret: MyString
+  tumblr_oauth_token: MyString
+  tumblr_oauth_token_secret: MyString
+
+two:
+  title: MyString
+  subreddit: MyString
+  twit_consumer_key: MyString
+  twit_consumer_secret: MyString
+  twit_access_token: MyString
+  twit_access_token_secret: MyString
+  giphy_search: MyString
+  twitter_pic_search: MyString
+  tumblr_pic_search: MyString
+  tumblr_consumer_key: MyString
+  tumblr_consumer_secret: MyString
+  tumblr_oauth_token: MyString
+  tumblr_oauth_token_secret: MyString

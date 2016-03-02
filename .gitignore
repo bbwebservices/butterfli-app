@@ -5,5 +5,5 @@
 butterfli-mobile/cfams/node_modules
 butterfli-webview/node_modules
 *.env
-
-
+butterfli-api/tmp
+butterfli-api/log

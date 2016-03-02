@@ -15,7 +15,10 @@ gem 'devise'
 gem 'jwt'
 gem 'rack-cors', :require => 'rack/cors'
 
-
+gem 'twitter', '~> 5.15'
+gem 'tumblr_client', '~> 0.8.5'
+gem "koala", "~> 2.2"
+gem 'postmark'
 # To use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 
