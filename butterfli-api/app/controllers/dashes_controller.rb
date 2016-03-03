@@ -71,6 +71,25 @@ class DashesController < ApplicationController
     @dash.post_content(post, network)
     redirect_to dash_post_queue_path(@dash)
   end
+    # Edit post via AJAX
+  def edit_post_body
+    begin
+      body = params[:body_text]
+      @post.body = body
+      @post.save
+      res = "success! changed to #{@post.body}"
+    rescue
+      res = 'tried'
+    end
+      respond_to do |format|
+      if res != 'tried'
+        format.html { redirect_to dash_post_queue_path(@dash), notice: res }
+      else
+        format.html { redirect_to dash_post_queue_path(@dash), status: 500, notice: 'There was an issue..' }
+      end
+    end
+  end
+
 
   # Auth Actions - - - - - - - 
     # FB - get auth url
