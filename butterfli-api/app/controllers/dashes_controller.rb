@@ -1,4 +1,5 @@
 class DashesController < ApplicationController
+  before_filter :verify_jwt_token
   before_action :set_dash, only: [:show, :update, :destroy]
 
   # GET /dashes
@@ -46,6 +47,25 @@ class DashesController < ApplicationController
 
     head :no_content
   end
+
+
+
+
+  def scrape
+    @user = current_user
+    @posts = @dash.posts.where(approved: nil)
+    # @posts = @posts.paginate(:page => params[:page])
+    render json: @posts   
+  end
+
+  def post_queue
+    @posts = @dash.posts.where(approved: true).order(created_at: :desc)
+    @posts = @posts.paginate(:page => params[:page])
+    render json: @posts   
+  end
+
+
+
 
   private
 
