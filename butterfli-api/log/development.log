@@ -1,0 +1,52 @@
+
+
+Started POST "/users/sign_in.json" for ::1 at 2016-03-02 22:47:43 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by Users::SessionsController#create as JSON
+  Parameters: {"user"=>{"email"=>"hathbanger.ah@gmail.com", "password"=>"[FILTERED]"}}
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["email", "hathbanger.ah@gmail.com"]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.5ms)[0m  UPDATE "users" SET "last_sign_in_at" = $1, "current_sign_in_at" = $2, "sign_in_count" = $3, "updated_at" = $4 WHERE "users"."id" = $5  [["last_sign_in_at", "2016-03-03 05:47:14.491030"], ["current_sign_in_at", "2016-03-03 05:47:43.702627"], ["sign_in_count", 17], ["updated_at", "2016-03-03 05:47:43.704674"], ["id", 1]]
+  [1m[36m (0.4ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 128ms (Views: 1.6ms | ActiveRecord: 4.0ms)
+
+
+Started GET "/dashes.json" for ::1 at 2016-03-02 22:47:43 -0700
+Processing by DashesController#index as JSON
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.3ms)[0m  [1mSELECT "dashes".* FROM "dashes" WHERE "dashes"."user_id" = 1[0m
+Completed 200 OK in 24ms (Views: 10.7ms | ActiveRecord: 1.5ms)
+
+
+Started POST "/users/sign_in.json" for ::1 at 2016-03-02 22:49:06 -0700
+Processing by Users::SessionsController#create as JSON
+  Parameters: {"user"=>{"email"=>"hathbanger.ah@gmail.com", "password"=>"[FILTERED]"}}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["email", "hathbanger.ah@gmail.com"]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.3ms)[0m  UPDATE "users" SET "last_sign_in_at" = $1, "current_sign_in_at" = $2, "sign_in_count" = $3, "updated_at" = $4 WHERE "users"."id" = $5  [["last_sign_in_at", "2016-03-03 05:47:43.702627"], ["current_sign_in_at", "2016-03-03 05:49:06.163469"], ["sign_in_count", 18], ["updated_at", "2016-03-03 05:49:06.166008"], ["id", 1]]
+  [1m[36m (4.8ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 97ms (Views: 1.5ms | ActiveRecord: 6.8ms)
+
+
+Started GET "/dashes.json" for ::1 at 2016-03-02 22:49:06 -0700
+Processing by DashesController#index as JSON
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.2ms)[0m  [1mSELECT "dashes".* FROM "dashes" WHERE "dashes"."user_id" = 1[0m
+Completed 200 OK in 23ms (Views: 10.9ms | ActiveRecord: 1.9ms)
+
+
+Started POST "/users/sign_in.json" for ::1 at 2016-03-02 22:51:14 -0700
+Processing by Users::SessionsController#create as JSON
+  Parameters: {"user"=>{"email"=>"hathbanger.ah@gmail.com", "password"=>"[FILTERED]"}}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."email" = $1  ORDER BY "users"."id" ASC LIMIT 1  [["email", "hathbanger.ah@gmail.com"]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  UPDATE "users" SET "last_sign_in_at" = $1, "current_sign_in_at" = $2, "sign_in_count" = $3, "updated_at" = $4 WHERE "users"."id" = $5  [["last_sign_in_at", "2016-03-03 05:49:06.163469"], ["current_sign_in_at", "2016-03-03 05:51:14.344506"], ["sign_in_count", 19], ["updated_at", "2016-03-03 05:51:14.346289"], ["id", 1]]
+  [1m[36m (0.5ms)[0m  [1mCOMMIT[0m
+Completed 200 OK in 87ms (Views: 1.4ms | ActiveRecord: 2.4ms)
+
+
+Started GET "/dashes.json" for ::1 at 2016-03-02 22:51:14 -0700
+Processing by DashesController#index as JSON
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.6ms)[0m  [1mSELECT "dashes".* FROM "dashes" WHERE "dashes"."user_id" = 1[0m
+Completed 200 OK in 21ms (Views: 13.4ms | ActiveRecord: 2.8ms)
