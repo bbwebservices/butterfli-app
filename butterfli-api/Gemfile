@@ -10,7 +10,7 @@ gem 'spring', :group => :development
 
 gem 'pg'
 
-
+gem 'active_model_serializers'
 gem 'devise'
 gem 'jwt'
 gem 'rack-cors', :require => 'rack/cors'

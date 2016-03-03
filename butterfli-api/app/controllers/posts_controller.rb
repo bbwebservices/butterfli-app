@@ -1,11 +1,11 @@
 class PostsController < ApplicationController
   before_action :set_post, only: [:show, :update, :destroy]
+  before_action :set_dash, only: [:new, :create]
 
   # GET /posts
   # GET /posts.json
   def index
     @posts = Post.all
-
     render json: @posts
   end
 
@@ -18,6 +18,7 @@ class PostsController < ApplicationController
   # POST /posts
   # POST /posts.json
   def create
+    @dash = Dash.find(params[:dash_id])
     @post = Post.new(post_params)
 
     if @post.save
@@ -43,17 +44,43 @@ class PostsController < ApplicationController
   # DELETE /posts/1.json
   def destroy
     @post.destroy
-
     head :no_content
   end
 
+# Custom Controller Actions
+
+  def toggle_approve  
+      @p = Post.find(params[:id])
+    if @p.approved
+      @p.toggle!(:approved)  
+    else
+      @p.approved = true
+    end
+      @p.save
+    render :nothing => true  
+  end
+
+  def toggle_disapprove  
+      @p = Post.find(params[:id])  
+    if @p.approved
+      @p.toggle!(:approved)  
+    else
+      @p.approved = false
+    end
+    @p.save
+    render :nothing => true  
+  end
+
   private
+    def set_dash
+      @dash = Dash.find(params[:dash_id])
+    end
 
     def set_post
       @post = Post.find(params[:id])
     end
 
     def post_params
-      params.require(:post).permit(:title, :og_source, :body, :image_src)
+      params.require(:post).permit(:title, :og_source, :body, :image_src, :author)
     end
 end

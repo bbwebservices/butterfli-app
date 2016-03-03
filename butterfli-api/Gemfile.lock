@@ -20,6 +20,8 @@ GEM
       erubis (~> 2.7.0)
       rails-dom-testing (~> 1.0, >= 1.0.5)
       rails-html-sanitizer (~> 1.0, >= 1.0.1)
+    active_model_serializers (0.9.4)
+      activemodel (>= 3.2)
     activejob (4.2.2)
       activesupport (= 4.2.2)
       globalid (>= 0.3.0)
@@ -170,6 +172,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  active_model_serializers
   devise
   jwt
   koala (~> 2.2)
@@ -181,6 +184,3 @@ DEPENDENCIES
   spring
   tumblr_client (~> 0.8.5)
   twitter (~> 5.15)
-
-BUNDLED WITH
-   1.11.2
