@@ -5,7 +5,7 @@ class DashesController < ApplicationController
   # GET /dashes
   # GET /dashes.json
   def index
-    @dashes = Dash.all
+    @dashes = Dash.all.where(user_id: current_user)
 
     render json: @dashes
   end
@@ -54,7 +54,6 @@ class DashesController < ApplicationController
   def scrape
     @user = current_user
     @posts = @dash.posts.where(approved: nil)
-    # @posts = @posts.paginate(:page => params[:page])
     render json: @posts   
   end
 
