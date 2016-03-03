@@ -12,7 +12,9 @@ var Butterfli = React.createClass({
 			username: null,
 			password: null,
 			dashes: null,
-			jwt: null
+			currentDash: null,
+			jwt: null,
+
 		}
 	},
 
@@ -51,7 +53,6 @@ var Butterfli = React.createClass({
 				console.log('BODY: ', body)
 				if(response.statusCode === 200){
 					this.setState({
-						isLoggedIn: true,
 						jwt: JSON.parse(body).token
 					})
 				}
@@ -60,7 +61,7 @@ var Butterfli = React.createClass({
 
 		}.bind(this)).then(function(value) {
 			this.getDashes(value);
-		}.bind(this))
+		}.bind(this));
 		
 	},
 
@@ -76,7 +77,8 @@ var Butterfli = React.createClass({
 		request(options, function(error, response, body) {
 			console.log('DASHES: ', body);
 			this.setState({
-				dashes: body.dashes
+				dashes: JSON.parse(body).dashes,
+				isLoggedIn: true
 			})
 		}.bind(this))
 
