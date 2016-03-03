@@ -2,8 +2,10 @@
 .DS_Store
 **/.DS_Store
 *.log
+butterfli-api/*.log
 butterfli-mobile/cfams/node_modules
 butterfli-webview/node_modules
 *.env
 butterfli-api/tmp
 butterfli-api/log
+tmp/development.log
