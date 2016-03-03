@@ -156,6 +156,11 @@ class Dash < ActiveRecord::Base
 	    	self.post_tumblr(post)
     	end
 	end
+	def edit_post_body_content(post, body)
+    	@post = Post.find(post)
+    	@post.body = body
+    	@post.save
+	end
 
 
 

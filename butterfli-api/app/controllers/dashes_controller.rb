@@ -1,7 +1,7 @@
 class DashesController < ApplicationController
   before_filter :verify_jwt_token
   before_action :set_dash, only: [:show, :update, :destroy]
-  before_action :set_dash_by_dash_id, only: [:scrape, :scrape_for_pics, :post_queue, :post_to_network]
+  before_action :set_dash_by_dash_id, only: [:scrape, :scrape_for_pics, :post_queue, :post_to_network, :edit_post_body]
 
   # GET /dashes
   # GET /dashes.json
@@ -63,7 +63,6 @@ class DashesController < ApplicationController
     @posts = @dash.posts.where(approved: true).order(created_at: :desc)
     render json: @posts   
   end
-
     # Posting Controller Actions
   def post_to_network
     network = params[:network]
@@ -73,21 +72,10 @@ class DashesController < ApplicationController
   end
     # Edit post via AJAX
   def edit_post_body
-    begin
+      post = params[:post_id]
       body = params[:body_text]
-      @post.body = body
-      @post.save
-      res = "success! changed to #{@post.body}"
-    rescue
-      res = 'tried'
-    end
-      respond_to do |format|
-      if res != 'tried'
-        format.html { redirect_to dash_post_queue_path(@dash), notice: res }
-      else
-        format.html { redirect_to dash_post_queue_path(@dash), status: 500, notice: 'There was an issue..' }
-      end
-    end
+      @dash.edit_post_body_content(post, body)
+      redirect_to dash_post_queue_path(@dash)
   end
 
 
