@@ -16,5 +16,7 @@ class ApplicationController < ActionController::Base
     def verify_jwt_token
       head :unauthorized if request.headers['Authorization'].nil? ||
           !AuthToken.valid?(request.headers['Authorization'].split(' ').last)
+          user = AuthToken.valid?(request.headers['Authorization'].split(' ').last)[0]["user_id"]
+          @current_user = User.find(user)
     end
 end
