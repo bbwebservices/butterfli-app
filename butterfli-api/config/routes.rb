@@ -1,10 +1,14 @@
 Rails.application.routes.draw do
 
-  resources :posts, except: [:new, :edit]
-  resources :dashes, except: [:new, :edit]
   devise_for :users, controllers: {
     sessions: 'users/sessions'
   }
+  resources :dashes do
+    # Controller Action Routes
+    get "/scrape"  => 'dashes#scrape', path: 'scrape'
+    get "/post_queue"  => 'dashes#post_queue', path: 'queue'  	
+  end
   
-  root 'welcome#index'
+  resources :posts, except: [:new, :edit]
+  root 'dashes#index'
 end
