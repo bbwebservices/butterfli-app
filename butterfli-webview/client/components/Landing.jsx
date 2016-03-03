@@ -2,11 +2,9 @@ var React = require('react');
 var Login =require('./Login.jsx');
 var AccountHome = require('./AccountHome.jsx');
 
-var Navbar = React.createClass({
-	
+var Landing = React.createClass({
 
 	render: function (){
-
 		// check if logged in, render appropriate component
 		var loginRoute = function () {
 			if(this.props.isLoggedIn) {
@@ -24,4 +22,4 @@ var Navbar = React.createClass({
 	}
 })
 
-module.exports = Navbar;
+module.exports = Landing;
