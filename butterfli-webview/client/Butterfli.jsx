@@ -10,7 +10,9 @@ var Butterfli = React.createClass({
 		return {
 			isLoggedIn: false,
 			username: null,
-			password: null
+			password: null,
+			dashes: null,
+			jwt: null
 		}
 	},
 
@@ -33,28 +35,50 @@ var Butterfli = React.createClass({
 
 	// make request to log the user in
 	checkCreds: function (){
-		console.log('username: ', this.state.username, 'password: ', this.state.password);
 
-		var headers = {'Content-Type': 'application/json'}
-		
-		var dataString = '{"user": {"email": "test@example.com", "password": "12345678"}}';
-		
+		var headers = {'Content-Type': 'application/json'};	
+		var dataString = '{"user": {"email": "'+this.state.username+'", "password": "'+this.state.password+'"}}';
 		var options = {
-			url: 'http://localhost:3000/users/sign_in.json',
-			method: 'POST',
-			headers: headers,
-			body: dataString
-		}
+				url: 'http://localhost:3000/users/sign_in.json',
+				method: 'POST',
+				headers: headers,
+				body: dataString
+		};
 
 		// make request, set state accordingly
-		request(options, function (error, response, body) {
-			if(response.statusCode === 200){
-				this.setState({
-					isLoggedIn: true,
-					jwt: JSON.parse(body).token
-				})
-			}
+		new Promise(function(resolve, reject) {
+			request(options, function (error, response, body) {
+				if(response.statusCode === 200){
+					this.setState({
+						isLoggedIn: true,
+						jwt: JSON.parse(body).token
+					})
+				}
+				resolve(this.state.jwt);
+			}.bind(this))
+
+		}.bind(this)).then(function(value) {
+			this.getDashes(value);
 		}.bind(this))
+		
+	},
+
+	getDashes: function (value) {
+
+		console.log('STATE: ', this.state.jwt)
+		var headers = { 'Authorization': this.state.jwt };
+		var	options = {
+				url: 'http://localhost:3000/dashes.json',
+				method: 'GET',
+				headers: headers
+		};
+		request(options, function(error, response, body) {
+			console.log('DASHES: ', body);
+			this.setState({
+				dashes: body
+			})
+		}.bind(this))
+
 	},
 
 	render: function (){
@@ -64,7 +88,8 @@ var Butterfli = React.createClass({
 				{this.props.children && React.cloneElement(this.props.children, {
 						isLoggedIn: this.state.isLoggedIn,
 						updateCreds: this.updateCreds,
-						username: this.state.username
+						username: this.state.username,
+						dashes: this.state.dashes
 					})
 				}
 			</div>
