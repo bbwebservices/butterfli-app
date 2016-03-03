@@ -2427,3 +2427,121 @@ Processing by DashesController#post_queue as */*
   [1m[35mDash Load (0.2ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
   [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
 Completed 200 OK in 23ms (Views: 12.1ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/dashes/1/post?post_id=157&network=tumblr" for ::1 at 2016-03-03 11:29:51 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DashesController#post_to_network as */*
+  Parameters: {"post_id"=>"157", "network"=>"tumblr", "dash_id"=>"1"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.4ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.4ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 157]]
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 462ms (ActiveRecord: 13.2ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 11:29:52 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mDash Load (0.2ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
+Completed 200 OK in 32ms (Views: 16.5ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/dashes/1/post?post_id=157&network=tumblr" for ::1 at 2016-03-03 11:33:17 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DashesController#post_to_network as */*
+  Parameters: {"post_id"=>"157", "network"=>"tumblr", "dash_id"=>"1"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.3ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.5ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 157]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 1339ms (ActiveRecord: 7.4ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 11:33:19 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mDash Load (0.2ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
+Completed 200 OK in 29ms (Views: 14.6ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/dashes/1/edit-post?post_id=158&body_text=hey%20this%20is%20some%20text!" for ::1 at 2016-03-03 11:37:03 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (1.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DashesController#edit_post_body as */*
+  Parameters: {"post_id"=>"158", "body_text"=>"hey this is some text!", "dash_id"=>"1"}
+  [1m[35mUser Load (0.8ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+Completed 500 Internal Server Error in 44ms (ActiveRecord: 5.4ms)
+
+NoMethodError (undefined method `edit_post_body_content' for nil:NilClass):
+  app/controllers/dashes_controller.rb:78:in `edit_post_body'
+
+
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.5ms)
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.9ms)
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.5ms)
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (27.3ms)
+
+
+Started GET "/dashes/1/edit-post?post_id=158&body_text=hi" for ::1 at 2016-03-03 11:39:07 -0700
+Processing by DashesController#edit_post_body as */*
+  Parameters: {"post_id"=>"158", "body_text"=>"hi", "dash_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+Completed 500 Internal Server Error in 19ms (ActiveRecord: 5.5ms)
+
+NoMethodError (undefined method `edit_post_body_content' for nil:NilClass):
+  app/controllers/dashes_controller.rb:78:in `edit_post_body'
+
+
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/_source.erb (3.5ms)
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.0ms)
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (17.4ms)
+
+
+Started GET "/dashes/1/edit-post?post_id=158&body_text=hi" for ::1 at 2016-03-03 11:39:34 -0700
+Processing by DashesController#edit_post_body as */*
+  Parameters: {"post_id"=>"158", "body_text"=>"hi", "dash_id"=>"1"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.3ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.4ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 158]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  UPDATE "posts" SET "body" = $1, "updated_at" = $2 WHERE "posts"."id" = $3  [["body", "hi"], ["updated_at", "2016-03-03 18:39:34.878616"], ["id", 158]]
+  [1m[36m (12.6ms)[0m  [1mCOMMIT[0m
+Completed 500 Internal Server Error in 71ms (ActiveRecord: 18.8ms)
+
+NoMethodError (undefined method `body' for nil:NilClass):
+  app/controllers/dashes_controller.rb:79:in `edit_post_body'
+
+
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/_source.erb (3.3ms)
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.6ms)
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.2ms)
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (14.3ms)
+
+
+Started GET "/dashes/1/edit-post?post_id=158&body_text=hey%20whats%20up" for ::1 at 2016-03-03 11:40:57 -0700
+Processing by DashesController#edit_post_body as */*
+  Parameters: {"post_id"=>"158", "body_text"=>"hey whats up", "dash_id"=>"1"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.2ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.2ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 158]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  UPDATE "posts" SET "body" = $1, "updated_at" = $2 WHERE "posts"."id" = $3  [["body", "hey whats up"], ["updated_at", "2016-03-03 18:40:58.071316"], ["id", 158]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 37ms (ActiveRecord: 4.3ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 11:40:58 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.2ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC  [["dash_id", 1]]
+Completed 200 OK in 29ms (Views: 14.2ms | ActiveRecord: 0.7ms)
