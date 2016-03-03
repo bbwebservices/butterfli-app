@@ -3,8 +3,10 @@ class ShowDashSerializer < ActiveModel::Serializer
 
   def approved_posts
   	@posts = Post.all.where(approved: true).take(20)
+  	ActiveModel::ArraySerializer.new(@posts, each_serializer: PostSerializer).to_json
   end
   def null_posts
   	@posts = Post.all.where(approved: nil).take(20)
+  	ActiveModel::ArraySerializer.new(@posts, each_serializer: PostSerializer).to_json
   end
 end
