@@ -2,6 +2,9 @@ class Dash < ActiveRecord::Base
 	belongs_to :user
 	has_many :posts
 
+
+# Scraper Methods
+# - - - - - - - - - - - - - - - - - - - - -
 	def scraper(network, search)
 	    unless !network && !search
 	      case network
@@ -94,7 +97,9 @@ class Dash < ActiveRecord::Base
 	end
 
 
-	# Posting Methods
+
+# Posting Methods
+# - - - - - - - - - - - - - - - - - - - - -
 	def post_tweet(post)
 		twitCli = self.get_twit_client
 		post = Post.find(post)
@@ -111,9 +116,11 @@ class Dash < ActiveRecord::Base
 			end		
 			# post.twit_published += 1
 			post.save
-			body = self.shorten(post.body.to_s)
-			puts body
-			res = twitCli.update_with_media(body, img)
+			body = post.body.to_s
+			body_short = self.shorten(body, 90)
+			puts 'bodyshort', body_short
+			puts 'bodyshort length', body_short.length
+			res = twitCli.update_with_media(body_short, img)
 		rescue => e
 			puts e
 			return 'tried'
@@ -151,7 +158,9 @@ class Dash < ActiveRecord::Base
 	end
 
 
-	# Auth Methods
+
+# Auth Methods
+# - - - - - - - - - - - - - - - - - - - - -	
 	def get_twit_client
 		twitCli = Twitter::REST::Client.new do |config|
 		  config.consumer_key        = self.twit_consumer_key
@@ -197,15 +206,33 @@ class Dash < ActiveRecord::Base
 		self.save
 	end
 
-	# UTIL
-	def shorten(body)
-		body.truncate(body, length: 130)
+
+
+# UTIL
+# - - - - - - - - - - - - - - - - - - - - -
+	def shorten(body, len)
+		puts 'Shortening!'
+		puts body.length
+		if body.length > len.to_i
+			len = len.to_i - 3
+			body = body.slice(0, len.to_i)
+			body += "..."
+			puts body
+		end
+		return body
 	end
 
-	#Build Methods
 
+
+#Build Methods	
+# - - - - - - - - - - - - - - - - - - - - -
 	def build_post(title, src, body, image, author)
 		p = self.posts.build(title: title, og_source: src, body: body, image_src: image, author: author)		
 		p.save
 	end
+
+
+
+	
 end
+# - - - - - - - - - - - - - - - - - - - - -
