@@ -12,7 +12,7 @@ class DashesController < ApplicationController
   # GET /dashes/1
   # GET /dashes/1.json
   def show
-    render json: @dash
+    render json: @dash, serializer: ShowDashSerializer
   end
   # POST /dashes
   # POST /dashes.json
