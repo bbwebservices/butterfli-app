@@ -5,7 +5,7 @@ class DashesController < ApplicationController
   # GET /dashes
   # GET /dashes.json
   def index
-    @dashes = Dash.all
+    @dashes = Dash.all.where(user_id: current_user)
 
     render json: @dashes
   end
