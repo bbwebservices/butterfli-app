@@ -9,21 +9,19 @@ class Dash < ActiveRecord::Base
 	    unless !network && !search
 	      case network
 	      when 'twitter'
-	        self.twitter_pic_scrape(search_term)
+	        self.twitter_pic_scrape(search)
 	      when 'giphy'
-	        self.giphy_scrape(search_term)
+	        self.giphy_scrape(search)
 	      when 'tumblr'
-	        self.tumblr_pic_scrape(search_term)
+	        self.tumblr_pic_scrape(search)
 	      when 'reddit'
-	        self.reddit_pic_scrape(search_term)
+	        self.reddit_pic_scrape(search)
 	      end
 	    end		
 	end
-
 	def giphy_scrape(search)
 		begin
 		    self.giphy_search = search.downcase
-		    # term_arr = search_term.split(",")
 		    self.save
 			search = search ? search : self.giphy_search
 			sanitize = search.tr(" ", "+");
@@ -35,11 +33,10 @@ class Dash < ActiveRecord::Base
 			puts "results: ", result['data']
 			temp = []
 			result['data'].each do |x|
-				puts x
 				temp.push(x["images"]["fixed_height"]["url"])
 			end	
 			temp.each do |post|
-				self.build_post("giphy", post, nil, post, post)
+				self.build_post("giphy", post, nil, post, "giphy")
 			end
 			return temp 
 		rescue
@@ -118,8 +115,6 @@ class Dash < ActiveRecord::Base
 			post.save
 			body = post.body.to_s
 			body_short = self.shorten(body, 90)
-			puts 'bodyshort', body_short
-			puts 'bodyshort length', body_short.length
 			res = twitCli.update_with_media(body_short, img)
 		rescue => e
 			puts e
@@ -156,6 +151,8 @@ class Dash < ActiveRecord::Base
 	    	self.post_tumblr(post)
     	end
 	end
+
+	# Edit post body content
 	def edit_post_body_content(post, body)
     	@post = Post.find(post)
     	@post.body = body
@@ -175,8 +172,6 @@ class Dash < ActiveRecord::Base
 		end
 		return twitCli
 	end
-
-
 	def get_tumblr_client
 		tumblr = Tumblr.configure do |config|
 			  config.consumer_key = self.tumblr_consumer_key
@@ -186,12 +181,10 @@ class Dash < ActiveRecord::Base
 			end
 		return tumblr
 	end
-	
 	def get_postmark_client
 		@postmark_client = Postmark::ApiClient.new(ENV['POSTMARK_API_KEY'])
 		return @postmark_client
 	end
-
 	def fb_oauth
 	    app_id = self.fb_app_id
 	    app_secret = self.fb_app_secret
@@ -200,7 +193,6 @@ class Dash < ActiveRecord::Base
 	    oauth_url = @oauth.url_for_oauth_code
 	    return oauth_url 		
 	end
-
 	def fb_set_token(code)
 	    app_id = self.fb_app_id
 	    app_secret = self.fb_app_secret
@@ -227,6 +219,9 @@ class Dash < ActiveRecord::Base
 		return body
 	end
 
+	def limiter(network)
+		
+	end
 
 
 #Build Methods	
