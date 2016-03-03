@@ -12,7 +12,7 @@ Rails.application.routes.draw do
       # Queue
         get "/post_queue"  => 'dashes#post_queue', path: 'queue'  	
         get "/post_to_network" => "dashes#post_to_network", path: 'post'
-
+        get "/edit_post_body"  => 'dashes#edit_post_body', path: 'edit-post'
     # Post resource and controller actions
     resources :posts do
       get 'toggle_approve', :on => :member   
