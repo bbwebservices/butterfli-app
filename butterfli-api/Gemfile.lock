@@ -184,6 +184,3 @@ DEPENDENCIES
   spring
   tumblr_client (~> 0.8.5)
   twitter (~> 5.15)
-
-BUNDLED WITH
-   1.11.2
