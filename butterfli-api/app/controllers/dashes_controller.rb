@@ -42,7 +42,9 @@ class DashesController < ApplicationController
   end
 
 #  Custom Controllers
-  # Scrape - - - - - - - 
+# - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+  # Scrape
+  # - - - - - - - - - - - - - - 
     # Scraper page
   def scrape
     @user = current_user
@@ -57,7 +59,10 @@ class DashesController < ApplicationController
     redirect_to dash_scrape_path(self)
   end
 
-  # Queue - - - - - - - 
+
+
+  # Queue 
+  # - - - - - - - - - - - - - - 
     # Post Queue page
   def post_queue
     @posts = @dash.posts.where(approved: true).order(created_at: :desc)
@@ -79,7 +84,9 @@ class DashesController < ApplicationController
   end
 
 
-  # Auth Actions - - - - - - - 
+
+  # Auth Actions
+  # - - - - - - - - - - - - - - 
     # FB - get auth url
   def fb_oauth
     redirect_uri = @dash.fb_oauth
