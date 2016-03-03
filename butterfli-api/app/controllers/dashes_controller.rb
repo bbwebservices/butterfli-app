@@ -54,7 +54,6 @@ class DashesController < ApplicationController
   def scrape
     @user = current_user
     @posts = @dash.posts.where(approved: nil)
-    # @posts = @posts.paginate(:page => params[:page])
     render json: @posts   
   end
 
