@@ -49,22 +49,49 @@ class DashesController < ApplicationController
   end
 
 
+#  Custom Controllers
 
-
+  # Scrape - - - - - - - 
+    # Scraper page
   def scrape
     @user = current_user
     @posts = @dash.posts.where(approved: nil)
-    render json: @posts   
+    render json: @posts
   end
 
+    # Add pics from twitter on post scrape page
+  def add_twitter_pics
+    search_term = params[:search_term]
+    term_arr = search_term.split(",")
+
+    @dash.twitter_pic_search = search_term.downcase
+    @dash.save
+    @dash.twitter_pic_scrape(search_term)
+    redirect_to dash_scrape_path(@dash)
+  end
+
+
+
+  # Post Queue page
   def post_queue
     @posts = @dash.posts.where(approved: true).order(created_at: :desc)
-    @posts = @posts.paginate(:page => params[:page])
     render json: @posts   
   end
 
 
 
+
+# Auth Actions
+  def fb_oauth
+    redirect_uri = @dash.fb_oauth
+    redirect_to redirect_uri
+  end
+
+  def fb_set_token
+    code = params[:code]
+    @dash.fb_set_token(code)
+    redirect_to dash_post_queue_path(@dash)
+  end
 
   private
 

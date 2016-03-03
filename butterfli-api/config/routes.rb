@@ -5,10 +5,19 @@ Rails.application.routes.draw do
   }
   resources :dashes do
     # Controller Action Routes
-    get "/scrape"  => 'dashes#scrape', path: 'scrape'
-    get "/post_queue"  => 'dashes#post_queue', path: 'queue'  	
+      # Scrape
+        get "/scrape"  => 'dashes#scrape', path: 'scrape'
+        get "/add_twitter_pics" => "dashes#add_twitter_pics", path: 'twitter-pics'
+
+      # Queue
+        get "/post_queue"  => 'dashes#post_queue', path: 'queue'  	
+
+    # Post resource and controller actions
+    resources :posts do
+      get 'toggle_approve', :on => :member   
+      get 'toggle_disapprove', :on => :member   
+    end
   end
-  
-  resources :posts, except: [:new, :edit]
+
   root 'dashes#index'
 end
