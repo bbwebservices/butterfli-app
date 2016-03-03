@@ -2076,3 +2076,472 @@ Processing by DashesController#post_queue as */*
   [1m[35mDash Load (0.2ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
   [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
 Completed 200 OK in 28ms (Views: 15.3ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/dashes/1/post?post_id=158&network=twitter" for ::1 at 2016-03-03 10:43:55 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DashesController#post_to_network as */*
+  Parameters: {"post_id"=>"158", "network"=>"twitter", "dash_id"=>"1"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.5ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 158]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 680ms (ActiveRecord: 6.0ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 10:43:56 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mDash Load (0.2ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
+Completed 200 OK in 26ms (Views: 14.8ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/dashes/1/post?post_id=177&network=twitter" for ::1 at 2016-03-03 10:44:09 -0700
+Processing by DashesController#post_to_network as */*
+  Parameters: {"post_id"=>"177", "network"=>"twitter", "dash_id"=>"1"}
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.2ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.2ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 177]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 742ms (ActiveRecord: 1.5ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 10:44:10 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mDash Load (0.2ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
+Completed 200 OK in 11ms (Views: 8.8ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/dashes/1/post?post_id=177&network=twitter" for ::1 at 2016-03-03 10:44:38 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DashesController#post_to_network as */*
+  Parameters: {"post_id"=>"177", "network"=>"twitter", "dash_id"=>"1"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.3ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 177]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 2042ms (ActiveRecord: 6.1ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 10:44:40 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mDash Load (0.2ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
+Completed 200 OK in 24ms (Views: 12.5ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/dashes/1/post?post_id=158&network=twitter" for ::1 at 2016-03-03 10:49:00 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DashesController#post_to_network as */*
+  Parameters: {"post_id"=>"158", "network"=>"twitter", "dash_id"=>"1"}
+  [1m[35mUser Load (1.0ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.8ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.5ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 158]]
+  [1m[36m (0.4ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.3ms)[0m  COMMIT
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 1909ms (ActiveRecord: 11.3ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 10:49:02 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mDash Load (0.2ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPost Load (0.4ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
+Completed 200 OK in 34ms (Views: 20.6ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/dashes/1/post?post_id=158&network=twitter" for ::1 at 2016-03-03 10:49:50 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DashesController#post_to_network as */*
+  Parameters: {"post_id"=>"158", "network"=>"twitter", "dash_id"=>"1"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.7ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 158]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  COMMIT
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 1654ms (ActiveRecord: 6.6ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 10:49:52 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mDash Load (0.3ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
+Completed 200 OK in 25ms (Views: 13.3ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/dashes/1/post?post_id=158&network=twitter" for ::1 at 2016-03-03 10:52:46 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.7ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DashesController#post_to_network as */*
+  Parameters: {"post_id"=>"158", "network"=>"twitter", "dash_id"=>"1"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.3ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 158]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 1615ms (ActiveRecord: 5.6ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 10:52:48 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mDash Load (0.2ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
+Completed 200 OK in 23ms (Views: 12.5ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/dashes/1/post?post_id=158&network=twitter" for ::1 at 2016-03-03 10:53:24 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DashesController#post_to_network as */*
+  Parameters: {"post_id"=>"158", "network"=>"twitter", "dash_id"=>"1"}
+  [1m[35mUser Load (1.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.4ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.6ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 158]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 2022ms (ActiveRecord: 10.8ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 10:53:27 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mDash Load (0.2ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
+Completed 200 OK in 26ms (Views: 14.3ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/dashes/1/post?post_id=158&network=twitter" for ::1 at 2016-03-03 10:54:11 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DashesController#post_to_network as */*
+  Parameters: {"post_id"=>"158", "network"=>"twitter", "dash_id"=>"1"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.3ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 158]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 1574ms (ActiveRecord: 5.4ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 10:54:12 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mDash Load (0.2ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
+Completed 200 OK in 24ms (Views: 12.6ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/dashes/1/post?post_id=158&network=twitter" for ::1 at 2016-03-03 10:59:43 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DashesController#post_to_network as */*
+  Parameters: {"post_id"=>"158", "network"=>"twitter", "dash_id"=>"1"}
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.7ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 158]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  COMMIT
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 1203ms (ActiveRecord: 6.5ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 10:59:44 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mDash Load (0.2ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
+Completed 200 OK in 24ms (Views: 12.6ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/dashes/1/post?post_id=158&network=twitter" for ::1 at 2016-03-03 11:00:26 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DashesController#post_to_network as */*
+  Parameters: {"post_id"=>"158", "network"=>"twitter", "dash_id"=>"1"}
+  [1m[35mUser Load (1.1ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.4ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 158]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  COMMIT
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 1522ms (ActiveRecord: 6.4ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 11:00:28 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mDash Load (0.2ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
+Completed 200 OK in 23ms (Views: 12.1ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/dashes/1/post?post_id=158&network=twitter" for ::1 at 2016-03-03 11:02:01 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.6ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DashesController#post_to_network as */*
+  Parameters: {"post_id"=>"158", "network"=>"twitter", "dash_id"=>"1"}
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.5ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.5ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 158]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 1135ms (ActiveRecord: 14.9ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 11:02:02 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[36mUser Load (0.4ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mDash Load (1.2ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPost Load (1.6ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
+Completed 200 OK in 49ms (Views: 27.9ms | ActiveRecord: 3.2ms)
+
+
+Started GET "/dashes/1/post?post_id=158&network=twitter" for ::1 at 2016-03-03 11:02:26 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DashesController#post_to_network as */*
+  Parameters: {"post_id"=>"158", "network"=>"twitter", "dash_id"=>"1"}
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.3ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 158]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  COMMIT
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 1583ms (ActiveRecord: 7.7ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 11:02:28 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mDash Load (0.2ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPost Load (0.4ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
+Completed 200 OK in 28ms (Views: 15.2ms | ActiveRecord: 0.9ms)
+
+
+Started GET "/dashes/1/post?post_id=157&network=twitter" for ::1 at 2016-03-03 11:03:44 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (1.0ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DashesController#post_to_network as */*
+  Parameters: {"post_id"=>"157", "network"=>"twitter", "dash_id"=>"1"}
+  [1m[35mUser Load (0.7ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.4ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.7ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 157]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 927ms (ActiveRecord: 7.7ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 11:03:45 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mDash Load (0.2ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
+Completed 200 OK in 22ms (Views: 11.6ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/dashes/1/post?post_id=157&network=twitter" for ::1 at 2016-03-03 11:04:23 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.3ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DashesController#post_to_network as */*
+  Parameters: {"post_id"=>"157", "network"=>"twitter", "dash_id"=>"1"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.3ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 157]]
+  [1m[36m (0.6ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  COMMIT
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 1211ms (ActiveRecord: 6.9ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 11:04:25 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mDash Load (0.2ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
+Completed 200 OK in 22ms (Views: 10.8ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/dashes/1/post?post_id=157&network=twitter" for ::1 at 2016-03-03 11:05:28 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.5ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DashesController#post_to_network as */*
+  Parameters: {"post_id"=>"157", "network"=>"twitter", "dash_id"=>"1"}
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.5ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 157]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.2ms)[0m  COMMIT
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 1652ms (ActiveRecord: 10.1ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 11:05:29 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mDash Load (0.2ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
+Completed 200 OK in 24ms (Views: 12.9ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/dashes/1/post?post_id=157&network=twitter" for ::1 at 2016-03-03 11:09:33 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (1.1ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DashesController#post_to_network as */*
+  Parameters: {"post_id"=>"157", "network"=>"twitter", "dash_id"=>"1"}
+  [1m[35mUser Load (0.6ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.3ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 157]]
+  [1m[36m (0.2ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.1ms)[0m  COMMIT
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 761ms (ActiveRecord: 5.6ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 11:09:34 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mDash Load (0.2ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
+Completed 200 OK in 23ms (Views: 12.1ms | ActiveRecord: 0.8ms)
+
+
+Started GET "/dashes/1/post?post_id=157&network=tumblr" for ::1 at 2016-03-03 11:29:51 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.4ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DashesController#post_to_network as */*
+  Parameters: {"post_id"=>"157", "network"=>"tumblr", "dash_id"=>"1"}
+  [1m[35mUser Load (0.4ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.4ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.4ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 157]]
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 462ms (ActiveRecord: 13.2ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 11:29:52 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mDash Load (0.2ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
+Completed 200 OK in 32ms (Views: 16.5ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/dashes/1/post?post_id=157&network=tumblr" for ::1 at 2016-03-03 11:33:17 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (0.8ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DashesController#post_to_network as */*
+  Parameters: {"post_id"=>"157", "network"=>"tumblr", "dash_id"=>"1"}
+  [1m[35mUser Load (0.5ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.3ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.5ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 157]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35m (0.4ms)[0m  COMMIT
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 1339ms (ActiveRecord: 7.4ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 11:33:19 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[36mUser Load (0.3ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mDash Load (0.2ms)[0m  SELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mPost Load (0.3ms)[0m  [1mSELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC[0m  [["dash_id", 1]]
+Completed 200 OK in 29ms (Views: 14.6ms | ActiveRecord: 0.7ms)
+
+
+Started GET "/dashes/1/edit-post?post_id=158&body_text=hey%20this%20is%20some%20text!" for ::1 at 2016-03-03 11:37:03 -0700
+  [1m[36mActiveRecord::SchemaMigration Load (1.2ms)[0m  [1mSELECT "schema_migrations".* FROM "schema_migrations"[0m
+Processing by DashesController#edit_post_body as */*
+  Parameters: {"post_id"=>"158", "body_text"=>"hey this is some text!", "dash_id"=>"1"}
+  [1m[35mUser Load (0.8ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+Completed 500 Internal Server Error in 44ms (ActiveRecord: 5.4ms)
+
+NoMethodError (undefined method `edit_post_body_content' for nil:NilClass):
+  app/controllers/dashes_controller.rb:78:in `edit_post_body'
+
+
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/_source.erb (5.5ms)
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.9ms)
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.5ms)
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (27.3ms)
+
+
+Started GET "/dashes/1/edit-post?post_id=158&body_text=hi" for ::1 at 2016-03-03 11:39:07 -0700
+Processing by DashesController#edit_post_body as */*
+  Parameters: {"post_id"=>"158", "body_text"=>"hi", "dash_id"=>"1"}
+  [1m[36mUser Load (0.2ms)[0m  [1mSELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1[0m  [["id", 1]]
+Completed 500 Internal Server Error in 19ms (ActiveRecord: 5.5ms)
+
+NoMethodError (undefined method `edit_post_body_content' for nil:NilClass):
+  app/controllers/dashes_controller.rb:78:in `edit_post_body'
+
+
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/_source.erb (3.5ms)
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (2.0ms)
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (0.8ms)
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (17.4ms)
+
+
+Started GET "/dashes/1/edit-post?post_id=158&body_text=hi" for ::1 at 2016-03-03 11:39:34 -0700
+Processing by DashesController#edit_post_body as */*
+  Parameters: {"post_id"=>"158", "body_text"=>"hi", "dash_id"=>"1"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.3ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.4ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 158]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.6ms)[0m  UPDATE "posts" SET "body" = $1, "updated_at" = $2 WHERE "posts"."id" = $3  [["body", "hi"], ["updated_at", "2016-03-03 18:39:34.878616"], ["id", 158]]
+  [1m[36m (12.6ms)[0m  [1mCOMMIT[0m
+Completed 500 Internal Server Error in 71ms (ActiveRecord: 18.8ms)
+
+NoMethodError (undefined method `body' for nil:NilClass):
+  app/controllers/dashes_controller.rb:79:in `edit_post_body'
+
+
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/_source.erb (3.3ms)
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/_trace.html.erb (1.6ms)
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/_request_and_response.html.erb (1.2ms)
+  Rendered /usr/local/lib/ruby/gems/2.1.0/gems/actionpack-4.2.2/lib/action_dispatch/middleware/templates/rescues/diagnostics.html.erb within rescues/layout (14.3ms)
+
+
+Started GET "/dashes/1/edit-post?post_id=158&body_text=hey%20whats%20up" for ::1 at 2016-03-03 11:40:57 -0700
+Processing by DashesController#edit_post_body as */*
+  Parameters: {"post_id"=>"158", "body_text"=>"hey whats up", "dash_id"=>"1"}
+  [1m[35mUser Load (0.3ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.2ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.2ms)[0m  SELECT  "posts".* FROM "posts" WHERE "posts"."id" = $1 LIMIT 1  [["id", 158]]
+  [1m[36m (0.1ms)[0m  [1mBEGIN[0m
+  [1m[35mSQL (0.2ms)[0m  UPDATE "posts" SET "body" = $1, "updated_at" = $2 WHERE "posts"."id" = $3  [["body", "hey whats up"], ["updated_at", "2016-03-03 18:40:58.071316"], ["id", 158]]
+  [1m[36m (0.3ms)[0m  [1mCOMMIT[0m
+Redirected to http://localhost:3000/dashes/1/queue
+Completed 302 Found in 37ms (ActiveRecord: 4.3ms)
+
+
+Started GET "/dashes/1/queue" for ::1 at 2016-03-03 11:40:58 -0700
+Processing by DashesController#post_queue as */*
+  Parameters: {"dash_id"=>"1"}
+  [1m[35mUser Load (0.2ms)[0m  SELECT  "users".* FROM "users" WHERE "users"."id" = $1 LIMIT 1  [["id", 1]]
+  [1m[36mDash Load (0.2ms)[0m  [1mSELECT  "dashes".* FROM "dashes" WHERE "dashes"."id" = $1 LIMIT 1[0m  [["id", 1]]
+  [1m[35mPost Load (0.3ms)[0m  SELECT "posts".* FROM "posts" WHERE "posts"."dash_id" = $1 AND "posts"."approved" = 't'  ORDER BY "posts"."created_at" DESC  [["dash_id", 1]]
+Completed 200 OK in 29ms (Views: 14.2ms | ActiveRecord: 0.7ms)
