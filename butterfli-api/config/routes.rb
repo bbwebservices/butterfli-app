@@ -6,11 +6,12 @@ Rails.application.routes.draw do
   resources :dashes do
     # Controller Action Routes
       # Scrape
-        get "/scrape"  => 'dashes#scrape', path: 'scrape'
-        get "/add_twitter_pics" => "dashes#add_twitter_pics", path: 'twitter-pics'
+        get "/scrape"  => 'dashes#scrape', path: 'scraper'
+        get "/scrape_for_pics" => "dashes#scrape_for_pics", path: 'pic-scrape'
 
       # Queue
         get "/post_queue"  => 'dashes#post_queue', path: 'queue'  	
+        get "/post_to_network" => "dashes#post_to_network", path: 'post'
 
     # Post resource and controller actions
     resources :posts do

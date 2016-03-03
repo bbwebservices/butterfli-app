@@ -2,9 +2,26 @@ class Dash < ActiveRecord::Base
 	belongs_to :user
 	has_many :posts
 
+	def scraper(network, search)
+	    unless !network && !search
+	      case network
+	      when 'twitter'
+	        self.twitter_pic_scrape(search_term)
+	      when 'giphy'
+	        self.giphy_scrape(search_term)
+	      when 'tumblr'
+	        self.tumblr_pic_scrape(search_term)
+	      when 'reddit'
+	        self.reddit_pic_scrape(search_term)
+	      end
+	    end		
+	end
 
 	def giphy_scrape(search)
 		begin
+		    self.giphy_search = search.downcase
+		    # term_arr = search_term.split(",")
+		    self.save
 			search = search ? search : self.giphy_search
 			sanitize = search.tr(" ", "+");
 			key = "dc6zaTOxFJmzC"
@@ -27,6 +44,9 @@ class Dash < ActiveRecord::Base
 		end
 	end
 	def reddit_pic_scrape(sub)
+	    self.subreddit = sub.downcase
+	    # term_arr = search_term.split(",")
+	    self.save
 		subredd = sub ? sub : self.subreddit
 		reddit_api_url = "https://www.reddit.com/r/"+ subredd +".json"
 		resp = Net::HTTP.get_response(URI.parse(reddit_api_url))
@@ -41,6 +61,9 @@ class Dash < ActiveRecord::Base
 		end
 	end	
 	def twitter_pic_scrape(search)
+	    self.twitter_pic_search = search.downcase
+	    # term_arr = search.split(",")
+	    self.save		
 		t = self.get_twit_client
 		search_var = search
 		pic_limit = 0
@@ -54,7 +77,6 @@ class Dash < ActiveRecord::Base
 			end
 		end	 		
 	end
-
 	def tumblr_pic_scrape(search)
 		tum = self.get_tumblr_client
 		client = Tumblr::Client.new
@@ -70,6 +92,64 @@ class Dash < ActiveRecord::Base
 			puts "nope. tumblr_pic_scrape failed."
 		end
 	end
+
+
+	# Posting Methods
+	def post_tweet(post)
+		twitCli = self.get_twit_client
+		post = Post.find(post)
+		puts post
+		begin
+			img = open(post.og_source)
+			puts img
+			if img.is_a?(StringIO)
+			  ext = File.extname(url)
+			  name = File.basename(url, ext)
+			  Tempfile.new([name, ext])
+			else
+			  img
+			end		
+			# post.twit_published += 1
+			post.save
+			body = self.shorten(post.body.to_s)
+			puts body
+			res = twitCli.update_with_media(body, img)
+		rescue => e
+			puts e
+			return 'tried'
+		end
+	end
+	def post_tumblr(post)
+		tumblr_client = self.get_tumblr_client
+		@post = Post.find(post)
+		@client = Tumblr::Client.new
+		begin
+			url = @post.og_source
+			img = URI.parse(@post.image_src)
+			blog_name = self.tumblr_blog_name
+			uri = blog_name + ".tumblr.com"
+			res = @client.photo(uri, caption: @post.body, source: img)
+			if res["status"] == 401
+				return 'tried'
+			end
+			# @post.tumblr_published += 1
+			@post.save
+		rescue
+			return 'tried'
+		end
+	end
+	def post_content(post, network)
+	    if !post
+	      post = Post.all.where(dash_id: self.id, approved: true).shuffle.first.id      
+	    end
+	    case network
+	    when 'twitter'
+	    	self.post_tweet(post)
+	    when 'tumblr'
+	    	self.post_tumblr(post)
+    	end
+	end
+
 
 	# Auth Methods
 	def get_twit_client
@@ -115,6 +195,11 @@ class Dash < ActiveRecord::Base
 		access_token = @oauth.get_access_token(code)
 		self.fb_oauth_access_token = access_token
 		self.save
+	end
+
+	# UTIL
+	def shorten(body)
+		body.truncate(body, length: 130)
 	end
 
 	#Build Methods
