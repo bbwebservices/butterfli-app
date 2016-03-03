@@ -48,6 +48,7 @@ var Butterfli = React.createClass({
 		// make request, set state accordingly
 		new Promise(function(resolve, reject) {
 			request(options, function (error, response, body) {
+				console.log('BODY: ', body)
 				if(response.statusCode === 200){
 					this.setState({
 						isLoggedIn: true,
@@ -75,7 +76,7 @@ var Butterfli = React.createClass({
 		request(options, function(error, response, body) {
 			console.log('DASHES: ', body);
 			this.setState({
-				dashes: body
+				dashes: body.dashes
 			})
 		}.bind(this))
 
