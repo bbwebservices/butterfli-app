@@ -8,12 +8,14 @@ var Butterfli = React.createClass({
 
 	getInitialState: function(){
 		return {
-			isLoggedIn: false,
 			username: null,
 			password: null,
+			isLoggedIn: false,
+			jwt: null,
 			dashes: null,
 			currentDash: null,
-			jwt: null,
+			approvedPosts: null,
+			unapprovedPosts: null
 		}
 	},
 
@@ -31,7 +33,6 @@ CREDENTIALS
 			})
 			resolve(this.state.password)
 		}.bind(this)).then(function(value) {
-
 			// send login request, once we have creds
 			this.checkCreds();
 		}.bind(this));
@@ -39,7 +40,6 @@ CREDENTIALS
 
 	// make request to log the user in
 	checkCreds: function (){
-
 		var headers = {'Content-Type': 'application/json'};	
 		var dataString = '{"user": {"email": "'+this.state.username+'", "password": "'+this.state.password+'"}}';
 		var options = {
@@ -48,11 +48,10 @@ CREDENTIALS
 				headers: headers,
 				body: dataString
 		};
-
 		// make request, set state accordingly
 		new Promise(function(resolve, reject) {
 			request(options, function (error, response, body) {
-				console.log('BODY: ', body)
+				console.log('Login Body: ', body)
 				if(response.statusCode === 200){
 					this.setState({
 						jwt: JSON.parse(body).token
@@ -64,7 +63,6 @@ CREDENTIALS
 		}.bind(this)).then(function(value) {
 			this.getDashes(value);
 		}.bind(this));
-		
 	},
 
 /****************
@@ -126,7 +124,9 @@ SCRAPES
 		}
 		request(options, function(error, response, body) {
 			console.log('Scraper Response: ', response)
-			console.log('Scraper Body: ', body)
+			if(response.statusCode === 200) {
+				console.log('Scraper Body: ', body)
+			}
 		})
 	},
 
@@ -145,7 +145,9 @@ RENDERING
 						saveCurrentDash: this.saveCurrentDash,
 						currentDash: this.state.currentDash,
 						scraper: this.scraper,
-						picScrape: this.picScrape
+						picScrape: this.picScrape,
+						approvedPosts: this.state.approvedPosts,
+						unapprovedPosts: this.state.unapprovedPosts
 					})
 				}
 			</div>

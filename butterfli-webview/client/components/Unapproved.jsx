@@ -1,12 +1,24 @@
 var React = require('react');
 
-var Approved = React.createClass({
+var Unapproved = React.createClass({
+
+	_renderContent(){
+		if(this.props.unapprovedPosts){
+			return (<div>posts here</div>)
+		}
+		return (<div>cannot get posts!</div>)
+	},
 
 	render(){
 		return (
-			<div>Unapproved</div>
+			<div>
+				<div>Unapproved</div>
+				<div>
+					{this._renderContent()}
+				</div>
+			</div>
 		)
 	}
 })
 
-module.exports = Approved;
+module.exports = Unapproved;
