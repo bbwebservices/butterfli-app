@@ -45,18 +45,18 @@ var ScrapeHome = React.createClass({
 		})
 	},
 
-	_renderContentTab(){
+	_renderContentTabs(){
 		if(this.state.selected === 'Approved') {
 			this.refs.approvedTab.classList.add('uk-active');
 			this.refs.unapprovedTab.classList.remove('uk-active');
-			return ( <Approved /> )
+			return ( <Approved approvedPosts={this.props.approvedPosts} /> )
 		}
 		if(this.state.selected === 'Unapproved') {
 			this.refs.unapprovedTab.classList.add('uk-active');
 			this.refs.approvedTab.classList.remove('uk-active');
-			return ( <Unapproved /> )
+			return ( <Unapproved unapprovedPosts={this.props.unapprovedPosts} /> )
 		}
-		return (<Approved />)
+		return (<Approved approvedPosts={this.props.approvedPosts} />)
 	},
 
 	render(){
@@ -87,7 +87,7 @@ var ScrapeHome = React.createClass({
 							<div className="uk-panel uk-panel-box uk-panel-box-primary">
 								<form className='uk-form'>
 									<input ref="tumblrTerm" onChange={ this.updateTumblrTerm } type='text' className="uk-width-1-1" />
-									<a className='uk-button uk-button-large uk-width-1-1'>Search Tumblr</a>
+									<a onClick={ ()=>{this.props.picScrape(this.props.currentDash[0].id, 'tumblr', this.state.tumblrTerm)} } className='uk-button uk-button-large uk-width-1-1'>Search Tumblr</a>
 								</form>
 							</div>
 						</div>
@@ -96,8 +96,8 @@ var ScrapeHome = React.createClass({
 								<li className="uk-active" ref="approvedTab"><a onClick={()=>{this.selectTab('Approved')}}>Approved</a></li>
 								<li ref="unapprovedTab"><a onClick={()=>{this.selectTab('Unapproved')}}>Unapproved</a></li>
 							</ul>
-							<div className="uk-width-1-1">
-									{this._renderContentTab()}
+							<div className="uk-width-1-1 uk-margin">
+									{this._renderContentTabs()}
 							</div>
 						</div>
 					</div>
