@@ -68,11 +68,12 @@ class Dash < ActiveRecord::Base
 		search_var = search
 		pic_limit = 0
 		t.search(search_var, result_type: "recent").collect do |tweet|
+			puts 'tweet', tweet.to_json
 			unless tweet.media[0].nil?
 				pic_limit += 1
 				if pic_limit < 25 
 					img = tweet.media[0].media_url
-					self.build_post("twitter", img, tweet.text, img, img)
+					self.build_post("twitter", img, tweet.text, img, img, tweet.id)
 				end
 			end
 		end	 		
@@ -83,10 +84,12 @@ class Dash < ActiveRecord::Base
 		img = client.posts(search + ".tumblr.com", :type => "photo", :limit => 50)["posts"]
 		begin
 			img.each do |post|
+				puts post
+				og_id = post["id"]
 				author = post["post_author"]
 				message = post["summary"]
 				extracted_img = post['photos'][0]['alt_sizes'][0]['url']
-				self.build_post("tumblr", extracted_img, message, extracted_img, author)
+				self.build_post("tumblr", extracted_img, message, extracted_img, author, og_id)
 			end
 		rescue
 			puts "nope. tumblr_pic_scrape failed."
@@ -161,6 +164,53 @@ class Dash < ActiveRecord::Base
 
 
 
+
+# Favorite Methods
+# - - - - - - - - - - - - - - - - - - - - -	
+
+	def like_content(post)
+		network = post['title'].to_s
+    	post_id = post.og_id
+	    case network
+	    when 'twitter'
+	    	@client = self.get_twit_client
+	    	@client.favorite(post_id)
+	    when 'tumblr'
+	    	@client = self.get_tumblr_client
+	    	@client.favorite(post_id)
+	    end
+
+
+		# @client.search(term.body + retweet).take(number).collect do |tweet|
+		# 	user = 	tweet.user.screen_name
+		# 	begin
+		# 		if !tweet.favorited?
+		# 			@client.favorite(tweet)
+		# 			success_count += 1
+		# 			puts "happy!"
+		# 			term.favorite_count += 1
+		# 			term.save
+		# 		end
+		# 	rescue => e
+		# 		return e.inspect
+		# 	end
+		# end
+		# puts "success_count: ", success_count
+		# return true
+
+	end	
+
+
+#Build Methods	
+# - - - - - - - - - - - - - - - - - - - - -
+	def build_post(title, src, body, image, author, og_id)
+		p = self.posts.build(title: title, og_source: src, body: body, image_src: image, author: author, og_id: og_id)		
+		p.save
+	end
+
+
+
+
 # Auth Methods
 # - - - - - - - - - - - - - - - - - - - - -	
 	def get_twit_client
@@ -222,16 +272,6 @@ class Dash < ActiveRecord::Base
 	def limiter(network)
 		
 	end
-
-
-#Build Methods	
-# - - - - - - - - - - - - - - - - - - - - -
-	def build_post(title, src, body, image, author)
-		p = self.posts.build(title: title, og_source: src, body: body, image_src: image, author: author)		
-		p.save
-	end
-
-
 
 	
 end

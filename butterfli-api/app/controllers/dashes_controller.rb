@@ -56,7 +56,7 @@ class DashesController < ApplicationController
     network = params[:network]
     search_term = params[:search_term]
     @dash.scraper(network, search_term)
-    redirect_to dash_scrape_path(self)
+    redirect_to dash_scrape_path(@dash)
   end
 
 

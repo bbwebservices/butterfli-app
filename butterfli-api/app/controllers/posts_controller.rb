@@ -71,6 +71,8 @@ class PostsController < ApplicationController
     render :nothing => true  
   end
 
+
+
   private
     def set_dash
       @dash = Dash.find(params[:dash_id])
@@ -81,6 +83,6 @@ class PostsController < ApplicationController
     end
 
     def post_params
-      params.require(:post).permit(:title, :og_source, :body, :image_src, :author)
+      params.require(:post).permit(:title, :og_source, :body, :image_src, :author, :og_id)
     end
 end
