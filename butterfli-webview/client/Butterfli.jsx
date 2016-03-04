@@ -14,10 +14,12 @@ var Butterfli = React.createClass({
 			dashes: null,
 			currentDash: null,
 			jwt: null,
-
 		}
 	},
 
+/***************
+CREDENTIALS
+***************/
 	// save the inputted username and password
 	updateCreds: function(username, password){
 
@@ -65,9 +67,11 @@ var Butterfli = React.createClass({
 		
 	},
 
+/****************
+DASHES
+****************/
 	getDashes: function (value) {
 
-		console.log('STATE: ', this.state.jwt)
 		var headers = { 'Authorization': this.state.jwt };
 		var	options = {
 				url: 'http://localhost:3000/dashes.json',
@@ -75,7 +79,6 @@ var Butterfli = React.createClass({
 				headers: headers
 		};
 		request(options, function(error, response, body) {
-			console.log('DASHES: ', body);
 			this.setState({
 				dashes: JSON.parse(body).dashes,
 				isLoggedIn: true
@@ -84,6 +87,52 @@ var Butterfli = React.createClass({
 
 	},
 
+	saveCurrentDash: function (dashId){
+		var dashToSave = this.state.dashes.filter(function(element){
+			if(element.id === dashId) {
+				return true;
+			}
+		})
+		this.setState({
+			currentDash: dashToSave
+		})
+
+		console.log("DTSS: ", this.state.currentDash)
+	},
+
+/******************
+SCRAPES
+******************/
+	scraper: function (dashId) {
+		var headers = { 'Authorization': this.state.jwt };
+		var options = {
+			url: 'http://localhost:3000/dashes/'+dashId+'/scraper.json',
+			method: 'GET',
+			headers: headers
+		}
+		request(options, function(error, response, body) {
+			console.log('Scraper Response: ', response)
+			console.log('Scraper Body: ', body)
+		})
+	},
+
+	picScrape: function (dashId, network, term) {
+		console.log(dashId, network, term)
+		var headers = { 'Authorization': this.state.jwt };
+		var options = {
+			url: 'http://localhost:3000/dashes/'+dashId+'/pic-scrape.json?network='+network+'&search_term='+term,
+			method: 'GET',
+			headers: headers
+		}
+		request(options, function(error, response, body) {
+			console.log('Scraper Response: ', response)
+			console.log('Scraper Body: ', body)
+		})
+	},
+
+/*****************
+RENDERING
+*****************/
 	render: function (){
 		return (
 			<div>
@@ -92,7 +141,11 @@ var Butterfli = React.createClass({
 						isLoggedIn: this.state.isLoggedIn,
 						updateCreds: this.updateCreds,
 						username: this.state.username,
-						dashes: this.state.dashes
+						dashes: this.state.dashes,
+						saveCurrentDash: this.saveCurrentDash,
+						currentDash: this.state.currentDash,
+						scraper: this.scraper,
+						picScrape: this.picScrape
 					})
 				}
 			</div>
