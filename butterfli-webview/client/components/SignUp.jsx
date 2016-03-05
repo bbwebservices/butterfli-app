@@ -1,29 +1,34 @@
 var React = require('react');
 var Link = require('react-router').Link
 
-var Login = React.createClass({
+var Navbar = require('./Navbar.jsx');
+
+var SignUp = React.createClass({
 	render(){
 		return (
+			<div>
+			<Navbar />
 			<div className="uk-vertical-align uk-text-center uk-height-1-1 uk-margin-top">
 				<div className="uk-vertical-align-middle" style={styles.formContainer}>
 					<h1>butterfli.</h1>
 					<form className="uk-panel uk-panel-box uk-form">
 						<div className="uk-form-row">
-							<input ref="username" type="text" placeholder="Username" value="test@example.com"/>
+							<input ref="username" type="text" placeholder="Username"/>
 						</div>
 						<div className="uk-form-row">
-							<input ref="password" type="password" placeholder="Password" value="12345678"/>
+							<input ref="password" type="text" placeholder="Password"/>
 						</div>
 						<div className="uk-form-row">
-							<a onClick={ () => {this.props.updateCreds(this.refs.username.value, this.refs.password.value)}} className="uk-width-1-1 uk-button uk-button-primary uk-button-large">Login</a>
+							<input ref="confirmPassword" type="text" placeholder="Password Confirmation"/>
 						</div>
 						<div className="uk-form-row">
-							<Link to="signup"><a className="uk-width-1-1 uk-button uk-button-primary uk-button-large">Sign Up</a></Link>
+							<a className="uk-width-1-1 uk-button uk-button-primary uk-button-large">Sign Up</a>
 						</div>
 						<div className="uk-form-row"></div>
 					</form>
 
 				</div>
+			</div>
 			</div>
 		)
 	}
@@ -35,4 +40,4 @@ var styles = {
 	}
 }
 
-module.exports = Login;
+module.exports = SignUp;

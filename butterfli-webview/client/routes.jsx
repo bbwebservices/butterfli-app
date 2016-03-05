@@ -10,6 +10,7 @@ var Butterfli = require('./Butterfli.jsx');
 var DashHome = require('./components/DashHome.jsx');
 var Landing = require('./components/Landing.jsx');
 var ScrapeHome = require('./components/ScrapeHome.jsx');
+var SignUp = require('./components/SignUp.jsx');
 
 
 
@@ -18,6 +19,7 @@ module.exports = [
 	<Router history={createBrowserHistory}>
 		<Route path='/' component={Butterfli}>
 			<IndexRoute component={Landing} />
+			<Route path='/signup' component={SignUp} />
 			<Route path='/dashhome' component={DashHome} />
 			<Route path='/scrapehome' component={ScrapeHome} />
 		</Route>
