@@ -4,16 +4,16 @@ class PostsController < ApplicationController
 
   # GET /posts
   # GET /posts.json
-  def index
-    @posts = Post.all
-    render json: @posts
-  end
+  # def index
+  #   @posts = Post.all
+  #   render json: @posts
+  # end
 
   # GET /posts/1
   # GET /posts/1.json
-  def show
-    render json: @post
-  end
+  # def show
+  #   render json: @post
+  # end
 
   # POST /posts
   # POST /posts.json
@@ -42,10 +42,10 @@ class PostsController < ApplicationController
 
   # DELETE /posts/1
   # DELETE /posts/1.json
-  def destroy
-    @post.destroy
-    head :no_content
-  end
+  # def destroy
+  #   @post.destroy
+  #   head :no_content
+  # end
 
 # Custom Controller Actions
 
@@ -57,7 +57,7 @@ class PostsController < ApplicationController
       @p.approved = true
     end
       @p.save
-    render :nothing => true  
+    render :nothing => true, status: 200 
   end
 
   def toggle_disapprove  
@@ -68,7 +68,7 @@ class PostsController < ApplicationController
       @p.approved = false
     end
     @p.save
-    render :nothing => true  
+    render :nothing => true, status: 200 
   end
 
   private
