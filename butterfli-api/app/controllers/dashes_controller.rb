@@ -49,7 +49,7 @@ class DashesController < ApplicationController
   def scrape
     @user = current_user
     @posts = @dash.posts.where(approved: nil)
-    render json: @posts
+    render json: @posts, status: 200
   end
     # Scraper Controller Action
   def scrape_for_pics
