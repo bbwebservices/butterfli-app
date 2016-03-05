@@ -96,9 +96,7 @@ var ScrapeHome = React.createClass({
 								<li className="uk-active" ref="approvedTab"><a onClick={()=>{this.selectTab('Approved')}}>Approved</a></li>
 								<li ref="unapprovedTab"><a onClick={()=>{this.selectTab('Unapproved')}}>Unapproved</a></li>
 							</ul>
-							<div className="uk-width-1-1 uk-margin">
-									{this._renderContentTabs()}
-							</div>
+							{this._renderContentTabs()}
 						</div>
 					</div>
 				</div>

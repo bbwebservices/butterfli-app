@@ -110,13 +110,19 @@ SCRAPES
 		}
 		request(options, function(error, response, body) {
 			console.log('Scraper Response: ', response)
-			console.log('Scraper Body: ', body)
-		})
+			console.log('Scraper Body: ', JSON.parse(body).dashes)
+			this.setState({
+				unapprovedPosts: JSON.parse(body).dashes
+			})
+			console.log('unapproved posts state: ', this.state.unapprovedPosts)
+		}.bind(this))
 	},
 
 	picScrape: function (dashId, network, term) {
-		console.log(dashId, network, term)
-		var headers = { 'Authorization': this.state.jwt };
+
+		console.log(dashId, network, term);
+
+		var headers = { 'Authorization': this.state.jwt, 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'};
 		var options = {
 			url: 'http://localhost:3000/dashes/'+dashId+'/pic-scrape.json?network='+network+'&search_term='+term,
 			method: 'GET',
