@@ -1,3 +1,6 @@
+
+
+// ALL REQUESTS SHOULD LIVE HERE!!!!! WILL NEED BIG REFACTOR FOR THIS
 module.exports = {
 	
 }

@@ -99,7 +99,7 @@ DASHES
 	},
 
 /******************
-SCRAPES
+SCRAPE FOR CONTENT
 ******************/
 	scraper: function (dashId) {
 		var headers = { 'Authorization': this.state.jwt };
@@ -116,6 +116,8 @@ SCRAPES
 			})
 			console.log('unapproved posts state: ', this.state.unapprovedPosts)
 		}.bind(this))
+
+		this.postQueue(dashId);
 	},
 
 	picScrape: function (dashId, network, term) {
@@ -129,12 +131,53 @@ SCRAPES
 			headers: headers
 		}
 		request(options, function(error, response, body) {
-			console.log('Scraper Response: ', response)
+			if(error){
+				console.log('error: ', error)
+			}
+			
+		})
+		this.scraper(dashId);
+	},
+
+	postQueue: function (dashId) {
+		var headers = { 'Authorization': this.state.jwt };
+		var options = {
+			url: 'http://localhost:3000/dashes/'+dashId+'/queue',
+			method: 'GET',
+			headers: headers
+		}
+
+		request(options, (error, response, body) => {
+			console.log('Queue Response: ', response)
 			if(response.statusCode === 200) {
-				console.log('Scraper Body: ', body)
+				console.log('Queue Body: ', body)
+				this.setState({
+					approvedPosts: JSON.parse(body).dashes
+				})
 			}
 		})
 	},
+
+	postApproval: function (dashId, postId, toggle) {
+		var headers = { 'Authorization': this.state.jwt };
+		var options = {
+			url: 'http://localhost:3000/dashes/'+dashId+'/posts/'+postId+'/'+toggle,
+			method: 'GET',
+			headers: headers
+		}
+
+		new Promise( (resolve, reject) => {
+			request(options, (error, response, body) => {
+				console.log('Approval Response: ', response);
+				resolve(response)
+			})
+		}).then((res) => {
+			if(res.statusCode === 200) {
+				this.scraper(dashId);
+			}
+		})
+	},
+
 
 /*****************
 RENDERING
@@ -153,7 +196,9 @@ RENDERING
 						scraper: this.scraper,
 						picScrape: this.picScrape,
 						approvedPosts: this.state.approvedPosts,
-						unapprovedPosts: this.state.unapprovedPosts
+						unapprovedPosts: this.state.unapprovedPosts,
+						postApproval: this.postApproval,
+						postQueue: this.postQueue
 					})
 				}
 			</div>
