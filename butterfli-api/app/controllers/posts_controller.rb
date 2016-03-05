@@ -57,7 +57,7 @@ class PostsController < ApplicationController
       @p.approved = true
     end
       @p.save
-    render :nothing => true  
+    render :nothing => true, status: 200 
   end
 
   def toggle_disapprove  
@@ -68,7 +68,7 @@ class PostsController < ApplicationController
       @p.approved = false
     end
     @p.save
-    render :nothing => true  
+    render :nothing => true, status: 200 
   end
 
   private
