@@ -46,15 +46,6 @@ var ScrapeHome = React.createClass({
 	},
 
 	_renderContentTabs(){
-		if(this.state.selected === 'Approved') {
-			this.refs.approvedTab.classList.add('uk-active');
-			this.refs.unapprovedTab.classList.remove('uk-active');
-			return ( 
-				<Approved 
-					approvedPosts={this.props.approvedPosts} 
-				/> 
-			)
-		}
 		if(this.state.selected === 'Unapproved') {
 			this.refs.unapprovedTab.classList.add('uk-active');
 			this.refs.approvedTab.classList.remove('uk-active');
@@ -65,6 +56,10 @@ var ScrapeHome = React.createClass({
 					currentDash={this.props.currentDash}
 				/> 
 			)
+		}
+		if(this.refs.approvedTab){
+			this.refs.approvedTab.classList.add('uk-active');
+			this.refs.unapprovedTab.classList.remove('uk-active');
 		}
 		return (
 			<Approved 

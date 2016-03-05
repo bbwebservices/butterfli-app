@@ -182,7 +182,7 @@ SCRAPE FOR CONTENT
 /*****************
 RENDERING
 *****************/
-	render: function (){
+	render: function () {
 		return (
 			<div>
 				{/* renders a child depending on the path, then passes App's props to that child. */}
