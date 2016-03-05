@@ -1,8 +1,11 @@
 var express = require('express');
 var path = require('path');
 var compress = require('compression');
+var cors = require('express-cors');
 
 var app = express();
+
+app.use(cors());
 app.use(compress());
 app.use(express.static(path.join(__dirname + './../')));
 

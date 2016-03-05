@@ -8,16 +8,20 @@ var Butterfli = React.createClass({
 
 	getInitialState: function(){
 		return {
-			isLoggedIn: false,
 			username: null,
 			password: null,
+			isLoggedIn: false,
+			jwt: null,
 			dashes: null,
 			currentDash: null,
-			jwt: null,
-
+			approvedPosts: null,
+			unapprovedPosts: null
 		}
 	},
 
+/***************
+CREDENTIALS
+***************/
 	// save the inputted username and password
 	updateCreds: function(username, password){
 
@@ -29,7 +33,6 @@ var Butterfli = React.createClass({
 			})
 			resolve(this.state.password)
 		}.bind(this)).then(function(value) {
-
 			// send login request, once we have creds
 			this.checkCreds();
 		}.bind(this));
@@ -37,7 +40,6 @@ var Butterfli = React.createClass({
 
 	// make request to log the user in
 	checkCreds: function (){
-
 		var headers = {'Content-Type': 'application/json'};	
 		var dataString = '{"user": {"email": "'+this.state.username+'", "password": "'+this.state.password+'"}}';
 		var options = {
@@ -46,11 +48,10 @@ var Butterfli = React.createClass({
 				headers: headers,
 				body: dataString
 		};
-
 		// make request, set state accordingly
 		new Promise(function(resolve, reject) {
 			request(options, function (error, response, body) {
-				console.log('BODY: ', body)
+				console.log('Login Body: ', body)
 				if(response.statusCode === 200){
 					this.setState({
 						jwt: JSON.parse(body).token
@@ -62,12 +63,13 @@ var Butterfli = React.createClass({
 		}.bind(this)).then(function(value) {
 			this.getDashes(value);
 		}.bind(this));
-		
 	},
 
+/****************
+DASHES
+****************/
 	getDashes: function (value) {
 
-		console.log('STATE: ', this.state.jwt)
 		var headers = { 'Authorization': this.state.jwt };
 		var	options = {
 				url: 'http://localhost:3000/dashes.json',
@@ -75,7 +77,6 @@ var Butterfli = React.createClass({
 				headers: headers
 		};
 		request(options, function(error, response, body) {
-			console.log('DASHES: ', body);
 			this.setState({
 				dashes: JSON.parse(body).dashes,
 				isLoggedIn: true
@@ -84,6 +85,103 @@ var Butterfli = React.createClass({
 
 	},
 
+	saveCurrentDash: function (dashId){
+		var dashToSave = this.state.dashes.filter(function(element){
+			if(element.id === dashId) {
+				return true;
+			}
+		})
+		this.setState({
+			currentDash: dashToSave
+		})
+
+		console.log("DTSS: ", this.state.currentDash)
+	},
+
+/******************
+SCRAPE FOR CONTENT
+******************/
+	scraper: function (dashId) {
+		var headers = { 'Authorization': this.state.jwt };
+		var options = {
+			url: 'http://localhost:3000/dashes/'+dashId+'/scraper.json',
+			method: 'GET',
+			headers: headers
+		}
+		request(options, function(error, response, body) {
+			console.log('Scraper Response: ', response)
+			console.log('Scraper Body: ', JSON.parse(body).dashes)
+			this.setState({
+				unapprovedPosts: JSON.parse(body).dashes
+			})
+			console.log('unapproved posts state: ', this.state.unapprovedPosts)
+		}.bind(this))
+
+		this.postQueue(dashId);
+	},
+
+	picScrape: function (dashId, network, term) {
+
+		console.log(dashId, network, term);
+
+		var headers = { 'Authorization': this.state.jwt, 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'};
+		var options = {
+			url: 'http://localhost:3000/dashes/'+dashId+'/pic-scrape.json?network='+network+'&search_term='+term,
+			method: 'GET',
+			headers: headers
+		}
+		request(options, function(error, response, body) {
+			if(error){
+				console.log('error: ', error)
+			}
+			
+		})
+		this.scraper(dashId);
+	},
+
+	postQueue: function (dashId) {
+		var headers = { 'Authorization': this.state.jwt };
+		var options = {
+			url: 'http://localhost:3000/dashes/'+dashId+'/queue',
+			method: 'GET',
+			headers: headers
+		}
+
+		request(options, (error, response, body) => {
+			console.log('Queue Response: ', response)
+			if(response.statusCode === 200) {
+				console.log('Queue Body: ', body)
+				this.setState({
+					approvedPosts: JSON.parse(body).dashes
+				})
+			}
+		})
+	},
+
+	postApproval: function (dashId, postId, toggle) {
+		var headers = { 'Authorization': this.state.jwt };
+		var options = {
+			url: 'http://localhost:3000/dashes/'+dashId+'/posts/'+postId+'/'+toggle,
+			method: 'GET',
+			headers: headers
+		}
+
+		new Promise( (resolve, reject) => {
+			request(options, (error, response, body) => {
+				console.log('Approval Response: ', response);
+				resolve(response)
+			})
+		}).then((res) => {
+			if(res.statusCode === 200) {
+				this.scraper(dashId);
+			}
+		})
+	},
+
+
+/*****************
+RENDERING
+*****************/
 	render: function (){
 		return (
 			<div>
@@ -92,7 +190,15 @@ var Butterfli = React.createClass({
 						isLoggedIn: this.state.isLoggedIn,
 						updateCreds: this.updateCreds,
 						username: this.state.username,
-						dashes: this.state.dashes
+						dashes: this.state.dashes,
+						saveCurrentDash: this.saveCurrentDash,
+						currentDash: this.state.currentDash,
+						scraper: this.scraper,
+						picScrape: this.picScrape,
+						approvedPosts: this.state.approvedPosts,
+						unapprovedPosts: this.state.unapprovedPosts,
+						postApproval: this.postApproval,
+						postQueue: this.postQueue
 					})
 				}
 			</div>

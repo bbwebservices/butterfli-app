@@ -9,13 +9,13 @@ class Dash < ActiveRecord::Base
 	    unless !network && !search
 	      case network
 	      when 'twitter'
-	        self.twitter_pic_scrape(search_term)
+	        self.twitter_pic_scrape(search)
 	      when 'giphy'
-	        self.giphy_scrape(search_term)
+	        self.giphy_scrape(search)
 	      when 'tumblr'
-	        self.tumblr_pic_scrape(search_term)
+	        self.tumblr_pic_scrape(search)
 	      when 'reddit'
-	        self.reddit_pic_scrape(search_term)
+	        self.reddit_pic_scrape(search)
 	      end
 	    end		
 	end

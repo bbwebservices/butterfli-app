@@ -4,11 +4,18 @@ var Link = require('react-router').Link
 var Navbar = require('./Navbar.jsx');
 
 var AccountHome = React.createClass({
+	
 	render(){
-		console.log('HEYYYYY: ', this.props)
-		if(this.props.dashes){
-			var dashList = this.props.dashes.map(function(element){
-				return <li><Link to="DashHome">{element.title}</Link></li>
+
+		if(this.props.dashes) {
+			var key = 0;
+			var dashList = this.props.dashes.map( (element) => {
+				key++;
+				return (
+					<li key={key} onClick={ () => {this.props.saveCurrentDash(element.id)} }>
+						<Link to="DashHome">{element.title}</Link>
+					</li>
+				)
 			})
 		}
 		
