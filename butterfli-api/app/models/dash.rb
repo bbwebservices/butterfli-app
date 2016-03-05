@@ -19,11 +19,9 @@ class Dash < ActiveRecord::Base
 	      end
 	    end		
 	end
-
 	def giphy_scrape(search)
 		begin
 		    self.giphy_search = search.downcase
-		    # term_arr = search_term.split(",")
 		    self.save
 			search = search ? search : self.giphy_search
 			sanitize = search.tr(" ", "+");
@@ -35,11 +33,10 @@ class Dash < ActiveRecord::Base
 			puts "results: ", result['data']
 			temp = []
 			result['data'].each do |x|
-				puts x
 				temp.push(x["images"]["fixed_height"]["url"])
 			end	
 			temp.each do |post|
-				self.build_post("giphy", post, nil, post, post)
+				self.build_post("giphy", post, nil, post, "giphy")
 			end
 			return temp 
 		rescue
@@ -71,11 +68,12 @@ class Dash < ActiveRecord::Base
 		search_var = search
 		pic_limit = 0
 		t.search(search_var, result_type: "recent").collect do |tweet|
+			puts 'tweet', tweet.to_json
 			unless tweet.media[0].nil?
 				pic_limit += 1
 				if pic_limit < 25 
 					img = tweet.media[0].media_url
-					self.build_post("twitter", img, tweet.text, img, img)
+					self.build_post("twitter", img, tweet.text, img, img, tweet.id)
 				end
 			end
 		end	 		
@@ -86,10 +84,12 @@ class Dash < ActiveRecord::Base
 		img = client.posts(search + ".tumblr.com", :type => "photo", :limit => 50)["posts"]
 		begin
 			img.each do |post|
+				puts post
+				og_id = post["id"]
 				author = post["post_author"]
 				message = post["summary"]
 				extracted_img = post['photos'][0]['alt_sizes'][0]['url']
-				self.build_post("tumblr", extracted_img, message, extracted_img, author)
+				self.build_post("tumblr", extracted_img, message, extracted_img, author, og_id)
 			end
 		rescue
 			puts "nope. tumblr_pic_scrape failed."
@@ -118,8 +118,6 @@ class Dash < ActiveRecord::Base
 			post.save
 			body = post.body.to_s
 			body_short = self.shorten(body, 90)
-			puts 'bodyshort', body_short
-			puts 'bodyshort length', body_short.length
 			res = twitCli.update_with_media(body_short, img)
 		rescue => e
 			puts e
@@ -156,11 +154,60 @@ class Dash < ActiveRecord::Base
 	    	self.post_tumblr(post)
     	end
 	end
+
+	# Edit post body content
 	def edit_post_body_content(post, body)
     	@post = Post.find(post)
     	@post.body = body
     	@post.save
 	end
+
+
+
+
+# Favorite Methods
+# - - - - - - - - - - - - - - - - - - - - -	
+
+	def like_content(post)
+		network = post['title'].to_s
+    	post_id = post.og_id
+	    case network
+	    when 'twitter'
+	    	@client = self.get_twit_client
+	    	@client.favorite(post_id)
+	    when 'tumblr'
+	    	@client = self.get_tumblr_client
+	    	@client.favorite(post_id)
+	    end
+
+
+		# @client.search(term.body + retweet).take(number).collect do |tweet|
+		# 	user = 	tweet.user.screen_name
+		# 	begin
+		# 		if !tweet.favorited?
+		# 			@client.favorite(tweet)
+		# 			success_count += 1
+		# 			puts "happy!"
+		# 			term.favorite_count += 1
+		# 			term.save
+		# 		end
+		# 	rescue => e
+		# 		return e.inspect
+		# 	end
+		# end
+		# puts "success_count: ", success_count
+		# return true
+
+	end	
+
+
+#Build Methods	
+# - - - - - - - - - - - - - - - - - - - - -
+	def build_post(title, src, body, image, author, og_id)
+		p = self.posts.build(title: title, og_source: src, body: body, image_src: image, author: author, og_id: og_id)		
+		p.save
+	end
+
 
 
 
@@ -175,8 +222,6 @@ class Dash < ActiveRecord::Base
 		end
 		return twitCli
 	end
-
-
 	def get_tumblr_client
 		tumblr = Tumblr.configure do |config|
 			  config.consumer_key = self.tumblr_consumer_key
@@ -186,12 +231,10 @@ class Dash < ActiveRecord::Base
 			end
 		return tumblr
 	end
-	
 	def get_postmark_client
 		@postmark_client = Postmark::ApiClient.new(ENV['POSTMARK_API_KEY'])
 		return @postmark_client
 	end
-
 	def fb_oauth
 	    app_id = self.fb_app_id
 	    app_secret = self.fb_app_secret
@@ -200,7 +243,6 @@ class Dash < ActiveRecord::Base
 	    oauth_url = @oauth.url_for_oauth_code
 	    return oauth_url 		
 	end
-
 	def fb_set_token(code)
 	    app_id = self.fb_app_id
 	    app_secret = self.fb_app_secret
@@ -227,16 +269,9 @@ class Dash < ActiveRecord::Base
 		return body
 	end
 
-
-
-#Build Methods	
-# - - - - - - - - - - - - - - - - - - - - -
-	def build_post(title, src, body, image, author)
-		p = self.posts.build(title: title, og_source: src, body: body, image_src: image, author: author)		
-		p.save
+	def limiter(network)
+		
 	end
-
-
 
 	
 end
