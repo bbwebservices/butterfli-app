@@ -52,16 +52,19 @@ class Dash < ActiveRecord::Base
 		resp = Net::HTTP.get_response(URI.parse(reddit_api_url))
 		data = resp.body
 		result = JSON.parse(data)
+		count = 0
 		result["data"]["children"].each do |post|
 			# puts post.to_json
 			begin
 				puts post["data"]["preview"]["images"].first["source"]["url"]
 				puts post["data"]["title"]
 				self.build_post("reddit", post["data"]["preview"]["images"].first["source"]["url"], post["data"]["title"], post["data"]["preview"]["images"].first["source"]["url"], post["data"]["preview"]["images"].first["source"], post["data"]["preview"]["images"].first["source"]["url"])
+				count += 1
 			rescue
 				puts "nope"
 			end
 		end
+		return count
 	end	
 	def twitter_pic_scrape(search)
 	    self.twitter_pic_search = search.downcase
