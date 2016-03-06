@@ -11,7 +11,7 @@ class Dash < ActiveRecord::Base
 	      when 'twitter'
 	        self.twitter_pic_scrape(search)
 	      when 'giphy'
-	        self.giphy_scrape(search, 'translate')
+	        self.giphy_scrape(search, 'stickers')
 	      when 'tumblr'
 	        self.tumblr_pic_scrape(search)
 	      when 'reddit'
@@ -25,6 +25,7 @@ class Dash < ActiveRecord::Base
 		    self.save
 			search = search ? search : self.giphy_search
 			sanitize = search.tr(" ", "+");
+			puts search
 			key = "dc6zaTOxFJmzC"
 			if type == 'stickers'
 				url = "http://api.giphy.com/v1/gifs/search?q=" + sanitize + "&api_key=" + key
