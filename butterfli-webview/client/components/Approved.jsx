@@ -8,7 +8,7 @@ var ApprovedListItem = require('./scrape_components/approvedListItem.jsx');
 var Approved = React.createClass({
 
 	animateListItems(){
-		TweenMax.staggerFrom('.stagger', 0.3, {y:-30, x: -10, opacity: 0}, 0.1);
+		TweenMax.staggerFrom('.stagger', 0.3, {y:-30, x: -10, opacity: 0}, 0.05);
 	},
 
 	componentDidMount(){
