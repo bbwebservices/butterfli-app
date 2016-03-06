@@ -4,16 +4,19 @@ var ReactDOM = require('react-dom');
 
 var Unapproved = React.createClass({
 
-	componentDidMount(){
-		// var node = ReactDOM.findDOMNode(this);
+	animateListItems(){
 		TweenMax.staggerFrom('.stagger', 0.5, {y:30, x: 10, opacity: 0}, 0.1);
 	},
 
+	componentDidMount(){
+		this.animateListItems();
+	},
+	
 	_renderContent(){
 		if(this.props.unapprovedPosts){
 			return this.props.unapprovedPosts.map( (element) => {
 				return ( 
-					<div style={{textAlign: 'center'}} className="uk-width-1-3 uk-panel uk-panel-box stagger">
+					<div key={element.id} style={{textAlign: 'center'}} className="uk-width-1-3 uk-panel uk-panel-box stagger">
 						<img style={{height: 200}} src={element.og_source}></img>
 						<p>{element.title}</p>
 						<a onClick={ () => {this.props.postApproval(this.props.currentDash[0].id, element.id, 'toggle_approve') } } className="uk-button uk-width-1-2">Approve</a>

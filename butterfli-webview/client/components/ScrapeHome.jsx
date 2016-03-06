@@ -45,6 +45,14 @@ var ScrapeHome = React.createClass({
 		})
 	},
 
+	animateContainer(){
+		TweenMax.from('.fadeIn', 0.5, {scale: 1.04, opacity: 0})
+	},
+
+	componentDidMount(){
+		this.animateContainer();
+	},
+
 	_renderContentTabs(){
 		if(this.state.selected === 'Unapproved') {
 			this.refs.unapprovedTab.classList.add('uk-active');
@@ -74,13 +82,13 @@ var ScrapeHome = React.createClass({
 		return (
 			<div>
 				<Navbar />
-				<div className="uk-container uk-container-center uk-margin-top">
+				<div className="uk-container uk-container-center uk-margin-top fadeIn">
 					<div className="uk-grid">
 						<div className="uk-width-1-4">
 							<div className="uk-panel uk-panel-box uk-panel-box-primary">
 								<form className='uk-form'>
 									<input ref="twitterTerm" onChange={ this.updateTwitterTerm } type='text' className="uk-width-1-1" />
-									<a className='uk-button uk-button-large uk-width-1-1'>Search Twitter</a>
+									<a onClick={ ()=>{this.props.picScrape(this.props.currentDash[0].id, 'twitter', this.state.twitterTerm)} } className='uk-button uk-button-large uk-width-1-1'>Search Twitter</a>
 								</form>
 							</div>
 							<div className="uk-panel uk-panel-box uk-panel-box-primary">
