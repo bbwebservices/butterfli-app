@@ -19,7 +19,7 @@ var DashHome = React.createClass({
 		} else if (this.props.currentDash) {
 			return (
 				<div>
-					<Navbar currentDash={this.props.currentDash}/>
+					<Navbar currentDash={this.props.currentDash} username={this.props.username}/>
 					<div>Dash Home, fool!</div>
 					<div>{this.props.currentDash[0].title}</div>
 					<a onClick={ () => {this.props.scraper(this.props.currentDash[0].id)} }><Link to='ScrapeHome'>Scrape!</Link></a>
