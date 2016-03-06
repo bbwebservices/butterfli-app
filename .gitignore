@@ -11,3 +11,5 @@ butterfli-api/log
 tmp/development.log
 butterfli-webview/dest
 Procfile
+
+butterfli-webview/npm-debug.log*
