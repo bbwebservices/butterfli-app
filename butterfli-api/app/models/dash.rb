@@ -36,7 +36,7 @@ class Dash < ActiveRecord::Base
 				temp.push(x["images"]["fixed_height"]["url"])
 			end	
 			temp.each do |post|
-				self.build_post("giphy", post, nil, post, "giphy")
+				self.build_post("giphy", post, nil, post, "giphy", post)
 			end
 			return temp 
 		rescue
@@ -53,8 +53,11 @@ class Dash < ActiveRecord::Base
 		data = resp.body
 		result = JSON.parse(data)
 		result["data"]["children"].each do |post|
+			# puts post.to_json
 			begin
-				self.build_post("reddit", post["data"]["preview"]["images"].first["source"]["url"], post["data"]["title"], post["data"]["preview"]["images"].first["source"]["url"], post["data"]["preview"]["images"].first["source"])
+				puts post["data"]["preview"]["images"].first["source"]["url"]
+				puts post["data"]["title"]
+				self.build_post("reddit", post["data"]["preview"]["images"].first["source"]["url"], post["data"]["title"], post["data"]["preview"]["images"].first["source"]["url"], post["data"]["preview"]["images"].first["source"], post["data"]["preview"]["images"].first["source"]["url"])
 			rescue
 				puts "nope"
 			end
@@ -168,7 +171,7 @@ class Dash < ActiveRecord::Base
 # Favorite Methods
 # - - - - - - - - - - - - - - - - - - - - -	
 
-	def like_content(post)
+	def like_content(network, post)
 		network = post['title'].to_s
     	post_id = post.og_id
 	    case network
@@ -179,25 +182,6 @@ class Dash < ActiveRecord::Base
 	    	@client = self.get_tumblr_client
 	    	@client.favorite(post_id)
 	    end
-
-
-		# @client.search(term.body + retweet).take(number).collect do |tweet|
-		# 	user = 	tweet.user.screen_name
-		# 	begin
-		# 		if !tweet.favorited?
-		# 			@client.favorite(tweet)
-		# 			success_count += 1
-		# 			puts "happy!"
-		# 			term.favorite_count += 1
-		# 			term.save
-		# 		end
-		# 	rescue => e
-		# 		return e.inspect
-		# 	end
-		# end
-		# puts "success_count: ", success_count
-		# return true
-
 	end	
 
 
