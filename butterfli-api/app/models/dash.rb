@@ -11,7 +11,7 @@ class Dash < ActiveRecord::Base
 	      when 'twitter'
 	        self.twitter_pic_scrape(search)
 	      when 'giphy'
-	        self.giphy_scrape(search)
+	        self.giphy_scrape(search, 'translate')
 	      when 'tumblr'
 	        self.tumblr_pic_scrape(search)
 	      when 'reddit'
@@ -19,14 +19,20 @@ class Dash < ActiveRecord::Base
 	      end
 	    end		
 	end
-	def giphy_scrape(search)
+	def giphy_scrape(search, type)
 		begin
 		    self.giphy_search = search.downcase
 		    self.save
 			search = search ? search : self.giphy_search
 			sanitize = search.tr(" ", "+");
 			key = "dc6zaTOxFJmzC"
-			url = "http://api.giphy.com/v1/gifs/search?q=" + sanitize + "&api_key=" + key
+			if type == 'stickers'
+				url = "http://api.giphy.com/v1/gifs/search?q=" + sanitize + "&api_key=" + key
+			elsif type == 'translate'
+				url = "http://api.giphy.com/v1/gifs/translate?q=" + sanitize + "&api_key=" + key
+			else
+				url = "http://api.giphy.com/v1/stickers/search?q=" + sanitize + "&api_key=" + key
+			end
 			resp = Net::HTTP.get_response(URI.parse(url))
 			buffer = resp.body
 			result = JSON.parse(buffer)
