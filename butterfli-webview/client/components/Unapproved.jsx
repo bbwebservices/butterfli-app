@@ -5,13 +5,13 @@ var ReactDOM = require('react-dom');
 var Unapproved = React.createClass({
 
 	animateListItems(){
-		TweenMax.staggerFrom('.stagger', 0.5, {y:30, x: 10, opacity: 0}, 0.1);
+		TweenMax.staggerFrom('.stagger', 0.3, {y:30, x: 10, opacity: 0}, 0.1);
 	},
 
 	componentDidMount(){
 		this.animateListItems();
 	},
-	
+
 	_renderContent(){
 		if(this.props.unapprovedPosts){
 			return this.props.unapprovedPosts.map( (element) => {
