@@ -1,12 +1,22 @@
 var React = require('react');
+var ReactDOM = require('react-dom');
+// var gsap = require('gsap');
+
+// var TweenMax = gsap.TweenMax;
 
 var Approved = React.createClass({
 
+	componentDidMount(){
+		TweenMax.staggerFrom('.stagger', 0.5, {y:-30, x: -10, opacity: 0}, 0.1);
+	},
+	
 	_renderContent(){
 		if(this.props.approvedPosts){
+			var key = 0;
 			return this.props.approvedPosts.map( (element) => {
+				key++
 				return ( 
-					<div style={{textAlign: 'center'}} className="uk-width-1-3 uk-panel uk-panel-box">
+					<div key={key} style={{textAlign: 'center'}} className="uk-width-1-3 uk-panel uk-panel-box stagger">
 						<img style={{height: 200}} src={element.og_source}></img>
 						<p>{element.title}</p>
 						<a onClick={ () => {this.props.postApproval(this.props.currentDash[0].id, element.id, 'toggle_disapprove') } } className="uk-button uk-width-1-2">Disapprove</a>

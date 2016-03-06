@@ -134,6 +134,7 @@ SCRAPE FOR CONTENT
 			if(error){
 				console.log('error: ', error)
 			}
+			console.log('pic scraper response: ', response)
 			
 		})
 		this.scraper(dashId);

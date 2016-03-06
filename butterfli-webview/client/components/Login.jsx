@@ -9,10 +9,10 @@ var Login = React.createClass({
 					<h1>butterfli.</h1>
 					<form className="uk-panel uk-panel-box uk-form">
 						<div className="uk-form-row">
-							<input ref="username" type="text" placeholder="Username" value="test@example.com"/>
+							<input ref="username" type="text" placeholder="Username"/>
 						</div>
 						<div className="uk-form-row">
-							<input ref="password" type="password" placeholder="Password" value="12345678"/>
+							<input ref="password" type="password" placeholder="Password"/>
 						</div>
 						<div className="uk-form-row">
 							<a onClick={ () => {this.props.updateCreds(this.refs.username.value, this.refs.password.value)}} className="uk-width-1-1 uk-button uk-button-primary uk-button-large">Login</a>
