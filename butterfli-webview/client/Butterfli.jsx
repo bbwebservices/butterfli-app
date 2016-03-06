@@ -130,14 +130,20 @@ SCRAPE FOR CONTENT
 			method: 'GET',
 			headers: headers
 		}
-		request(options, function(error, response, body) {
-			if(error){
-				console.log('error: ', error)
+		new Promise( (resolve, reject) => {
+			request(options, function(error, response, body) {
+				if(error){
+					console.log('error: ', error)
+				}
+				resolve(response);
+			})
+		}).then((response) => {
+			if(response.statusCode === 200) {
+				console.log('pic scrape response in promise: ', response.statusCode)
+				this.scraper(dashId);	
 			}
-			console.log('pic scraper response: ', response)
-			
 		})
-		this.scraper(dashId);
+		
 	},
 
 	postQueue: function (dashId) {
