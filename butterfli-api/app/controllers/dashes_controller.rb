@@ -55,8 +55,9 @@ class DashesController < ApplicationController
   def scrape_for_pics
     network = params[:network]
     search_term = params[:search_term]
+    @posts = @dash.posts.where(approved: nil)
     @dash.scraper(network, search_term)
-    redirect_to dash_scrape_path(@dash)
+    render json: @posts, status: 200
   end
 
 
