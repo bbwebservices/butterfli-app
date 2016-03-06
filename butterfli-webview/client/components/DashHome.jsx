@@ -4,6 +4,10 @@ var Link = require('react-router').Link;
 
 var DashHome = React.createClass({
 
+	componentDidMount(){
+		this.props.scraper(this.props.currentDash[0].id)
+	},
+
 	showDashes(){
 		if (!this.props.currentDash) {
 			return (
