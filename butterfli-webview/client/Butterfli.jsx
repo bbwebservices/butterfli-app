@@ -84,7 +84,7 @@ SCRAPE FOR CONTENT
 ******************/
 	scraper: function (dashId) {
 		api.scraper(this.state.jwt, dashId)
-			.then((dashes)=>{
+			.then((dashes) => {
 				this.setState({
 					unapprovedPosts: dashes
 				})
@@ -120,7 +120,6 @@ SCRAPE FOR CONTENT
 					this.scraper(dashId);
 				}
 			})
-		
 	},
 
 /*****************
