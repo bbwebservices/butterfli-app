@@ -21,7 +21,7 @@ var AccountHome = React.createClass({
 		
 		return (
 			<div>
-				<Navbar />
+				<Navbar username={this.props.username} currentDash={this.props.currentDash}/>
 				<div>Sup, {this.props.username}! Account Home, fool!</div>
 				<div>
 					<ul>

@@ -1,13 +1,14 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 // var gsap = require('gsap');
-
 // var TweenMax = gsap.TweenMax;
+
+var ApprovedListItem = require('./scrape_components/approvedListItem.jsx');
 
 var Approved = React.createClass({
 
 	animateListItems(){
-		TweenMax.staggerFrom('.stagger', 0.5, {y:-30, x: -10, opacity: 0}, 0.1);
+		TweenMax.staggerFrom('.stagger', 0.3, {y:-30, x: -10, opacity: 0}, 0.1);
 	},
 
 	componentDidMount(){
@@ -15,24 +16,23 @@ var Approved = React.createClass({
 	},
 
 	_renderContent(){
-		if(this.props.approvedPosts){
-			return this.props.approvedPosts.map( (element) => {
-				return ( 
-					<div key={element.id} style={{textAlign: 'center'}} className="uk-width-1-3 uk-panel uk-panel-box stagger">
-						<img style={{height: 200}} src={element.og_source}></img>
-						<p>{element.title}</p>
-						<a onClick={ () => {this.props.postApproval(this.props.currentDash[0].id, element.id, 'toggle_disapprove') } } className="uk-button uk-width-1-2">Disapprove</a>
-
-					</div> 
-				)
-			})
-		}
-		return ( <div>cannot get posts!</div> )
+		return this.props.approvedPosts.map( (element) => {
+			return ( 
+				<ApprovedListItem 
+					id={element.id} 
+					og_source={element.og_source} 
+					title={element.title} 
+					currentDash={this.props.currentDash} 
+					postApproval={this.props.postApproval} 
+				/>
+			)
+		})
+		
 	},
 
 	render(){
 		return (
-			<div className="uk-grid uk-margin-top ">
+			<div className="uk-grid uk-margin-top">
 					
 				{this._renderContent()}
 						

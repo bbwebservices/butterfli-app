@@ -46,7 +46,7 @@ var ScrapeHome = React.createClass({
 	},
 
 	animateContainer(){
-		TweenMax.from('.fadeIn', 0.5, {scale: 1.04, opacity: 0})
+		TweenMax.from('.fadeIn', 0.4, {scale: 1.04, opacity: 0})
 	},
 
 	componentDidMount(){
@@ -81,7 +81,7 @@ var ScrapeHome = React.createClass({
 	render(){
 		return (
 			<div>
-				<Navbar />
+				<Navbar {...this.props} currentDash={this.props.currentDash}/>
 				<div className="uk-container uk-container-center uk-margin-top fadeIn">
 					<div className="uk-grid">
 						<div className="uk-width-1-4">

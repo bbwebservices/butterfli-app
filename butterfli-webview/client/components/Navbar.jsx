@@ -1,20 +1,56 @@
 var React = require('react');
 
 var Navbar = React.createClass({
+
+	showDropDown(){
+		TweenMax.to(this.refs.dropDown, 1, {y: 100})
+	},
+
+	hideDropDown(){
+		TweenMax.to(this.refs.dropDown, 1, {y: -10})
+	},
+
+	_renderDashTitle(){
+		return this.props.currentDash ? <span style={{fontSize: 14, opacity: 0.6}}>/ {this.props.currentDash[0].title}</span> : '';
+	},
+
+	_renderDropDown(){
+		return (
+			<div onMouseEnter={this.showDropDown} onMouseLeave={this.hideDropDown} ref='dropDown' style={dropDownStyle}>
+				<ul className="uk-nav uk-nav-navbar">
+					<li>
+						test nav
+					</li>
+				</ul>
+			</div>
+		)
+	},
+
 	render(){
 		return (
 			<div className="uk-margin">
-				<nav className="uk-navbar">
-					<a className="uk-navbar-brand notif-text uk-margin-small-top">Butterfli</a>
+				<nav style={{zIndex: 1}} className="uk-navbar">
+					<a className="uk-navbar-brand notif-text uk-margin-small-top">Butterfli {this._renderDashTitle()}</a>
 					<div className="uk-navbar-content uk-navbar-flip uk-hidden-small uk-margin-small-top">
 						<ul className="uk-navbar-nav">
-							<li className="uk-parent uk-active">{this.props.username}</li>
+							<li className="uk-parent uk-active">
+							<a>{this.props.username}</a>
+							{/*{this._renderDropDown()*/}
+							</li>
 						</ul>
 					</div>
 				</nav>
 			</div>
 		)
 	}
-})
+});
+
+var dropDownStyle = {
+	position: 'relative', 
+	top: -10, 
+	zIndex: 2,
+	width: 100,
+	height: 200
+}
 
 module.exports = Navbar;
