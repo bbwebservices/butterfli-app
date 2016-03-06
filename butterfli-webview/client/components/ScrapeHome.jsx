@@ -46,7 +46,7 @@ var ScrapeHome = React.createClass({
 	},
 
 	animateContainer(){
-		TweenMax.from('.fadeIn', 0.3, {scale: 1.04, opacity: 0})
+		TweenMax.from('.fadeIn', 0.4, {scale: 1.04, opacity: 0})
 	},
 
 	componentDidMount(){

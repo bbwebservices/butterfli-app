@@ -109,12 +109,9 @@ SCRAPE FOR CONTENT
 			headers: headers
 		}
 		request(options, function(error, response, body) {
-			console.log('Scraper Response: ', response)
-			console.log('Scraper Body: ', JSON.parse(body).dashes)
 			this.setState({
 				unapprovedPosts: JSON.parse(body).dashes
 			})
-			console.log('unapproved posts state: ', this.state.unapprovedPosts)
 		}.bind(this))
 
 		this.postQueue(dashId);
@@ -139,7 +136,6 @@ SCRAPE FOR CONTENT
 			})
 		}).then((response) => {
 			if(response.statusCode === 200) {
-				console.log('pic scrape response in promise: ', response.statusCode)
 				this.scraper(dashId);	
 			}
 		})
@@ -157,7 +153,6 @@ SCRAPE FOR CONTENT
 		request(options, (error, response, body) => {
 			console.log('Queue Response: ', response)
 			if(response.statusCode === 200) {
-				console.log('Queue Body: ', body)
 				this.setState({
 					approvedPosts: JSON.parse(body).dashes
 				})
@@ -175,13 +170,28 @@ SCRAPE FOR CONTENT
 
 		new Promise( (resolve, reject) => {
 			request(options, (error, response, body) => {
-				console.log('Approval Response: ', response);
 				resolve(response)
 			})
 		}).then((res) => {
 			if(res.statusCode === 200) {
 				this.scraper(dashId);
 			}
+		})
+	},
+
+/*****************
+POST CONTENT
+*****************/
+	postToNetwork: function(dashId, postId, network) {
+		var headers = { 'Authorization': this.state.jwt };
+		var options = {
+			url: 'http://localhost:3000/dashes/'+dashId+'/post?postid='+postId+'&network='+network,
+			method: 'GET',
+			headers: headers,
+		}
+
+		request(options, function(error, response, body) {
+			console.log('post to network response: ', response)
 		})
 	},
 
@@ -205,7 +215,8 @@ RENDERING
 						approvedPosts: this.state.approvedPosts,
 						unapprovedPosts: this.state.unapprovedPosts,
 						postApproval: this.postApproval,
-						postQueue: this.postQueue
+						postQueue: this.postQueue,
+						postToNetwork: this.postToNetwork
 					})
 				}
 			</div>

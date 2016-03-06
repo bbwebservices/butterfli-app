@@ -1,9 +1,9 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 // var gsap = require('gsap');
-var ApprovedListItem = require('./scrape_components/approvedListItem.jsx');
-
 // var TweenMax = gsap.TweenMax;
+
+var ApprovedListItem = require('./scrape_components/approvedListItem.jsx');
 
 var Approved = React.createClass({
 
@@ -32,7 +32,7 @@ var Approved = React.createClass({
 
 	render(){
 		return (
-			<div className="uk-grid uk-margin-top ">
+			<div className="uk-grid uk-margin-top">
 					
 				{this._renderContent()}
 						
