@@ -10,3 +10,4 @@ butterfli-api/tmp
 butterfli-api/log
 tmp/development.log
 butterfli-webview/dest
+Procfile
