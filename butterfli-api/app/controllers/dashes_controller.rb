@@ -56,7 +56,8 @@ class DashesController < ApplicationController
     network = params[:network]
     search_term = params[:search_term]
     @dash.scraper(network, search_term)
-    redirect_to dash_scrape_path(@dash)
+    @posts = @dash.posts.where(approved: nil)
+    render json: @posts, status: 200
   end
 
 
