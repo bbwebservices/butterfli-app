@@ -17,8 +17,11 @@ class DashesController < ApplicationController
   # POST /dashes
   # POST /dashes.json
   def create
+    puts "current user", current_user.id
     @dash = Dash.new(dash_params)
+    @dash.user_id = current_user.id
     if @dash.save
+      puts '@dash id: ', @dash.user_id
       render json: @dash, status: :created, location: @dash
     else
       render json: @dash.errors, status: :unprocessable_entity
@@ -112,6 +115,6 @@ class DashesController < ApplicationController
     end
 
     def dash_params
-      params.require(:dash).permit(:title, :subreddit, :twit_consumer_key, :twit_consumer_secret, :twit_access_token, :twit_access_token_secret, :giphy_search, :twitter_pic_search, :tumblr_pic_search, :tumblr_consumer_key, :tumblr_consumer_secret, :tumblr_oauth_token, :tumblr_oauth_token_secret)
+      params.permit(:title, :user_id, :subreddit, :twit_consumer_key, :twit_consumer_secret, :twit_access_token, :twit_access_token_secret, :giphy_search, :twitter_pic_search, :tumblr_pic_search, :tumblr_consumer_key, :tumblr_consumer_secret, :tumblr_oauth_token, :tumblr_oauth_token_secret)
     end
 end
