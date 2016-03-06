@@ -140,16 +140,11 @@ module.exports = {
 
 	//need to add arguments
 	createDash(jwt, options){
-
 		if(!options.title){
 			return console.log('You Need to Add Title!!');
 		}
-		var url = '?title='+options.title;
-		var urlFormat = () => {
-			if(Object.keys(options).length === 13){
-				url = url +'&subreddit='+options.subreddit+'&twit_consumer_key='+options.twit_consumer_key+'&twit_consumer_secret='+options.twit_consumer_secret+'&twit_access_token='+options.twit_access_token+'&twit_access_token_secret='+options.twit_access_token_secret+'&giphy_search='+options.giphy_search+'&twitter_pic_search='+options.twitter_pic_search+'&tumblr_pic_search='+options.tumblr_pic_search+'&tumblr_consumer_key='+options.tumblr_consumer_key+'&tumblr_consumer_secret='+options.tumblr_consumer_secret+'&tumblr_oauth_token='+options.tumblr_oauth_token+'&tumblr_oauth_token_secret='+options.tumblr_oauth_token_secret;
-			}
-		}
+		
+		this.dashUrlHelper(options);
 
 		var headers = { 'Authorization': jwt };
 		var options = {
@@ -162,6 +157,18 @@ module.exports = {
 				resolve(response)
 			})
 		})
+	},
+
+	dashUrlHelper(options){
+		var url = '?title='+options.title;
+		var argOptions = arguments[0];
+
+		for(var param in argOptions){
+			if(param !== 'title'){
+			  url = url + '&'+param+'='+argOptions[param];
+			}
+		}
+  		return url;
 	}
 
 
