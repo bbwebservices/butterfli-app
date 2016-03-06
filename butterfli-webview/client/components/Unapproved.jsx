@@ -6,7 +6,7 @@ var UnapprovedListItem = require('./scrape_components/unapprovedListItem.jsx')
 var Unapproved = React.createClass({
 
 	animateListItems(){
-		TweenMax.staggerFrom('.stagger', 0.3, {y:30, x: 10, opacity: 0}, 0.1);
+		TweenMax.staggerFrom('.stagger', 0.3, {y:30, x: 10, opacity: 0}, 0.05);
 	},
 
 	componentDidMount(){

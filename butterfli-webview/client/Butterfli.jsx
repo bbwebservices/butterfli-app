@@ -3,6 +3,7 @@ var React = require('react'),
     Login = require('./components/Login.jsx'),
     AccountHome = require('./components/AccountHome.jsx'),
     request = require('request');
+    api = require('./api.js');
 
 var Butterfli = React.createClass({
 
@@ -26,63 +27,43 @@ CREDENTIALS
 	updateCreds: function(username, password){
 
 		// promise to be sure the state is set before attempting the login request
-		new Promise(function(resolve, reject){
+		new Promise((resolve, reject)=>{
 			this.setState({
 				username: username,
 				password: password
 			})
 			resolve(this.state.password)
-		}.bind(this)).then(function(value) {
+		}).then((value) => {
 			// send login request, once we have creds
 			this.checkCreds();
-		}.bind(this));
+		});
 	},
 
 	// make request to log the user in
 	checkCreds: function (){
-		var headers = {'Content-Type': 'application/json'};	
-		var dataString = '{"user": {"email": "'+this.state.username+'", "password": "'+this.state.password+'"}}';
-		var options = {
-				url: 'http://localhost:3000/users/sign_in.json',
-				method: 'POST',
-				headers: headers,
-				body: dataString
-		};
 		// make request, set state accordingly
-		new Promise(function(resolve, reject) {
-			request(options, function (error, response, body) {
-				console.log('Login Body: ', body)
-				if(response.statusCode === 200){
-					this.setState({
-						jwt: JSON.parse(body).token
-					})
-				}
-				resolve(this.state.jwt);
-			}.bind(this))
-
-		}.bind(this)).then(function(value) {
+		api.userLogin(this.state.username, this.state.password)
+		.then((value) => {
+			this.setState({
+				jwt: value
+			})
+			console.log('login api working?, :', value)
 			this.getDashes(value);
-		}.bind(this));
+		});
 	},
 
 /****************
 DASHES
 ****************/
-	getDashes: function (value) {
-
-		var headers = { 'Authorization': this.state.jwt };
-		var	options = {
-				url: 'http://localhost:3000/dashes.json',
-				method: 'GET',
-				headers: headers
-		};
-		request(options, function(error, response, body) {
+	getDashes: function (jwt) {		
+		
+		api.getUserDashes(jwt)
+		.then((dashes)=>{
 			this.setState({
-				dashes: JSON.parse(body).dashes,
+				dashes: dashes,
 				isLoggedIn: true
 			})
-		}.bind(this))
-
+		})
 	},
 
 	saveCurrentDash: function (dashId){
@@ -102,95 +83,52 @@ DASHES
 SCRAPE FOR CONTENT
 ******************/
 	scraper: function (dashId) {
-		var headers = { 'Authorization': this.state.jwt };
-		var options = {
-			url: 'http://localhost:3000/dashes/'+dashId+'/scraper.json',
-			method: 'GET',
-			headers: headers
-		}
-		request(options, function(error, response, body) {
-			this.setState({
-				unapprovedPosts: JSON.parse(body).dashes
+		api.scraper(this.state.jwt, dashId)
+			.then((dashes)=>{
+				this.setState({
+					unapprovedPosts: dashes
+				})
+				this.postQueue(dashId);
 			})
-		}.bind(this))
-
-		this.postQueue(dashId);
 	},
 
 	picScrape: function (dashId, network, term) {
-
-		console.log(dashId, network, term);
-
-		var headers = { 'Authorization': this.state.jwt, 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'};
-		var options = {
-			url: 'http://localhost:3000/dashes/'+dashId+'/pic-scrape.json?network='+network+'&search_term='+term,
-			method: 'GET',
-			headers: headers
-		}
-		new Promise( (resolve, reject) => {
-			request(options, function(error, response, body) {
-				if(error){
-					console.log('error: ', error)
+		api.scrapeForPics(this.state.jwt, dashId, network, term)
+			.then((response) => {
+				if(response.statusCode === 200) {
+					this.scraper(dashId);	
 				}
-				resolve(response);
+				if(response.statusCode !==200) {
+					console.log('Wrong Status code: ', response.statusCode)
+				}
 			})
-		}).then((response) => {
-			if(response.statusCode === 200) {
-				this.scraper(dashId);	
-			}
-		})
-		
 	},
 
 	postQueue: function (dashId) {
-		var headers = { 'Authorization': this.state.jwt };
-		var options = {
-			url: 'http://localhost:3000/dashes/'+dashId+'/queue',
-			method: 'GET',
-			headers: headers
-		}
-
-		request(options, (error, response, body) => {
-			console.log('Queue Response: ', response)
-			if(response.statusCode === 200) {
+		api.getPostQueue(this.state.jwt, dashId)
+			.then((dashes)=>{
 				this.setState({
-					approvedPosts: JSON.parse(body).dashes
+					approvedPosts: dashes
 				})
-			}
-		})
+			})
 	},
 
 	postApproval: function (dashId, postId, toggle) {
-		var headers = { 'Authorization': this.state.jwt };
-		var options = {
-			url: 'http://localhost:3000/dashes/'+dashId+'/posts/'+postId+'/'+toggle,
-			method: 'GET',
-			headers: headers
-		}
-
-		new Promise( (resolve, reject) => {
-			request(options, (error, response, body) => {
-				resolve(response)
+		api.toggleApprove(this.state.jwt, dashId, postId, toggle)
+			.then((response)=>{
+				if(response.statusCode === 200) {
+					this.scraper(dashId);
+				}
 			})
-		}).then((res) => {
-			if(res.statusCode === 200) {
-				this.scraper(dashId);
-			}
-		})
+		
 	},
 
 /*****************
 POST CONTENT
 *****************/
 	postToNetwork: function(dashId, postId, network) {
-		var headers = { 'Authorization': this.state.jwt };
-		var options = {
-			url: 'http://localhost:3000/dashes/'+dashId+'/post?postid='+postId+'&network='+network,
-			method: 'GET',
-			headers: headers,
-		}
-
-		request(options, function(error, response, body) {
+		api.postToNetwork(this.state.jwt, dashId, postId, network)
+		.then((response)=>{
 			console.log('post to network response: ', response)
 		})
 	},
