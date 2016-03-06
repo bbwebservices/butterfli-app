@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var UnapprovedListItem = require('./scrape_components/unapprovedListItem.jsx')
 
 
 var Unapproved = React.createClass({
@@ -16,13 +17,13 @@ var Unapproved = React.createClass({
 		if(this.props.unapprovedPosts){
 			return this.props.unapprovedPosts.map( (element) => {
 				return ( 
-					<div key={element.id} style={{textAlign: 'center'}} className="uk-width-1-3 uk-panel uk-panel-box stagger">
-						<img style={{height: 200}} src={element.og_source}></img>
-						<p>{element.title}</p>
-						<a onClick={ () => {this.props.postApproval(this.props.currentDash[0].id, element.id, 'toggle_approve') } } className="uk-button uk-width-1-2">Approve</a>
-						<a onClick={ () => {this.props.postApproval(this.props.currentDash[0].id, element.id, 'toggle_disapprove') } } className="uk-button uk-width-1-2">Disapprove</a>
-
-					</div> 
+					<UnapprovedListItem 
+						id={element.id} 
+						og_source={element.og_source} 
+						title={element.title} 
+						currentDash={this.props.currentDash} 
+						postApproval={this.props.postApproval} 
+					/>
 				)
 			})
 		}

@@ -1,6 +1,7 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
 // var gsap = require('gsap');
+var ApprovedListItem = require('./scrape_components/approvedListItem.jsx');
 
 // var TweenMax = gsap.TweenMax;
 
@@ -17,12 +18,13 @@ var Approved = React.createClass({
 	_renderContent(){
 		return this.props.approvedPosts.map( (element) => {
 			return ( 
-				<div key={element.id} style={{textAlign: 'center'}} className="uk-width-1-3 uk-panel uk-panel-box stagger">
-					<img style={{height: 200}} src={element.og_source}></img>
-					<p>{element.title}</p>
-					<a onClick={ () => {this.props.postApproval(this.props.currentDash[0].id, element.id, 'toggle_disapprove') } } className="uk-button uk-width-1-2">Disapprove</a>
-
-				</div> 
+				<ApprovedListItem 
+					id={element.id} 
+					og_source={element.og_source} 
+					title={element.title} 
+					currentDash={this.props.currentDash} 
+					postApproval={this.props.postApproval} 
+				/>
 			)
 		})
 		
