@@ -4,6 +4,33 @@ var Link = require('react-router').Link
 var Navbar = require('./Navbar.jsx');
 
 var SignUp = React.createClass({
+
+	getInitialState(){
+		return {
+			email: '',
+			password: '',
+			password_confirmation: ''
+		}
+	},
+
+	updateEmail(){
+		this.setState({
+			email: this.refs.email.value
+		})
+	},
+
+	updatePassword(){
+		this.setState({
+			password: this.refs.password.value
+		})
+	},
+
+	updatePasswordConfirmation(){
+		this.setState({
+			password_confirmation: this.refs.confirmPassword.value
+		})
+	},
+
 	render(){
 		return (
 			<div>
@@ -13,16 +40,16 @@ var SignUp = React.createClass({
 					<h1>butterfli.</h1>
 					<form className="uk-panel uk-panel-box uk-form">
 						<div className="uk-form-row">
-							<input ref="username" type="text" placeholder="Username"/>
+							<input onChange={this.updateEmail} ref="email" type="text" placeholder="Email"/>
 						</div>
 						<div className="uk-form-row">
-							<input ref="password" type="text" placeholder="Password"/>
+							<input onChange={this.updatePassword} ref="password" type="text" placeholder="Password"/>
 						</div>
 						<div className="uk-form-row">
-							<input ref="confirmPassword" type="text" placeholder="Password Confirmation"/>
+							<input onChange={this.updatePasswordConfirmation} ref="confirmPassword" type="text" placeholder="Password Confirmation"/>
 						</div>
 						<div className="uk-form-row">
-							<a className="uk-width-1-1 uk-button uk-button-primary uk-button-large">Sign Up</a>
+							<a onClick={() => this.props.newUserSignUp(this.state.email, this.state.password, this.state.password_confirmation)} className="uk-width-1-1 uk-button uk-button-primary uk-button-large">Sign Up</a>
 						</div>
 						<div className="uk-form-row"></div>
 					</form>
