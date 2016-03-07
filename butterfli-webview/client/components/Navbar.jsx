@@ -29,7 +29,7 @@ var Navbar = React.createClass({
 	render(){
 		return (
 			<div className="uk-margin">
-				<nav style={{zIndex: 1}} className="uk-navbar">
+				<nav style={{zIndex: 2}} className="uk-navbar">
 					<a className="uk-navbar-brand notif-text uk-margin-small-top">Butterfli {this._renderDashTitle()}</a>
 					<div className="uk-navbar-content uk-navbar-flip uk-hidden-small uk-margin-small-top">
 						<ul className="uk-navbar-nav">

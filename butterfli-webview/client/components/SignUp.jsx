@@ -31,12 +31,20 @@ var SignUp = React.createClass({
 		})
 	},
 
+	animate(){
+		TweenMax.from('.dropIn', 0.5, {y: -25, x: -3, opacity: 0});
+	},
+
+	componentDidMount() {
+		this.animate();
+	},
+
 	render(){
 		return (
 			<div>
 			<Navbar />
 			<div className="uk-vertical-align uk-text-center uk-height-1-1 uk-margin-top">
-				<div className="uk-vertical-align-middle" style={styles.formContainer}>
+				<div style={{zIndex: 1}} className="uk-vertical-align-middle dropIn" style={styles.formContainer}>
 					<h1>butterfli.</h1>
 					<form className="uk-panel uk-panel-box uk-form">
 						<div className="uk-form-row">
