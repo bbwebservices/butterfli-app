@@ -9,7 +9,7 @@ var AccountHome = React.createClass({
 
 		if(this.props.dashes) {
 			var key = 0;
-			var dashList = this.props.dashes.map( (element) => {
+			var dashList = this.props.dashes.map((element) => {
 				key++;
 				return (
 					<li key={key} onClick={ () => {this.props.saveCurrentDash(element.id)} }>
@@ -26,6 +26,7 @@ var AccountHome = React.createClass({
 				<div>
 					<ul>
 						{dashList}
+						<li><Link to='adddash'>Add Dash</Link></li>
 					</ul>
 				</div>
 			</div>

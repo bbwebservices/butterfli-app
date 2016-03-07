@@ -22,11 +22,14 @@ var DashHome = React.createClass({
 					<Navbar currentDash={this.props.currentDash} username={this.props.username}/>
 					<div>Dash Home, fool!</div>
 					<div>{this.props.currentDash[0].title}</div>
-					<a onClick={ () => {this.props.scraper(this.props.currentDash[0].id)} }><Link to='ScrapeHome'>Scrape!</Link></a>
+					<ul>
+						<li><a onClick={ () => {this.props.scraper(this.props.currentDash[0].id)} }><Link to='ScrapeHome'>Scrape!</Link></a></li>
+						<li><Link to='editdash'>Edit Dash</Link></li>
+					</ul>
+
 				</div>
 			)
 		}
-		
 	},
 
 	render(){

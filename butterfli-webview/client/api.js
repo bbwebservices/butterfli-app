@@ -193,6 +193,7 @@ Create and Update Dashes
 
 	updateDash(jwt, dashId, options){
 		var params = this.updateDashParamBuilder(options);
+		console.log('params: ', params);
 		var headers = { 'Authorization': jwt };
 		var options = {
 			url: 'http://localhost:3000/dashes/'+dashId+params,

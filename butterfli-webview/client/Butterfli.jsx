@@ -42,13 +42,13 @@ CREDENTIALS
 	checkCreds: function (){
 		// make request, set state accordingly
 		api.userLogin(this.state.username, this.state.password)
-		.then((value) => {
-			this.setState({
-				jwt: value
-			})
-			console.log('login api working?, :', value)
-			this.getDashes(value);
-		});
+			.then((value) => {
+				this.setState({
+					jwt: value
+				})
+				console.log('login api working? :', value);
+				this.getDashes(value);
+			});
 	},
 
 	newUserSignUp: function (email, password, password_confirmation) {
@@ -63,12 +63,12 @@ DASHES
 ****************/
 	getDashes: function (jwt) {		
 		api.getUserDashes(jwt)
-		.then((dashes) => {
-			this.setState({
-				dashes: dashes,
-				isLoggedIn: true
+			.then((dashes) => {
+				this.setState({
+					dashes: dashes,
+					isLoggedIn: true
+				})
 			})
-		})
 	},
 
 	saveCurrentDash: function (dashId){

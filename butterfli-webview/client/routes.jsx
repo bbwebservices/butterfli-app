@@ -11,6 +11,9 @@ var DashHome = require('./components/DashHome.jsx');
 var Landing = require('./components/Landing.jsx');
 var ScrapeHome = require('./components/ScrapeHome.jsx');
 var SignUp = require('./components/SignUp.jsx');
+var EditDash = require('./components/EditDash.jsx');
+var AddDash = require('./components/AddDash.jsx');
+
 
 
 
@@ -22,6 +25,8 @@ module.exports = [
 			<Route path='/signup' component={SignUp} />
 			<Route path='/dashhome' component={DashHome} />
 			<Route path='/scrapehome' component={ScrapeHome} />
+			<Route path='/editdash' component={EditDash} />
+			<Route path='/adddash' component={AddDash} />
 		</Route>
 	</Router>
 ]
