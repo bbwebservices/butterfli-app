@@ -23,6 +23,8 @@ var DashHome = React.createClass({
 					<div>Dash Home, fool!</div>
 					<div>{this.props.currentDash[0].title}</div>
 					<a onClick={ () => {this.props.scraper(this.props.currentDash[0].id)} }><Link to='ScrapeHome'>Scrape!</Link></a>
+					<Link to='editdash'>Edit Dash</Link>
+
 				</div>
 			)
 		}
