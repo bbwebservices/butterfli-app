@@ -1,7 +1,8 @@
 var React = require('react');
 var Navbar = require('./Navbar.jsx');
+var api = require('./../api.js')
 
-var EditDash = React.createClass({
+var AddDash = React.createClass({
 
 	animateListItems(){
 		TweenMax.staggerFrom('.stagger', 0.3, {y:30, x: 10, opacity: 0}, 0.02);
@@ -162,4 +163,4 @@ var EditDash = React.createClass({
 	}
 })
 
-module.exports = EditDash;
+module.exports = AddDash;
