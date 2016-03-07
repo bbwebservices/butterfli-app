@@ -1,4 +1,3 @@
-
 var request = require('request');
 
 module.exports = {
@@ -21,9 +20,11 @@ module.exports = {
 				if(error) {
 					console.error('Log In Error: ', error);
 				}
+				console.log('login response: ',response)
 				if(response.statusCode === 200) {
 					resolve(JSON.parse(body).token)
 				}
+
 			})
 		}).then((token)=>{
 			console.log("IN API PROM VALUE: ", token);
@@ -46,6 +47,25 @@ module.exports = {
 		}).then((dashes) => {
 			return dashes;
 		})
+		
+	},
+
+	newUserRegistration(email, password, password_confirmation){
+		console.log('in api: ', email, password, password_confirmation);
+
+		var	options = {
+				url: 'http://localhost:3000/users'+'?email='+email+'&password='+'&password_confirmation='+password_confirmation,
+				method: 'POST',
+		};
+		return new Promise((resolve, reject) => {
+			request(options, (error, response, body) => {
+				resolve(response);
+			})
+		})
+		.then((res) => {
+			// If this is 200, then we sign the user in to their new acct
+			return res;
+		});
 		
 	},
 
@@ -122,14 +142,13 @@ module.exports = {
 		})
 	},
 
-	postToNetwork(){
-		var headers = { 'Authorization': this.state.jwt };
+	postToNetwork(jwt, dashId, postId, network){
+		var headers = { 'Authorization': jwt };
 		var options = {
 			url: 'http://localhost:3000/dashes/'+dashId+'/post?postid='+postId+'&network='+network,
 			method: 'GET',
 			headers: headers,
 		}
-
 		return new Promise((resolve, reject)=>{
 			request(options, function(error, response, body) {
 				resolve(response);
@@ -137,7 +156,77 @@ module.exports = {
 		}).then((res)=>{
 			return res;
 		})
-		
-	}
+	},
 
+
+/***********
+Create and Update Dashes
+***********/
+	createDash(jwt, options){
+		if(!options.title){
+			return console.log('You Need to Add Title!!');
+		}
+		var params = this.createDashParamBuilder(options);
+		var headers = { 'Authorization': jwt };
+		var options = {
+			url: 'http://localhost:3000/dashes/new'+params,
+			method: 'GET',
+			headers: headers,
+		}
+		return new Promise((resolve, reject) => {
+			request(options, function(error, response, body) {
+				resolve(response)
+			})
+		})
+	},
+
+	createDashParamBuilder(options){
+		var url = '?title='+options.title;
+		var argOptions = arguments[0];
+		for(var param in argOptions){
+			if(param !== 'title'){
+			  url += '&'+param+'='+argOptions[param];
+			}
+		}
+  		return url;
+	},
+
+	updateDash(jwt, dashId, options){
+		var params = this.updateDashParamBuilder(options);
+		var headers = { 'Authorization': jwt };
+		var options = {
+			url: 'http://localhost:3000/dashes/'+dashId+params,
+			method: 'PUT',
+			headers: headers
+		}
+		return new Promise((resolve, reject) => {
+			request(options, (error, response, body)=>{
+				resolve(response)
+			})
+			.then((res) => {
+				return res;
+			})
+		})
+	},
+
+	updateDashParamBuilder(options){
+		var first = true;
+		var url = '';
+		if(options.title){
+		    url += '?title='+options.title;
+		    first = false;
+		}
+		var argOptions = arguments[0];
+		for(var param in argOptions){
+		    if(first){
+		        url += '?'+param+'='+argOptions[param];
+		        first = false;
+		    } else {
+		        if(param !== 'title'){
+		          url += '&'+param+'='+argOptions[param];
+		        }
+		    }
+		}
+		return url;
+	}
 }

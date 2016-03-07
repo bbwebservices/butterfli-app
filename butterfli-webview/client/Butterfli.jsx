@@ -2,7 +2,6 @@ var React = require('react'),
 	ReactDOM = require('react-dom'),
     Login = require('./components/Login.jsx'),
     AccountHome = require('./components/AccountHome.jsx'),
-    request = require('request');
     api = require('./api.js');
 
 var Butterfli = React.createClass({
@@ -21,13 +20,13 @@ var Butterfli = React.createClass({
 	},
 
 /***************
-CREDENTIALS
+CREDENTIALS 
 ***************/
 	// save the inputted username and password
 	updateCreds: function(username, password){
 
 		// promise to be sure the state is set before attempting the login request
-		new Promise((resolve, reject)=>{
+		new Promise((resolve, reject) => {
 			this.setState({
 				username: username,
 				password: password
@@ -52,13 +51,19 @@ CREDENTIALS
 		});
 	},
 
+	newUserSignUp: function (email, password, password_confirmation) {
+		api.newUserRegistration(email, password, password_confirmation)
+			.then((response) => {
+				console.log("sign up response: ", response);
+			})	
+	},
+
 /****************
 DASHES
 ****************/
 	getDashes: function (jwt) {		
-		
 		api.getUserDashes(jwt)
-		.then((dashes)=>{
+		.then((dashes) => {
 			this.setState({
 				dashes: dashes,
 				isLoggedIn: true
@@ -67,7 +72,7 @@ DASHES
 	},
 
 	saveCurrentDash: function (dashId){
-		var dashToSave = this.state.dashes.filter(function(element){
+		var dashToSave = this.state.dashes.filter((element) => {
 			if(element.id === dashId) {
 				return true;
 			}
@@ -84,7 +89,7 @@ SCRAPE FOR CONTENT
 ******************/
 	scraper: function (dashId) {
 		api.scraper(this.state.jwt, dashId)
-			.then((dashes)=>{
+			.then((dashes) => {
 				this.setState({
 					unapprovedPosts: dashes
 				})
@@ -106,7 +111,7 @@ SCRAPE FOR CONTENT
 
 	postQueue: function (dashId) {
 		api.getPostQueue(this.state.jwt, dashId)
-			.then((dashes)=>{
+			.then((dashes) => {
 				this.setState({
 					approvedPosts: dashes
 				})
@@ -115,12 +120,11 @@ SCRAPE FOR CONTENT
 
 	postApproval: function (dashId, postId, toggle) {
 		api.toggleApprove(this.state.jwt, dashId, postId, toggle)
-			.then((response)=>{
+			.then((response) => {
 				if(response.statusCode === 200) {
 					this.scraper(dashId);
 				}
 			})
-		
 	},
 
 /*****************
@@ -128,10 +132,12 @@ POST CONTENT
 *****************/
 	postToNetwork: function(dashId, postId, network) {
 		api.postToNetwork(this.state.jwt, dashId, postId, network)
-		.then((response)=>{
+		.then((response) => {
 			console.log('post to network response: ', response)
 		})
 	},
+
+
 
 
 /*****************
@@ -154,7 +160,9 @@ RENDERING
 						unapprovedPosts: this.state.unapprovedPosts,
 						postApproval: this.postApproval,
 						postQueue: this.postQueue,
-						postToNetwork: this.postToNetwork
+						postToNetwork: this.postToNetwork,
+						newUserSignUp: this.newUserSignUp
+						
 					})
 				}
 			</div>
