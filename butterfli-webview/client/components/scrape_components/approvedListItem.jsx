@@ -8,6 +8,9 @@ var approvedListItem = React.createClass({
 				<img style={{height: 200}} src={this.props.og_source}></img>
 				<p>{this.props.title}</p>
 				<a onClick={ () => {this.props.postApproval(this.props.currentDash[0].id, this.props.id, 'toggle_disapprove') } } className="uk-button uk-width-1-2">Disapprove</a>
+				<a className="uk-button uk-width-1-3">Twitter</a>
+				<a className="uk-button uk-width-1-3">Facebook</a>
+				<a className="uk-button uk-width-1-3">Tumblr</a>
 
 			</div>
 		)
