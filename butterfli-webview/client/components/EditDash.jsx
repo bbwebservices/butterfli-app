@@ -20,7 +20,18 @@ var EditDash = React.createClass({
 		this.animateListItems();
 	},
 
+	updateTwitDash(twit_consumer_key, twit_consumer_secret, twit_access_token, twit_access_token_secret){
+		this.props.updateTwitDash(this.props.currentDash[0].id, {
+			twit_consumer_key: twit_consumer_key, 
+			twit_consumer_secret: twit_consumer_secret, 
+			twit_access_token: twit_access_token,
+			twit_access_token_secret: twit_access_token_secret
+		})
+
+	},
+
 	render: function() {
+		console.log()
 		return (
 			<div>
 				<Navbar currentDash={this.props.currentDash} username={this.props.username}/>			
@@ -98,27 +109,35 @@ var EditDash = React.createClass({
 								<div className="uk-form-row">
 									<label className="uk-form-label">Consumer Key</label>
 									<div className="uk-form-controls">
-										<input type="text" className="uk-width-2-3" />
+										<input ref="twit_consumer_key" type="text" className="uk-width-2-3" />
 									</div>
 								</div>
 								<div className="uk-form-row">
 									<label className="uk-form-label">Consumer Secret</label>
 									<div className="uk-form-controls">
-										<input type="text" className="uk-width-2-3" />
+										<input ref="twit_consumer_secret" type="text" className="uk-width-2-3" />
 									</div>
 								</div>
 								<div className="uk-form-row">
 									<label className="uk-form-label">Access Token</label>
 									<div className="uk-form-controls">
-										<input type="text" className="uk-width-2-3" />
+										<input ref="twit_access_token" type="text" className="uk-width-2-3" />
 									</div>
 								</div>
 								<div className="uk-form-row">
 									<label className="uk-form-label">Access Token Secret</label>
 									<div className="uk-form-controls">
-										<input type="text" className="uk-width-2-3" />
+										<input ref="twit_access_token_secret" type="text" className="uk-width-2-3" />
 									</div>
 								</div>
+								<div onClick={() => this.updateTwitDash(
+									this.refs.twit_consumer_key.value, 
+									this.refs.twit_consumer_secret.value,
+									this.refs.twit_access_token.value,
+									this.refs.twit_access_token_secret.value
+									)} 
+									className="uk-button">update</div>
+
 							</div>
 
 						</div>

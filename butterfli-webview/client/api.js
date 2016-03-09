@@ -69,6 +69,10 @@ module.exports = {
 		
 	},
 
+
+/*************
+Scraper, post to netwrk
+*************/
 	scraper(jwt, dashId){
 		var headers = { 'Authorization': jwt };
 		var options = {
@@ -142,6 +146,23 @@ module.exports = {
 		})
 	},
 
+	editPostBody(jwt, dashId, postId, network){
+		var headers = { 'Authorization': jwt };
+		var options = {
+			url: 'http://localhost:3000/dashes/'+dashId+'/posts/'+postId+'/edit?network='+network,
+			method: 'GET',
+			headers: headers,
+		}
+		return new Promise((resolve, reject) => {
+			request(options, (error, response, body) => {
+				resolve(response);
+			})
+		}).then((res) => {
+			console.log('edit post response: ', res);
+			return res;
+		})
+	},
+
 	postToNetwork(jwt, dashId, postId, network){
 		var headers = { 'Authorization': jwt };
 		var options = {
@@ -154,6 +175,8 @@ module.exports = {
 				resolve(response);
 			})
 		}).then((res)=>{
+			console.log('post to network response: ', res);
+
 			return res;
 		})
 	},
@@ -200,24 +223,26 @@ Create and Update Dashes
 			method: 'PUT',
 			headers: headers
 		}
+		console.log(options.url);
 		return new Promise((resolve, reject) => {
 			request(options, (error, response, body)=>{
 				resolve(response)
 			})
-			.then((res) => {
+		})
+		.then((res) => {
 				return res;
 			})
-		})
 	},
 
 	updateDashParamBuilder(options){
 		var first = true;
 		var url = '';
+		var argOptions = arguments[0];
+
 		if(options.title){
 		    url += '?title='+options.title;
 		    first = false;
 		}
-		var argOptions = arguments[0];
 		for(var param in argOptions){
 		    if(first){
 		        url += '?'+param+'='+argOptions[param];
