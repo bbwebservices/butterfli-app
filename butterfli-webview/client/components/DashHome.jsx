@@ -4,7 +4,20 @@ var Link = require('react-router').Link;
 
 var DashHome = React.createClass({
 
+	animateListItems(){
+		TweenMax.staggerFrom('.stagger', 0.3, {y:30, x: 10, opacity: 0}, 0.02);
+	},
+
+	mouseEnterAnimations(element){
+		TweenMax.to(element, 0.3, {scale: 1.04})
+	},
+
+	mouseLeaveAnimations(element){
+		TweenMax.to(element, 0.3, {scale: 1})
+	},
+
 	componentDidMount(){
+		this.animateListItems();
 		this.props.scraper(this.props.currentDash[0].id)
 	},
 
@@ -12,22 +25,49 @@ var DashHome = React.createClass({
 		if (!this.props.currentDash) {
 			return (
 				<div>
-					<Navbar currentDash={this.props.currentDash}/>
 					<h3>Loading...</h3>
 				</div>
 			)
 		} else if (this.props.currentDash) {
 			return (
-				<div>
-					<Navbar currentDash={this.props.currentDash} username={this.props.username}/>
-					<div>Dash Home, fool!</div>
-					<div>{this.props.currentDash[0].title}</div>
-					<ul>
-						<li><a onClick={ () => {this.props.scraper(this.props.currentDash[0].id)} }><Link to='ScrapeHome'>Scrape!</Link></a></li>
-						<li><Link to='editdash'>Edit Dash</Link></li>
-					</ul>
+				<div className="uk-grid">	
+					<div className="uk-width-1-4 uk-text-center stagger editDash uk-margin-top">
+						<div className="uk-thumbnail uk-overlay-hover">
+							<Link to='editdash'>
+								<div 
+								onMouseEnter={() => {this.mouseEnterAnimations('.editDash')}}
+								onMouseLeave={() => this.mouseLeaveAnimations('.editDash')} 
+								className="uk-overlay uk-button" 
+								style={{width: 150, height: 125, paddingTop:5}}
+								>
+									Edit Dash
+									<div className="uk-icon-hover uk-icon-gear uk-icon-large uk-width-1-1" ></div>
 
+								</div>
+							</Link>
+						</div>
+					</div>
+					<div className="uk-width-1-4 uk-text-center stagger scraper uk-margin-top">
+						<div className="uk-thumbnail uk-overlay-hover">
+							<Link to='ScrapeHome'>
+								<div 
+								onMouseEnter={() => {this.mouseEnterAnimations('.scraper')}}
+								onMouseLeave={() => this.mouseLeaveAnimations('.scraper')}
+								className="uk-overlay uk-button" 
+								style={{width: 150, height: 125, paddingTop:5}} 
+								onClick={() => {this.props.scraper(this.props.currentDash[0].id)}}
+								>
+									Scrape!
+									<div className="uk-icon-hover uk-icon-globe uk-icon-large uk-width-1-1" ></div>
+
+								</div>
+							</Link>
+						</div>
+					</div>
+					
 				</div>
+
+
 			)
 		}
 	},
@@ -35,7 +75,11 @@ var DashHome = React.createClass({
 	render(){
 		return (
 			<div>
-				{this.showDashes()}
+				<Navbar currentDash={this.props.currentDash} username={this.props.username}/>
+
+				<div className="uk-container uk-container-center uk-margin-top">
+					{this.showDashes()}
+				</div>
 			</div>
 		)
 	}

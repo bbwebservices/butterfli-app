@@ -84,6 +84,27 @@ DASHES
 		console.log("DTSS: ", this.state.currentDash)
 	},
 
+	updateTwitDash(dashId, options){
+		api.updateDash(this.state.jwt, dashId, options)
+			.then((res) => {
+				console.log('update dash res: ', res);
+			})
+
+	},
+
+	createDash: function (options) {
+		api.createDash(this.state.jwt, options)
+			.then((res) => {
+				var newDash = JSON.parse(res.body);
+				var newState = this.state.dashes;
+				newState.push(newDash);
+				this.setState({
+					dashes: newState
+				})
+				console.log('NewState: ', this.state.dashes);
+			})
+	},
+
 /******************
 SCRAPE FOR CONTENT
 ******************/
@@ -132,13 +153,10 @@ POST CONTENT
 *****************/
 	postToNetwork: function(dashId, postId, network) {
 		api.postToNetwork(this.state.jwt, dashId, postId, network)
-		.then((response) => {
-			console.log('post to network response: ', response)
-		})
+			.then((response) => {
+				console.log('post to network response: ', response)
+			})
 	},
-
-
-
 
 /*****************
 RENDERING
@@ -161,7 +179,9 @@ RENDERING
 						postApproval: this.postApproval,
 						postQueue: this.postQueue,
 						postToNetwork: this.postToNetwork,
-						newUserSignUp: this.newUserSignUp
+						newUserSignUp: this.newUserSignUp,
+						updateTwitDash: this.updateTwitDash,
+						createDash: this.createDash
 						
 					})
 				}

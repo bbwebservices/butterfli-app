@@ -2,10 +2,6 @@ var React = require('react');
 
 var unapprovedListItem = React.createClass({
 
-	componentDidMount() {
-		TweenMax.from('.dropIn', 0.3, {y: 10})
-	},
-
 	render(){
 		return (
 			<div key={this.props.id} style={{textAlign: 'center'}} className="uk-width-1-3 uk-panel uk-panel-box stagger dropIn">
