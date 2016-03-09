@@ -31,7 +31,7 @@ var DashHome = React.createClass({
 		} else if (this.props.currentDash) {
 			return (
 				<div className="uk-grid">	
-					<div className="uk-width-1-4 uk-text-center stagger editDash">
+					<div className="uk-width-1-4 uk-text-center stagger editDash uk-margin-top">
 						<div className="uk-thumbnail uk-overlay-hover">
 							<Link to='editdash'>
 								<div 
@@ -47,7 +47,7 @@ var DashHome = React.createClass({
 							</Link>
 						</div>
 					</div>
-					<div className="uk-width-1-4 uk-text-center stagger scraper">
+					<div className="uk-width-1-4 uk-text-center stagger scraper uk-margin-top">
 						<div className="uk-thumbnail uk-overlay-hover">
 							<Link to='ScrapeHome'>
 								<div 

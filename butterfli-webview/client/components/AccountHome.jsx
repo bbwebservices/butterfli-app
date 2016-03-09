@@ -20,6 +20,29 @@ var AccountHome = React.createClass({
 	componentDidMount() {
 		this.animateListItems();
 	},
+
+	numberParse(input){
+		var nums = {
+				'1': 'one',
+				'2': 'two',
+				'3': 'three',
+				'4': 'four',
+				'5': 'five',
+				'6': 'six',
+				'7': 'seven',
+				'8': 'eight',
+				'9': 'nine' ,
+				'0': 'zero'
+		}
+		var trimmed = input.replace(/\s+/g, "");
+		if(nums[trimmed[0]]) {
+			var str = trimmed.slice(1, trimmed.length)
+				str = nums[trimmed[0]].concat(str);
+			return str
+		}
+		return trimmed;
+		
+	},
 	
 	render(){
 
@@ -28,13 +51,13 @@ var AccountHome = React.createClass({
 			var key = 0;
 			var dashList = this.props.dashes.map((element) => {
 				key++;
+				this.numberParse(element.title.replace(/\s+/g, ""));
 				return (
 					<div 
-					ref={element.title.replace(/\s+/g, "")}
-					id={element.title.replace(/\s+/g, "")}
-					onMouseEnter={() => this.mouseEnterAnimations('#'+element.title.replace(/\s+/g, ""))}
-					onMouseLeave={() => this.mouseLeaveAnimations('#'+element.title.replace(/\s+/g, ""))}
-					className={"uk-width-1-4 uk-text-center stagger"} 
+					ref={this.numberParse(element.title)}
+					onMouseEnter={() => this.mouseEnterAnimations('.'+this.numberParse(element.title))}
+					onMouseLeave={() => this.mouseLeaveAnimations('.'+this.numberParse(element.title))}
+					className={"uk-width-1-4 uk-text-center stagger uk-margin-top "+this.numberParse(element.title)} 
 					key={key}
 					>
 						<div className="uk-thumbnail uk-overlay-hover" onClick={ () => {this.props.saveCurrentDash(element.id)} }>
@@ -57,13 +80,11 @@ var AccountHome = React.createClass({
 			<div>
 				<Navbar username={this.props.username} currentDash={this.props.currentDash}/>
 				<div className="uk-container uk-container-center uk-margin-top">
-					<div className="uk-grid">
-							
-								
+					<div className="uk-grid">								
 							<div 
 							onMouseEnter={() => {this.mouseEnterAnimations('.editDash')}}
 							onMouseLeave={() => this.mouseLeaveAnimations('.editDash')}
-							className={"uk-width-1-4 uk-text-center stagger editDash"} 
+							className={"uk-width-1-4 uk-text-center stagger editDash uk-margin-top"} 
 							key={key}
 							>
 								<div className="uk-thumbnail uk-overlay-hover">
@@ -79,8 +100,6 @@ var AccountHome = React.createClass({
 								</div>
 							</div>	
 							{dashList}						
-								
-							
 					</div>
 				</div>
 			</div>
