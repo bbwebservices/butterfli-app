@@ -192,13 +192,13 @@ Create and Update Dashes
 		var params = this.createDashParamBuilder(options);
 		var headers = { 'Authorization': jwt };
 		var options = {
-			url: 'http://localhost:3000/dashes/new'+params,
-			method: 'GET',
+			url: 'http://localhost:3000/dashes'+params,
+			method: 'POST',
 			headers: headers,
 		}
 		return new Promise((resolve, reject) => {
 			request(options, function(error, response, body) {
-				resolve(response)
+				resolve(response);
 			})
 		})
 	},

@@ -17,10 +17,9 @@ var AddDash = React.createClass({
 		TweenMax.to(element, 0.3, {scale: 1})
 	},
 
-	// updateTwitDash(twit_consumer_key, twit_consumer_secret, twit_access_token, twit_access_token_secret){
-	// 	this.props.updateTwitDash()
-
-	// },
+	createDash(title){
+		this.props.createDash({title: title});
+	},
 
 	componentDidMount(){
 		this.animateListItems();
@@ -40,9 +39,12 @@ var AddDash = React.createClass({
 								<div className="uk-form-row">
 									<label className="uk-form-label">Title</label>
 									<div className="uk-form-controls">
-										<input type="text" className="uk-width-2-3" />
+										<input ref="title" type="text" className="uk-width-2-3" />
 									</div>
+								<div onClick={() => this.createDash(this.refs.title.value)} className="uk-button">update</div>
+
 								</div>
+
 								<div className="uk-form-row">
 									<label className="uk-form-label">Default Subreddit</label>
 									<div className="uk-form-controls">

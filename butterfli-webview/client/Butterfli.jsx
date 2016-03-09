@@ -92,6 +92,19 @@ DASHES
 
 	},
 
+	createDash: function (options) {
+		api.createDash(this.state.jwt, options)
+			.then((res) => {
+				var newDash = JSON.parse(res.body);
+				var newState = this.state.dashes;
+				newState.push(newDash);
+				this.setState({
+					dashes: newState
+				})
+				console.log('NewState: ', this.state.dashes);
+			})
+	},
+
 /******************
 SCRAPE FOR CONTENT
 ******************/
@@ -167,7 +180,8 @@ RENDERING
 						postQueue: this.postQueue,
 						postToNetwork: this.postToNetwork,
 						newUserSignUp: this.newUserSignUp,
-						updateTwitDash: this.updateTwitDash
+						updateTwitDash: this.updateTwitDash,
+						createDash: this.createDash
 						
 					})
 				}

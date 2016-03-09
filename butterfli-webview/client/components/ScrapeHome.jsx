@@ -83,8 +83,9 @@ var ScrapeHome = React.createClass({
 			<div>
 				<Navbar {...this.props} currentDash={this.props.currentDash}/>
 				<div className="uk-container uk-container-center uk-margin-top fadeIn">
+
 					<div className="uk-grid">
-						<div className="uk-width-1-4">
+						<div className="uk-width-1-4" style={{marginTop: 52}}>
 							<div className="uk-panel uk-panel-box uk-panel-box-primary">
 								<form className='uk-form'>
 									<input ref="twitterTerm" onChange={ this.updateTwitterTerm } type='text' className="uk-width-1-1" />
@@ -110,6 +111,7 @@ var ScrapeHome = React.createClass({
 								</form>
 							</div>
 						</div>
+
 						<div className="uk-width-3-4">
 							<ul className="uk-tab">
 								<li className="uk-active" ref="approvedTab"><a onClick={()=>{this.selectTab('Approved')}}>Approved</a></li>

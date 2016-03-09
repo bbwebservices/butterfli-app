@@ -24,21 +24,17 @@ var AccountHome = React.createClass({
 	render(){
 
 		if(this.props.dashes) {
+			console.log('In Account Home, dashes props: ', this.props.dashes)
 			var key = 0;
-			var numClass = 'btn';
-			var str;
 			var dashList = this.props.dashes.map((element) => {
 				key++;
-				str = key.toString();
-				numClass+=str;
-				console.log('numclass: '+numClass)
 				return (
 					<div 
-					ref={numClass}
-					id={numClass}
-					onMouseEnter={() => this.mouseEnterAnimations('.'+this.refs[numClass].classList[3])}
-					onMouseLeave={() => this.mouseLeaveAnimations('.'+this.refs[numClass].classList[3])}
-					className={"uk-width-1-4 uk-text-center stagger "+numClass} 
+					ref={element.title.replace(/\s+/g, "")}
+					id={element.title.replace(/\s+/g, "")}
+					onMouseEnter={() => this.mouseEnterAnimations('#'+element.title.replace(/\s+/g, ""))}
+					onMouseLeave={() => this.mouseLeaveAnimations('#'+element.title.replace(/\s+/g, ""))}
+					className={"uk-width-1-4 uk-text-center stagger"} 
 					key={key}
 					>
 						<div className="uk-thumbnail uk-overlay-hover" onClick={ () => {this.props.saveCurrentDash(element.id)} }>
