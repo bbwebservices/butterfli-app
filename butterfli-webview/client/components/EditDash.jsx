@@ -141,7 +141,10 @@ var EditDash = React.createClass({
 							</div>
 
 						</div>
-						<div onMouseEnter={() => this.mouseEnterAnimations('.column4')} onMouseLeave={() => this.mouseLeaveAnimations('.column4')} className="uk-width-medium-1-4 stagger column4">
+						<div onMouseEnter={() => this.mouseEnterAnimations('.column4')} 
+						onMouseLeave={() => this.mouseLeaveAnimations('.column4')} 
+						className="uk-width-medium-1-4 stagger column4"
+						>
 							<div className="uk-panel uk-panel-box">	
 
 							<h3 className="uk-panel-title">Tumblr Info</h3>
@@ -171,6 +174,11 @@ var EditDash = React.createClass({
 							</div>
 							</div>
 
+						</div>
+						<div className="uk-width-medium-1-4 stagger">
+							<div onClick={() => this.props.deleteDash(this.props.currentDash[0].id)} className="uk-button">
+								Delete Dash
+							</div>
 						</div>
 
 

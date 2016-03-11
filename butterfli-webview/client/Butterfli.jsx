@@ -105,6 +105,14 @@ DASHES
 			})
 	},
 
+	deleteDash: function (dashId) {
+
+		api.deleteDash(this.state.jwt, dashId)
+			.then((res) => {
+				console.log('delete dash res: ', res, 'state: ', this.state.jwt)
+			})
+	},
+
 /******************
 SCRAPE FOR CONTENT
 ******************/
@@ -181,7 +189,8 @@ RENDERING
 						postToNetwork: this.postToNetwork,
 						newUserSignUp: this.newUserSignUp,
 						updateTwitDash: this.updateTwitDash,
-						createDash: this.createDash
+						createDash: this.createDash,
+						deleteDash: this.deleteDash
 						
 					})
 				}
