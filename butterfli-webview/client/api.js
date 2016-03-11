@@ -206,9 +206,11 @@ Create and Update Dashes
 	deleteDash(jwt, dashId){
 		var headers = { 'Authorization': jwt , 'Access-Control-Allow-Origin': 'http://localhost:3000'};
 		var options = {
-			url: 'http://localhost:3000/dashes/'+dashId,
+			url: 'http://localhost:3000/dashes/'+dashId+'.json',
 			method: 'DELETE',
+			type: 'DELETE',
 			headers: headers,
+			dataType: 'json'
 		}
 		return new Promise((resolve, reject) => {
 			request(options, function(error, response, body) {
