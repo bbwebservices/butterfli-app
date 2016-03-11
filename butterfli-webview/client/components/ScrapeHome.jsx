@@ -59,6 +59,7 @@ var ScrapeHome = React.createClass({
 			this.refs.approvedTab.classList.remove('uk-active');
 			return ( 
 				<Unapproved 
+					key={this.props.currentDash[0].id}
 					postApproval={this.props.postApproval} 
 					unapprovedPosts={this.props.unapprovedPosts} 
 					currentDash={this.props.currentDash}
@@ -71,6 +72,7 @@ var ScrapeHome = React.createClass({
 		}
 		return (
 			<Approved 
+				key={this.props.currentDash[0].id}
 				postApproval={this.props.postApproval} 
 				approvedPosts={this.props.approvedPosts}
 				currentDash={this.props.currentDash}	 

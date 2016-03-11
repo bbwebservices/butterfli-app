@@ -37,11 +37,10 @@ var AccountHome = React.createClass({
 		var trimmed = input.replace(/\s+/g, "");
 		if(nums[trimmed[0]]) {
 			var str = trimmed.slice(1, trimmed.length)
-				str = nums[trimmed[0]].concat(str);
+			str = nums[trimmed[0]] + str;
 			return str
 		}
-		return trimmed;
-		
+		return trimmed;	
 	},
 	
 	render(){

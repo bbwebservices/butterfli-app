@@ -203,6 +203,23 @@ Create and Update Dashes
 		})
 	},
 
+	deleteDash(jwt, dashId){
+		var headers = { 'Authorization': jwt , 'Access-Control-Allow-Origin': 'http://localhost:3000'};
+		var options = {
+			url: 'http://localhost:3000/dashes/'+dashId,
+			method: 'DELETE',
+			headers: headers,
+		}
+		return new Promise((resolve, reject) => {
+			request(options, function(error, response, body) {
+				if(error) {
+					console.log('delete error: ', error);
+				}
+				resolve(response);
+			})
+		})
+	},
+
 	createDashParamBuilder(options){
 		var url = '?title='+options.title;
 		var argOptions = arguments[0];
