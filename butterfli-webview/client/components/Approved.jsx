@@ -33,9 +33,11 @@ var Approved = React.createClass({
 	render(){
 		return (
 			<div className="uk-grid uk-margin-top">
-					
-				{this._renderContent()}
-						
+				<div className="uk-width-1-1">
+					<div className="uk-grid">
+						{this._renderContent()}
+					</div>
+				</div>
 			</div>
 		)
 	}

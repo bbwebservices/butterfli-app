@@ -91,7 +91,7 @@ Scraper, post to netwrk
 	},
 
 	scrapeForPics(jwt, dashId, network, term){
-		var headers = { 'Authorization': jwt, 'Content-Type': 'application/json', 'Access-Control-Allow-Origin': '*'};
+		var headers = { 'Authorization': jwt, 'Content-Type': 'application/json'};
 		var options = {
 			url: 'http://localhost:3000/dashes/'+dashId+'/pic-scrape.json?network='+network+'&search_term='+term,
 			method: 'GET',
@@ -204,16 +204,14 @@ Create and Update Dashes
 	},
 
 	deleteDash(jwt, dashId){
-		var headers = { 'Authorization': jwt , 'Access-Control-Allow-Origin': 'http://localhost:3000'};
+		var headers = { 'Authorization': jwt, Origin: 'http://localhost:4000', 'Access-Control-Allow-Origin': 'http://localhost:4000'};
 		var options = {
 			url: 'http://localhost:3000/dashes/'+dashId+'.json',
-			method: 'DELETE',
-			type: 'DELETE',
 			headers: headers,
 			dataType: 'json'
 		}
 		return new Promise((resolve, reject) => {
-			request(options, function(error, response, body) {
+			request.del(options, function(error, response, body) {
 				if(error) {
 					console.log('delete error: ', error);
 				}
@@ -236,7 +234,7 @@ Create and Update Dashes
 	updateDash(jwt, dashId, options){
 		var params = this.updateDashParamBuilder(options);
 		console.log('params: ', params);
-		var headers = { 'Authorization': jwt };
+		var headers = { 'Authorization': jwt, Origin: 'http://localhost:4000' };
 		var options = {
 			url: 'http://localhost:3000/dashes/'+dashId+params,
 			method: 'PUT',
