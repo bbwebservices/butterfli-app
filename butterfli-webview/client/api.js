@@ -146,10 +146,10 @@ Scraper, post to netwrk
 		})
 	},
 
-	editPostBody(jwt, dashId, postId, network){
+	editPostBody(jwt, dashId, postId, body){
 		var headers = { 'Authorization': jwt };
 		var options = {
-			url: 'http://localhost:3000/dashes/'+dashId+'/posts/'+postId+'/edit?network='+network,
+			url: 'http://localhost:3000/dashes/'+dashId+'/edit-post.json'+'?post_id='+postId+'&body_text='+body,
 			method: 'GET',
 			headers: headers,
 		}
@@ -242,7 +242,7 @@ Create and Update Dashes
 		}
 		console.log(options.url);
 		return new Promise((resolve, reject) => {
-			request(options, (error, response, body)=>{
+			request(options, (error, response, body) => {
 				resolve(response)
 			})
 		})

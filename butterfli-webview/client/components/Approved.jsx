@@ -24,6 +24,9 @@ var Approved = React.createClass({
 					title={element.title} 
 					currentDash={this.props.currentDash} 
 					postApproval={this.props.postApproval} 
+					postToNetwork={this.props.postToNetwork}
+					body={element.body}
+					editPostBody={this.props.editPostBody}
 				/>
 			)
 		})
@@ -31,6 +34,7 @@ var Approved = React.createClass({
 	},
 
 	render(){
+		console.log(this.props.approvedPosts)
 		return (
 			<div className="uk-grid uk-margin-top">
 				<div className="uk-width-1-1">

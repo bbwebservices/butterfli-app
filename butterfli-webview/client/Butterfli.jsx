@@ -159,6 +159,25 @@ SCRAPE FOR CONTENT
 /*****************
 POST CONTENT
 *****************/
+	editPostBody: function (dashId, postId, body) {
+		api.editPostBody(this.state.jwt, dashId, postId, body)
+			.then((res) => {
+				console.log('in edit post res: ', this.state.currentDash[0]);
+				
+				// var newDashState = this.state.currentDash;
+				// var index = this.state.approvedPosts.indexOf(this.state.currentDash[0]);
+				// var newApprovedPostsState = this.state.approvedPosts
+				// newApprovedPostsState[index] = newDashState[0];
+
+				// this.setState({
+				// 	currentDash: newDashState,
+				// 	approvedPosts: newApprovedPostsState
+				// })
+
+				// find the post in the approved posts array via the post id, manually update it.
+			})
+	},
+
 	postToNetwork: function(dashId, postId, network) {
 		api.postToNetwork(this.state.jwt, dashId, postId, network)
 			.then((response) => {
@@ -190,7 +209,8 @@ RENDERING
 						newUserSignUp: this.newUserSignUp,
 						updateTwitDash: this.updateTwitDash,
 						createDash: this.createDash,
-						deleteDash: this.deleteDash
+						deleteDash: this.deleteDash,
+						editPostBody: this.editPostBody
 						
 					})
 				}
