@@ -110,7 +110,19 @@ DASHES
 
 		api.deleteDash(this.state.jwt, dashId)
 			.then((res) => {
-				console.log('delete dash res: ', res, 'state: ', this.state.jwt)
+				console.log('delete dash res: ', res, 'state: ', this.state.jwt);
+				var newDashState = this.state.dashes.filter((element) => {
+					if(element.id === dashId){
+						return false
+					}
+					return true
+				})
+				this.setState({
+					dashes: newDashState
+				})
+				console.log("NEW DASH STATE: ", this.state.dashes);
+
+
 			})
 	},
 
