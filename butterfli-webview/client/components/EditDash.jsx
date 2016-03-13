@@ -5,7 +5,7 @@ var Link = require('react-router').Link
 
 var EditDash = React.createClass({
 
-	getInitialState() {
+	getInitialState(){
 		return {
 			isDeleted: false 
 		};
