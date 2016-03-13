@@ -56,14 +56,17 @@ var Unapproved = React.createClass({
 						title={element.title} 
 						currentDash={this.props.currentDash} 
 						postApproval={this.props.postApproval} 
+						body={element.body}
 					/>
 				)
 			})
 		}
-		return ( <div>cannot get posts!</div> )
+		return ( <div>cannot connect to the server!</div> )
 	},
 
 	render(){
+		console.log(this.props.unapprovedPosts)
+
 		return (
 			<div className="uk-grid uk-margin-top ">
 				<div className="uk-width-1-4">
