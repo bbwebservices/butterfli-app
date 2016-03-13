@@ -52,10 +52,13 @@ module.exports = {
 
 	newUserRegistration(email, password, password_confirmation){
 		console.log('in api: ', email, password, password_confirmation);
-
+		var headers = {'Content-Type': 'application/json'};	
+		var dataString = '{"user": {"email": "'+email+'", "password": "'+password+'", "password_confirmation": "'+password_confirmation+'"}}';
 		var	options = {
-				url: 'http://localhost:3000/users'+'?email='+email+'&password='+'&password_confirmation='+password_confirmation,
+				url: 'http://localhost:3000/users.json',
 				method: 'POST',
+				headers: headers,
+				body: dataString
 		};
 		return new Promise((resolve, reject) => {
 			request(options, (error, response, body) => {
