@@ -159,6 +159,21 @@ SCRAPE FOR CONTENT
 /*****************
 POST CONTENT
 *****************/
+	editPostBody: function (dashId, postId, body) {
+		api.editPostBody(this.state.jwt, dashId, postId, body)
+			.then((res) => {
+				var newApprovedState = this.state.approvedPosts;
+				for (var i = 0; i < newApprovedState.length; i++) {
+					if(newApprovedState[i].id === postId){
+						newApprovedState[i].body = body;
+					}
+				}
+				this.setState({
+					approvedPosts: newApprovedState
+				})
+			})
+	},
+
 	postToNetwork: function(dashId, postId, network) {
 		api.postToNetwork(this.state.jwt, dashId, postId, network)
 			.then((response) => {
@@ -190,7 +205,8 @@ RENDERING
 						newUserSignUp: this.newUserSignUp,
 						updateTwitDash: this.updateTwitDash,
 						createDash: this.createDash,
-						deleteDash: this.deleteDash
+						deleteDash: this.deleteDash,
+						editPostBody: this.editPostBody
 						
 					})
 				}

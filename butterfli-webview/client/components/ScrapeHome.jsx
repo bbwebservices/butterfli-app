@@ -8,6 +8,9 @@ var ScrapeHome = React.createClass({
 	getInitialState() {
 		return {
 			selected: '', 
+			isSelected: false,
+			hasChanged: false,
+			newBody: null
 		};
 	},
 
@@ -18,7 +21,7 @@ var ScrapeHome = React.createClass({
 	},
 
 	animateContainer(){
-		TweenMax.from('.fadeIn', 0.3, {scale: 1.04, opacity: 0})
+		TweenMax.from('.fadeIn', 0.3, {scale: 1.04, opacity: 0, left: 500})
 	},
 
 	componentDidMount(){
@@ -34,7 +37,9 @@ var ScrapeHome = React.createClass({
 					key={this.props.currentDash[0].id}
 					postApproval={this.props.postApproval} 
 					approvedPosts={this.props.approvedPosts}
-					currentDash={this.props.currentDash}	 
+					currentDash={this.props.currentDash}	
+					postToNetwork={this.props.postToNetwork} 
+					editPostBody={this.props.editPostBody}
 				/>
 			)
 		}
@@ -47,8 +52,8 @@ var ScrapeHome = React.createClass({
 				key={this.props.currentDash[0].id}
 				postApproval={this.props.postApproval} 
 				unapprovedPosts={this.props.unapprovedPosts} 
-				currentDash={this.props.currentDash}
-				picScrape={this.props.picScrape}
+				currentDash={this.props.currentDash} 
+				picScrape={this.props.picScrape} 
 			/> 
 		)
 	},
