@@ -64,7 +64,8 @@ var Dash = React.createClass({
 						title={element.title} 
 						approvePost={this.props.approvePost}
 						dash_id={element.dash_id} 
-						id={element.id}/>
+						id={element.id}
+					/>
 				</View>
 			)
 		}.bind(this))

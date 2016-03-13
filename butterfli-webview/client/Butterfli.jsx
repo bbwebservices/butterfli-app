@@ -162,21 +162,15 @@ POST CONTENT
 	editPostBody: function (dashId, postId, body) {
 		api.editPostBody(this.state.jwt, dashId, postId, body)
 			.then((res) => {
-				console.log('in edit post res: ', this.state.currentDash[0]);
-				
 				var newApprovedState = this.state.approvedPosts;
-
 				for (var i = 0; i < newApprovedState.length; i++) {
 					if(newApprovedState[i].id === postId){
 						newApprovedState[i].body = body;
 					}
 				}
-
 				this.setState({
 					approvedPosts: newApprovedState
 				})
-
-				// find the post in the approved posts array via the post id, manually update it.
 			})
 	},
 
