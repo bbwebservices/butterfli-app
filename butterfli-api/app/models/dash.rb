@@ -92,9 +92,29 @@ class Dash < ActiveRecord::Base
 		end	 		
 	end
 	def tumblr_pic_scrape(search)
+		sanitize = search.tr(" ", "+");
 		tum = self.get_tumblr_client
 		client = Tumblr::Client.new
-		img = client.posts(search + ".tumblr.com", :type => "photo", :limit => 50)["posts"]
+		puts 'string sanitized: ', sanitize
+		img = client.tagged(sanitize)
+		begin
+			img.each do |post|
+				puts post
+				og_id = post["id"]
+				author = post["post_author"]
+				message = post["summary"]
+				extracted_img = post['photos'][0]['alt_sizes'][0]['url']
+				self.build_post("tumblr", extracted_img, message, extracted_img, author, og_id)
+			end
+		rescue
+			puts "nope. tumblr_pic_scrape failed."
+		end
+	end
+
+	def tumblr_blog_scrape(blog)
+		tum = self.get_tumblr_client
+		client = Tumblr::Client.new
+		img = client.posts(blog + ".tumblr.com", :type => "photo", :limit => 50)["posts"]
 		begin
 			img.each do |post|
 				puts post
