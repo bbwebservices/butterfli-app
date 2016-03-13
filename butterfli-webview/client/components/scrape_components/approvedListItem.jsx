@@ -6,8 +6,24 @@ var approvedListItem = React.createClass({
 		return {
 			isSelected: false,
 			hasChanged: false,
-			newBody: null
+			newBody: null,
+			hasBody: false
 		}
+	},
+
+	componentDidMount() {
+		if(this.props.body) {
+			this.setState({
+				hasBody: true
+			})
+		}
+	},
+
+	addText(){
+		this.setState({
+			hasBody: true,
+			isSelected: true
+		})
 	},
 
 	inputChange(){
@@ -34,7 +50,13 @@ var approvedListItem = React.createClass({
 	},
 
 	_renderPostBody(){
-		if(!this.state.isSelected) {
+		if(!this.state.hasBody){
+			return (
+				<div onClick={this.addText} className="uk-button uk-width-1-4" style={{marginLeft:10, marginBottom:5}}>
+					Add Text
+				</div>
+			)
+		} else if(!this.state.isSelected) {
 			return ( 
 				<div onClick={this.inputChange}>
 					{this._renderBody()}
@@ -58,7 +80,9 @@ var approvedListItem = React.createClass({
 			<div key={this.props.currentDash[0].id} style={{textAlign: 'center'}} className="uk-width-1-2 uk-panel uk-panel-box stagger dropIn">
 				<img style={{height: 300}} src={this.props.og_source}></img>
 				<p>{this.props.title}</p>
-				{this._renderPostBody()}
+				<div className="uk-width-1-1">
+					{this._renderPostBody()}
+				</div>
 				<div style={{marginBottom:5}} className="uk-width-1-1">
 					<a onClick={ () => this.props.postToNetwork(this.props.currentDash[0].id, this.props.id, 'twitter') } style={{marginLeft:10}} className="uk-button uk-width-1-4">Twitter</a>
 					<a style={{marginLeft:10}} className="uk-button uk-width-1-4">Facebook</a>
