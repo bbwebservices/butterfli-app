@@ -16,18 +16,14 @@ var approvedListItem = React.createClass({
 	},
 
 	onSubmit(e){
-		console.log(e);
 		e.preventDefault()
-		console.log(this.refs.postInput.value);
-
-		this.props.editPostBody(this.props.currentDash[0].id, this.props.id, this.refs.postInput.value)
-	
+		this.props.editPostBody(this.props.currentDash[0].id, this.props.id, this.refs.postInput.value);
 		this.setState({
 			isSelected: false,
 			hasChanged: true,
 			newBody: this.refs.postInput.value
 		})
-		console.log('isSelected State: ', this.state)
+		console.log('isSelected State: ', this.state);
 			
 		
 

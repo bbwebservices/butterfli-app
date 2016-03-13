@@ -36,7 +36,15 @@ var AddDash = React.createClass({
 	},
 
 	_renderAddDashPage(){
-		if(this.state.isCreated){
+
+		if(!this.props.isLoggedIn) {
+			return (
+				<div>
+					<Navbar currentDash={this.props.currentDash} username={this.props.username}/>
+					<Link to="index">Please Log In</Link>
+				</div>
+			)
+		} else if (this.state.isCreated){
 			return (
 				<div>
 					<Navbar currentDash={this.props.currentDash} username={this.props.username}/>			

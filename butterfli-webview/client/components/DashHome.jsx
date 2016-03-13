@@ -21,8 +21,14 @@ var DashHome = React.createClass({
 		this.props.scraper(this.props.currentDash[0].id)
 	},
 
-	showDashes(){
-		if (!this.props.currentDash) {
+	_showDashes(){
+		if (!this.props.isLoggedIn){
+			return (
+				<div>
+					<Link to="index">Please Log In</Link>
+				</div>
+			)
+		} else if (!this.props.currentDash) {
 			return (
 				<div>
 					<h3>Loading...</h3>
@@ -78,7 +84,7 @@ var DashHome = React.createClass({
 				<Navbar currentDash={this.props.currentDash} username={this.props.username}/>
 
 				<div className="uk-container uk-container-center uk-margin-top">
-					{this.showDashes()}
+					{this._showDashes()}
 				</div>
 			</div>
 		)

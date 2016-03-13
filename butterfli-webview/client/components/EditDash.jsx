@@ -46,7 +46,14 @@ var EditDash = React.createClass({
 	},
 
 	_renderEditDashPage(){
-		if(this.state.isDeleted){
+		if(!this.props.isLoggedIn) {
+			return (
+				<div>
+					<Navbar currentDash={this.props.currentDash} username={this.props.username}/>
+					<Link to="index">Please Log In</Link>
+				</div>
+			)
+		} else if(this.state.isDeleted){
 			return (
 				<div>
 					<Navbar currentDash={this.props.currentDash} username={this.props.username}/>			

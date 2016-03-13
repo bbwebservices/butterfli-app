@@ -2,6 +2,7 @@ var React = require('react');
 var Navbar = require('./Navbar.jsx');
 var Approved = require('./Approved.jsx');
 var Unapproved = require('./Unapproved.jsx');
+var Link = require('react-router').Link;
 
 var ScrapeHome = React.createClass({
 
@@ -26,6 +27,29 @@ var ScrapeHome = React.createClass({
 
 	componentDidMount(){
 		this.animateContainer();
+	},
+
+	_renderScrapePage(){
+		if(!this.props.isLoggedIn) {
+			return (
+				<div>
+					<Link to="index">Please Log In</Link>
+				</div>
+			)
+		} else {
+			return (
+				<div className="uk-grid">
+
+					<div className="uk-width-1-1">
+						<ul className="uk-tab">
+							<li className="uk-active" ref="unapprovedTab"><a onClick={()=>{this.selectTab('Unapproved')}}>Unapproved</a></li>
+							<li ref="approvedTab"><a onClick={()=>{this.selectTab('Approved')}}>Approved</a></li>
+						</ul>
+						{this._renderContentTabs()}
+					</div>
+				</div>
+			)
+		}
 	},
 
 	_renderContentTabs(){
@@ -63,18 +87,7 @@ var ScrapeHome = React.createClass({
 			<div>
 				<Navbar {...this.props} currentDash={this.props.currentDash}/>
 				<div className="uk-container uk-container-center uk-margin-top fadeIn">
-
-					<div className="uk-grid">
-
-						<div className="uk-width-1-1">
-							<ul className="uk-tab">
-								<li className="uk-active" ref="unapprovedTab"><a onClick={()=>{this.selectTab('Unapproved')}}>Unapproved</a></li>
-								<li ref="approvedTab"><a onClick={()=>{this.selectTab('Approved')}}>Approved</a></li>
-
-							</ul>
-							{this._renderContentTabs()}
-						</div>
-					</div>
+					{this._renderScrapePage()}
 				</div>
 			</div>
 		)
