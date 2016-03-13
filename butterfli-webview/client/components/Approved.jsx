@@ -34,7 +34,7 @@ var Approved = React.createClass({
 	},
 
 	render(){
-		console.log(this.props.approvedPosts)
+		console.log('Approved posts: ', this.props.approvedPosts)
 		return (
 			<div className="uk-grid uk-margin-top">
 				<div className="uk-width-1-1">

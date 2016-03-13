@@ -164,15 +164,17 @@ POST CONTENT
 			.then((res) => {
 				console.log('in edit post res: ', this.state.currentDash[0]);
 				
-				// var newDashState = this.state.currentDash;
-				// var index = this.state.approvedPosts.indexOf(this.state.currentDash[0]);
-				// var newApprovedPostsState = this.state.approvedPosts
-				// newApprovedPostsState[index] = newDashState[0];
+				var newApprovedState = this.state.approvedPosts;
 
-				// this.setState({
-				// 	currentDash: newDashState,
-				// 	approvedPosts: newApprovedPostsState
-				// })
+				for (var i = 0; i < newApprovedState.length; i++) {
+					if(newApprovedState[i].id === postId){
+						newApprovedState[i].body = body;
+					}
+				}
+
+				this.setState({
+					approvedPosts: newApprovedState
+				})
 
 				// find the post in the approved posts array via the post id, manually update it.
 			})
