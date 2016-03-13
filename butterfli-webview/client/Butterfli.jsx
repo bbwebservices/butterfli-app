@@ -97,7 +97,8 @@ DASHES
 			.then((res) => {
 				var newDash = JSON.parse(res.body);
 				var newState = this.state.dashes;
-				newState.push(newDash);
+				console.log(newDash.dash)
+				newState.push(newDash.dash);
 				this.setState({
 					dashes: newState
 				})
