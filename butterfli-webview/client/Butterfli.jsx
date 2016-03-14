@@ -192,6 +192,18 @@ POST CONTENT
 			.then((response) => {
 				console.log('post to network response: ', response)
 			})
+
+		var newApprovedState = this.state.approvedPosts.filter((element) => {
+			if(element.id === postId){
+				return false;
+			}
+			return true;
+		});
+
+		this.setState({
+			approvedPosts: newApprovedState
+		})
+
 	},
 
 /*****************
