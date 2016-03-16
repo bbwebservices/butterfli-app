@@ -127,7 +127,7 @@ Scraper, post to netwrk
 					resolve(JSON.parse(body).dashes)	
 				}
 			})
-		}).then((dashes)=>{
+		}).then((dashes) => {
 			return dashes;
 		})
 	},

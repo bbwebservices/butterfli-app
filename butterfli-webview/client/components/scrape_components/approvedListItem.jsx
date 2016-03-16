@@ -88,7 +88,10 @@ var approvedListItem = React.createClass({
 					{this._renderPostBody()}
 				</div>
 				<div style={{marginBottom:5}} className="uk-width-1-1">
-					<a onClick={ () => this.props.postToNetwork(this.props.currentDash[0].id, this.props.id, 'twitter') } style={{marginLeft:10}} className="uk-button uk-width-1-4">Twitter</a>
+					<a onClick={ () => {
+						console.log(this.props.id)
+						this.props.postToNetwork(this.props.currentDash[0].id, this.props.id, 'twitter');
+					}} style={{marginLeft:10}} className="uk-button uk-width-1-4">Twitter</a>
 					<a style={{marginLeft:10}} className="uk-button uk-width-1-4">Facebook</a>
 					<a style={{marginLeft:10}} className="uk-button uk-width-1-4">Tumblr</a>
 				</div>

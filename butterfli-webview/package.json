@@ -12,6 +12,7 @@
     "compression": "^1.6.1",
     "express": "^4.13.4",
     "express-cors": "0.0.3",
+    "fbgraph": "^1.1.0",
     "gsap": "^1.18.2",
     "gulp": "^3.9.1",
     "gulp-streamify": "^1.0.2",

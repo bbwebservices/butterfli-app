@@ -193,16 +193,20 @@ POST CONTENT
 				console.log('post to network response: ', response)
 			})
 
-		var newApprovedState = this.state.approvedPosts.filter((element) => {
-			if(element.id === postId){
-				return false;
-			}
-			return true;
-		});
+		/****************
+		all set to remove once backend updates
+		*****************/
+		/* var newApprovedState = this.state.approvedPosts.filter((element) => {
+		* 	if(element.id === postId){
+		* 		return false;
+		* 	}
+		* 	return true;
+		* });
 
-		this.setState({
-			approvedPosts: newApprovedState
-		})
+		* this.setState({
+		* 	approvedPosts: newApprovedState
+		* })
+		*/ 
 
 	},
 
