@@ -22,6 +22,7 @@ module.exports = [
 	<Router history={createBrowserHistory}>
 		<Route path='/' component={Butterfli}>
 			<IndexRoute component={Landing} />
+			<Route path='/index' component={Landing} />
 			<Route path='/signup' component={SignUp} />
 			<Route path='/dashhome' component={DashHome} />
 			<Route path='/scrapehome' component={ScrapeHome} />

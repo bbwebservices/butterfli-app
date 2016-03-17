@@ -1,4 +1,5 @@
 var React = require('react');
+var Link = require('react-router').Link;
 
 var Navbar = React.createClass({
 
@@ -30,7 +31,7 @@ var Navbar = React.createClass({
 		return (
 			<div className="uk-margin">
 				<nav style={{zIndex: 2}} className="uk-navbar">
-					<a className="uk-navbar-brand notif-text uk-margin-small-top">Butterfli {this._renderDashTitle()}</a>
+					<Link to="index"><div className="uk-navbar-brand notif-text uk-margin-small-top">Butterfli {this._renderDashTitle()}</div></Link>
 					<div className="uk-navbar-content uk-navbar-flip uk-hidden-small uk-margin-small-top">
 						<ul className="uk-navbar-nav">
 							<li className="uk-parent uk-active">
