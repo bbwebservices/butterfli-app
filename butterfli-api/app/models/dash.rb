@@ -9,9 +9,11 @@ class Dash < ActiveRecord::Base
 	    unless !network && !search
 	      case network
 	      when 'twitter'
-	        self.twitter_pic_scrape(search)
+	      	parameters = ["en"]
+	        self.twitter_pic_scrape(search, parameters)
 	      when 'giphy'
-	        self.giphy_scrape(search, 'stickers')
+	      	parameters = ['']
+	        self.giphy_scrape(search, parameters)
 	      when 'tumblr'
 	        self.tumblr_pic_scrape(search)
 	      when 'reddit'
@@ -40,6 +42,7 @@ class Dash < ActiveRecord::Base
 			puts "results: ", result['data']
 			temp = []
 			result['data'].each do |x|
+				
 				temp.push(x["images"]["fixed_height"]["url"])
 			end	
 			temp.each do |post|
@@ -73,7 +76,7 @@ class Dash < ActiveRecord::Base
 		end
 		return count
 	end	
-	def twitter_pic_scrape(search)
+	def twitter_pic_scrape(search, parameters)
 	    self.twitter_pic_search = search.downcase
 	    # term_arr = search.split(",")
 	    puts "encoded: ", URI::encode(self.twitter_pic_search)
@@ -83,7 +86,7 @@ class Dash < ActiveRecord::Base
 		pic_limit = 0
 		pic_fail = 0
 		count = 0
-		t.search(search_var, options = {lang: 'en'}).collect do |tweet|
+		t.search(search_var, options = {lang: parameters[0], filter: 'images'}).collect do |tweet|
 			puts 'tweet', tweet.to_json
 			puts 'index', count
 			count += 1
