@@ -2,8 +2,8 @@ var gulp = require('gulp'),
 	browserify = require('browserify'),
 	watchify = require('watchify'),
 	source = require('vinyl-source-stream'),
-	streamify = require('gulp-streamify'),
-	uglify = require('gulp-uglify'),
+	// streamify = require('gulp-streamify'),
+	// uglify = require('gulp-uglify'),
 	reactify = require('reactify');
 
 gulp.task('watchify', function () {

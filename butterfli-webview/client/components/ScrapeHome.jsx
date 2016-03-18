@@ -39,7 +39,6 @@ var ScrapeHome = React.createClass({
 		} else {
 			return (
 				<div className="uk-grid">
-
 					<div className="uk-width-1-1">
 						<ul className="uk-tab">
 							<li className="uk-active" ref="unapprovedTab"><a onClick={()=>{this.selectTab('Unapproved')}}>Unapproved</a></li>
