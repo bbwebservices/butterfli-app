@@ -107,7 +107,6 @@ DASHES
 	},
 
 	deleteDash: function (dashId) {
-
 		api.deleteDash(this.state.jwt, dashId)
 			.then((res) => {
 				console.log('delete dash res: ', res, 'state: ', this.state.jwt);
