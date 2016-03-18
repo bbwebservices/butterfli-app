@@ -107,7 +107,6 @@ DASHES
 	},
 
 	deleteDash: function (dashId) {
-
 		api.deleteDash(this.state.jwt, dashId)
 			.then((res) => {
 				console.log('delete dash res: ', res, 'state: ', this.state.jwt);
@@ -192,6 +191,22 @@ POST CONTENT
 			.then((response) => {
 				console.log('post to network response: ', response)
 			})
+
+		/****************
+		all set to remove once backend updates
+		*****************/
+		/* var newApprovedState = this.state.approvedPosts.filter((element) => {
+		* 	if(element.id === postId){
+		* 		return false;
+		* 	}
+		* 	return true;
+		* });
+
+		* this.setState({
+		* 	approvedPosts: newApprovedState
+		* })
+		*/ 
+
 	},
 
 /*****************
