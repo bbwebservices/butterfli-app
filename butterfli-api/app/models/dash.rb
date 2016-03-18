@@ -76,18 +76,40 @@ class Dash < ActiveRecord::Base
 	def twitter_pic_scrape(search)
 	    self.twitter_pic_search = search.downcase
 	    # term_arr = search.split(",")
+	    puts "encoded: ", URI::encode(self.twitter_pic_search)
 	    self.save		
 		t = self.get_twit_client
-		search_var = search
+		search_var = search + " -rt"
 		pic_limit = 0
-		t.search(search_var, result_type: "recent").collect do |tweet|
+		pic_fail = 0
+		count = 0
+		t.search(search_var, options = {lang: 'en'}).collect do |tweet|
 			puts 'tweet', tweet.to_json
+			puts 'index', count
+			count += 1
 			unless tweet.media[0].nil?
-				pic_limit += 1
-				if pic_limit < 25 
+				puts 'url', tweet.media[0].media_url
+				if pic_limit < 25
+					puts 'pic count: ' + pic_limit.to_s
 					img = tweet.media[0].media_url
-					self.build_post("twitter", img, tweet.text, img, img, tweet.id)
+					post_build = self.build_post("twitter", img, tweet.text, img, img, tweet.id)
+					puts 'post build: ' + post_build.to_s 
+					if post_build
+						puts 'pic count: ' + pic_limit.to_s
+						pic_limit += 1
+					else
+						pic_fail += 1
+					end
+				else
+					puts 'breakin out!'
+					break
 				end
+					puts 'we skipped ' + pic_fail.to_s + ' pics that youve already seen. '
+					puts 'searched ' + count.to_s + ' tweets and found ' + pic_limit.to_s + ' pics for ya!'
+
+					if pic_limit == 0
+						puts 'you should try and diversify your search! nothing to see here..'
+					end
 			end
 		end	 		
 	end
@@ -220,6 +242,13 @@ class Dash < ActiveRecord::Base
 	def build_post(title, src, body, image, author, og_id)
 		p = self.posts.build(title: title, og_source: src, body: body, image_src: image, author: author, og_id: og_id)		
 		p.save
+		if p.save
+			puts 'post saved!'
+			return true
+		else
+			puts 'post didnt save!'
+			return false
+		end
 	end
 
 
