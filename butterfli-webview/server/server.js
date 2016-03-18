@@ -3,7 +3,7 @@ var path = require('path');
 var compress = require('compression');
 var cors = require('express-cors');
 var graph = require('fbgraph');
-var config = require('./../config');
+// var config = require('./../config');
 var request = require('request');
 
 
