@@ -76,6 +76,7 @@ class DashesController < ApplicationController
   def post_to_network
     network = params[:network]
     post = params[:post_id]
+    puts 'post id: ' + post.to_s
     @dash.post_content(post, network)
     redirect_to dash_post_queue_path(@dash)
   end
