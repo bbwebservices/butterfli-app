@@ -187,6 +187,9 @@ POST CONTENT
 	},
 
 	postToNetwork: function(dashId, postId, network) {
+		console.log('post id: ', postId);
+		console.log('dash id: ', dashId);
+
 		api.postToNetwork(this.state.jwt, dashId, postId, network)
 			.then((response) => {
 				console.log('post to network response: ', response)

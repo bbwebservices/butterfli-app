@@ -16,7 +16,7 @@ var Approved = React.createClass({
 	},
 
 	_renderContent(){
-		return this.props.approvedPosts.map( (element) => {
+		return this.props.approvedPosts.map((element) => {
 			return ( 
 				<ApprovedListItem 
 					id={element.id} 

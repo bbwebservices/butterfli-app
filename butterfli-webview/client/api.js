@@ -169,7 +169,7 @@ Scraper, post to netwrk
 	postToNetwork(jwt, dashId, postId, network){
 		var headers = { 'Authorization': jwt };
 		var options = {
-			url: 'http://localhost:3000/dashes/'+dashId+'/post?postid='+postId+'&network='+network,
+			url: 'http://localhost:3000/dashes/'+dashId+'/post?post_id='+postId+'&network='+network,
 			method: 'GET',
 			headers: headers,
 		}
