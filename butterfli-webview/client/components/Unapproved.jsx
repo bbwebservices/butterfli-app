@@ -47,8 +47,9 @@ var Unapproved = React.createClass({
 	},
 
 	_renderContent(){
+
 		if(this.props.unapprovedPosts){
-			return this.props.unapprovedPosts.map( (element) => {
+			return this.props.unapprovedPosts.map((element) => {
 				return ( 
 					<UnapprovedListItem 
 						id={element.id} 
