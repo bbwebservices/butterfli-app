@@ -172,7 +172,7 @@ class Dash < ActiveRecord::Base
 			else
 			  img
 			end		
-			# post.twit_published += 1
+			post.twit_published += 1
 			post.save
 			body = post.body.to_s
 			body_short = self.shorten(body, 90)
@@ -195,7 +195,7 @@ class Dash < ActiveRecord::Base
 			if res["status"] == 401
 				return 'tried'
 			end
-			# @post.tumblr_published += 1
+			@post.tumblr_published += 1
 			@post.save
 		rescue
 			return 'tried'
