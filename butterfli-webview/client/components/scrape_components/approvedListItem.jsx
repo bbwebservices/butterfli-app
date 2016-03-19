@@ -3,12 +3,15 @@ var React = require('react');
 var approvedListItem = React.createClass({
 
 	getInitialState() {
-		return {
-			isSelected: false,
-			hasChanged: false,
-			newBody: null,
-			hasBody: false
-		}
+		
+			return {
+				isSelected: false,
+				hasChanged: false,
+				newBody: null,
+				hasBody: false
+			}
+		
+		
 	},
 
 	componentDidMount() {
