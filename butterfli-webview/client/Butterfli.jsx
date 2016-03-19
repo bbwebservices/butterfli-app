@@ -7,16 +7,26 @@ var React = require('react'),
 var Butterfli = React.createClass({
 
 	getInitialState: function(){
-		return {
-			username: null,
-			password: null,
-			isLoggedIn: false,
-			jwt: null,
-			dashes: null,
-			currentDash: null,
-			approvedPosts: null,
-			unapprovedPosts: null
+
+		if(localStorage.state){
+			return JSON.parse(localStorage.getItem('state'))
+		} else {
+			return {
+				username: null,
+				password: null,
+				isLoggedIn: false,
+				jwt: null,
+				dashes: null,
+				currentDash: null,
+				approvedPosts: null,
+				unapprovedPosts: null
+			}
 		}
+		
+	},
+
+	componentDidUpdate: function (prevProps, prevState) {
+	    localStorage.state = JSON.stringify(this.state);
 	},
 
 /***************
