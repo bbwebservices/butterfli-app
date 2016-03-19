@@ -9,7 +9,7 @@ class Dash < ActiveRecord::Base
 	    unless !network && !search
 	      case network
 	      when 'twitter'
-	      	parameters = ["en"]
+	      	parameters = ["en", 'images']
 	        self.twitter_pic_scrape(search, parameters)
 	      when 'giphy'
 	      	parameters = ['']
@@ -28,23 +28,27 @@ class Dash < ActiveRecord::Base
 			search = search ? search : self.giphy_search
 			sanitize = search.tr(" ", "+");
 			puts search
+			
 			key = "dc6zaTOxFJmzC"
 			if type == 'stickers'
-				url = "http://api.giphy.com/v1/gifs/search?q=" + sanitize + "&api_key=" + key
+				url = "http://api.giphy.com/v1/stickers/search?q=" + sanitize + "&api_key=" + key
 			elsif type == 'translate'
 				url = "http://api.giphy.com/v1/gifs/translate?q=" + sanitize + "&api_key=" + key
 			else
-				url = "http://api.giphy.com/v1/stickers/search?q=" + sanitize + "&api_key=" + key
+				url = "http://api.giphy.com/v1/gifs/search?q=" + sanitize + "&api_key=" + key
 			end
 			resp = Net::HTTP.get_response(URI.parse(url))
 			buffer = resp.body
 			result = JSON.parse(buffer)
 			puts "results: ", result['data']
 			temp = []
+			pic_limit = 0
+			pic_fail = 0
+			count = 0
 			result['data'].each do |x|
-				
 				temp.push(x["images"]["fixed_height"]["url"])
 			end	
+			puts temp
 			temp.each do |post|
 				self.build_post("giphy", post, nil, post, "giphy", post)
 			end
@@ -78,7 +82,6 @@ class Dash < ActiveRecord::Base
 	end	
 	def twitter_pic_scrape(search, parameters)
 	    self.twitter_pic_search = search.downcase
-	    # term_arr = search.split(",")
 	    puts "encoded: ", URI::encode(self.twitter_pic_search)
 	    self.save		
 		t = self.get_twit_client
@@ -86,14 +89,13 @@ class Dash < ActiveRecord::Base
 		pic_limit = 0
 		pic_fail = 0
 		count = 0
-		t.search(search_var, options = {lang: parameters[0], filter: 'images'}).collect do |tweet|
+		t.search(search_var, options = {lang: parameters[0], filter: parameters[1], max_id: "708693400602550272"}).collect do |tweet|
 			puts 'tweet', tweet.to_json
 			puts 'index', count
 			count += 1
 			unless tweet.media[0].nil?
 				puts 'url', tweet.media[0].media_url
 				if pic_limit < 25
-					puts 'pic count: ' + pic_limit.to_s
 					img = tweet.media[0].media_url
 					post_build = self.build_post("twitter", img, tweet.text, img, img, tweet.id)
 					puts 'post build: ' + post_build.to_s 
@@ -287,6 +289,7 @@ class Dash < ActiveRecord::Base
 	    callback_url = "http://butterfli.herokuapp.com/dashes/#{self.id}/fb_set_token"
 	    @oauth = Koala::Facebook::OAuth.new(app_id, app_secret, callback_url)
 	    oauth_url = @oauth.url_for_oauth_code
+	    puts oauth_url
 	    return oauth_url 		
 	end
 	def fb_set_token(code)
