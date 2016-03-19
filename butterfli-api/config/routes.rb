@@ -10,6 +10,10 @@ Rails.application.routes.draw do
         get "/scrape"  => 'dashes#scrape', path: 'scraper'
         get "/scrape_for_pics" => "dashes#scrape_for_pics", path: 'pic-scrape'
 
+      # Auth Routes
+        get "/fb_oauth"  => 'dashes#fb_oauth'   
+        get "/fb_set_token"  => 'dashes#fb_set_token' 
+
       # Queue
         get "/post_queue"  => 'dashes#post_queue', path: 'queue'  	
         get "/post_to_network" => "dashes#post_to_network", path: 'post'
