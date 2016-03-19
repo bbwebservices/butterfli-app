@@ -159,11 +159,33 @@ SCRAPE FOR CONTENT
 			})
 	},
 
-	postApproval: function (dashId, postId, toggle) {
+	postApproval: function (dashId, postId, toggle, location) {
 		api.toggleApprove(this.state.jwt, dashId, postId, toggle)
 			.then((response) => {
 				if(response.statusCode === 200) {
-					this.scraper(dashId);
+					if(location === 'approved'){
+						var newApprovedState = this.state.approvedPosts.filter((post) => {
+							if(post.id === postId){
+								return false
+							} 
+							return true
+						});
+						this.setState({
+							approvedPosts: newApprovedState
+						})
+
+					} else if (location === 'unapproved') {
+						var newUnapprovedState = this.state.unapprovedPosts.filter((post) => {
+							if(post.id === postId){
+								return false
+							} 
+							return true
+						});
+						this.setState({
+							unapprovedPosts: newUnapprovedState
+						})
+					}
+
 				}
 			})
 	},
@@ -183,7 +205,9 @@ POST CONTENT
 				this.setState({
 					approvedPosts: newApprovedState
 				})
+				console.log('AP: ', this.state.approvedPosts)
 			})
+
 	},
 
 	postToNetwork: function(dashId, postId, network) {

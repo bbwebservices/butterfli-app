@@ -80,7 +80,7 @@ var approvedListItem = React.createClass({
 	},
 
 	render(){
-		console.log('BODY: ', this.props.body)
+		// console.log('BODY: ', this.props.body)
 		return (
 			<div key={this.props.currentDash[0].id} style={{textAlign: 'center'}} className="uk-width-1-2 uk-panel uk-panel-box stagger dropIn">
 				<img style={{height: 300}} src={this.props.og_source}></img>
@@ -96,7 +96,7 @@ var approvedListItem = React.createClass({
 					<a style={{marginLeft:10}} className="uk-button uk-width-1-4">Facebook</a>
 					<a style={{marginLeft:10}} className="uk-button uk-width-1-4">Tumblr</a>
 				</div>
-				<a onClick={ () => {this.props.postApproval(this.props.currentDash[0].id, this.props.id, 'toggle_disapprove') } } className="uk-button uk-width-1-2">Remove</a>
+				<a onClick={ () => {this.props.postApproval(this.props.currentDash[0].id, this.props.id, 'toggle_disapprove', 'approved') } } className="uk-button uk-width-1-2">Remove</a>
 			</div>
 		)
 	}
