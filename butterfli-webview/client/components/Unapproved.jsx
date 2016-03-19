@@ -66,8 +66,6 @@ var Unapproved = React.createClass({
 	},
 
 	render(){
-		console.log(this.props.unapprovedPosts)
-
 		return (
 			<div className="uk-grid uk-margin-top ">
 				<div className="uk-width-1-4">
