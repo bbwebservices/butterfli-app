@@ -95,7 +95,7 @@ class DashesController < ApplicationController
     # FB - get auth url
   def fb_oauth
       redirect_uri = @dash.fb_oauth
-      return redirect_uri
+      return redirect_uri 
   end
     # FB - set token for dash
   def fb_set_token

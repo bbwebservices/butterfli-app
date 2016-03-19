@@ -17,7 +17,6 @@ class SubscribeController < ApplicationController
     current_user.stripeid = customer.id 
     current_user.save 
     # Redirect back to products page with a ‘success’ notice 
-    redirect_to products_path, :notice => “Your subscription was 
-    successful!” 
+    redirect_to products_path, :notice => "Your subscription was successful!" 
   end
 end
