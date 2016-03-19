@@ -7,12 +7,14 @@ var Link = require('react-router').Link;
 var ScrapeHome = React.createClass({
 
 	getInitialState() {
-		return {
-			selected: '', 
-			isSelected: false,
-			hasChanged: false,
-			newBody: null
-		};
+			return {
+				selected: '', 
+				// isSelected: false,
+				// hasChanged: false,
+				// newBody: null
+			}
+		
+		
 	},
 
 	selectTab(tab){
