@@ -89,7 +89,7 @@ class Dash < ActiveRecord::Base
 		pic_limit = 0
 		pic_fail = 0
 		count = 0
-		t.search(search_var, options = {lang: parameters[0], filter: parameters[1], max_id: "708693400602550272"}).collect do |tweet|
+		t.search(search_var, options = {}).collect do |tweet|
 			puts 'tweet', tweet.to_json
 			puts 'index', count
 			count += 1
