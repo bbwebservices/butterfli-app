@@ -68,6 +68,21 @@ CREDENTIALS
 			})	
 	},
 
+	fbOAuth: function (dashId) {
+		console.log('in bfli fboauth')
+		api.fbOAuth(this.state.jwt, dashId)
+			.then((response) => {
+				console.log('fb OAuth Response: ', response)
+			})
+	},
+
+	updatePassword: function (password, password_confirmation) {
+		api.updatePassword(this.state.jwt, password, password_confirmation)
+			.then((response) => {
+				console.log('Update Password Response: ', response);
+			})
+	},
+
 /****************
 DASHES
 ****************/
@@ -271,7 +286,9 @@ RENDERING
 						updateTwitDash: this.updateTwitDash,
 						createDash: this.createDash,
 						deleteDash: this.deleteDash,
-						editPostBody: this.editPostBody
+						editPostBody: this.editPostBody,
+						fbOAuth: this.fbOAuth,
+						updatePassword: this.updatePassword
 						
 					})
 				}
