@@ -13,6 +13,7 @@ var ScrapeHome = require('./components/ScrapeHome.jsx');
 var SignUp = require('./components/SignUp.jsx');
 var EditDash = require('./components/EditDash.jsx');
 var AddDash = require('./components/AddDash.jsx');
+var EditUser = require('./components/EditUser.jsx');
 
 
 
@@ -28,6 +29,7 @@ module.exports = [
 			<Route path='/scrapehome' component={ScrapeHome} />
 			<Route path='/editdash' component={EditDash} />
 			<Route path='/adddash' component={AddDash} />
+			<Route path='/edituser' component={EditUser} />
 		</Route>
 	</Router>
 ]

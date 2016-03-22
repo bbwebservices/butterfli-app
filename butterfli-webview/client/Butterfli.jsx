@@ -76,6 +76,13 @@ CREDENTIALS
 			})
 	},
 
+	updatePassword: function (password, password_confirmation) {
+		api.updatePassword(this.state.jwt, password, password_confirmation)
+			.then((response) => {
+				console.log('Update Password Response: ', response);
+			})
+	},
+
 /****************
 DASHES
 ****************/
@@ -280,7 +287,8 @@ RENDERING
 						createDash: this.createDash,
 						deleteDash: this.deleteDash,
 						editPostBody: this.editPostBody,
-						fbOAuth: this.fbOAuth
+						fbOAuth: this.fbOAuth,
+						updatePassword: this.updatePassword
 						
 					})
 				}
