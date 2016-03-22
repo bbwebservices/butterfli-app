@@ -69,7 +69,11 @@ var EditDash = React.createClass({
 					<Navbar currentDash={this.props.currentDash} username={this.props.username}/>			
 					<div className="uk-container uk-container-center uk-margin-top fadeIn">
 						<div className="uk-grid">
-							<div onMouseEnter={() => this.mouseEnterAnimations('.column1')} onMouseLeave={() => this.mouseLeaveAnimations('.column1')} className="uk-width-medium-1-4 uk-row-first stagger column1">
+							<div 
+							onMouseEnter={() => this.mouseEnterAnimations('.column1')} 
+							onMouseLeave={() => this.mouseLeaveAnimations('.column1')} 
+							className="uk-width-medium-1-4 uk-row-first stagger column1"
+							>
 								<div className="uk-panel uk-panel-box">	
 									<h3 className="uk-panel-title ">Dash Info</h3>
 									<div className="uk-form-row">

@@ -81,7 +81,7 @@ var AccountHome = React.createClass({
 				<div className="uk-container uk-container-center uk-margin-top">
 					<div className="uk-grid">								
 							<div 
-							onMouseEnter={() => {this.mouseEnterAnimations('.editDash')}}
+							onMouseEnter={() => this.mouseEnterAnimations('.editDash')}
 							onMouseLeave={() => this.mouseLeaveAnimations('.editDash')}
 							className={"uk-width-1-4 uk-text-center stagger editDash uk-margin-top"} 
 							key={key}

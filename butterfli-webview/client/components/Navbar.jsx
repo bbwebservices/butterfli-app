@@ -35,7 +35,7 @@ var Navbar = React.createClass({
 					<div className="uk-navbar-content uk-navbar-flip uk-hidden-small uk-margin-small-top">
 						<ul className="uk-navbar-nav">
 							<li className="uk-parent uk-active">
-							<a>{this.props.username}</a>
+							<Link to='edituser'>{this.props.username}</Link>
 							{/*{this._renderDropDown()*/}
 							</li>
 						</ul>
