@@ -15,7 +15,7 @@ module.exports = {
 				body: dataString
 		};
 
-		return new Promise((resolve, reject)=>{
+		return new Promise((resolve, reject) => {
 			request(options, function(error, response, body) {
 				if(error) {
 					console.error('Log In Error: ', error);
@@ -24,10 +24,8 @@ module.exports = {
 				if(response.statusCode === 200) {
 					resolve(JSON.parse(body).token)
 				}
-
 			})
-		}).then((token)=>{
-			console.log("IN API PROM VALUE: ", token);
+		}).then((token) => {
 			return token;
 		})
 	},
