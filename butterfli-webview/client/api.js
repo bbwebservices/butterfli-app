@@ -85,6 +85,20 @@ module.exports = {
 		})
 	},
 
+	updatePassword(jwt, password, password_confirmation){
+		var options = {
+			url: 'http://localhost:3000/users/password?password='+password+'&password_confirmation='+password_confirmation,
+			method: 'PUT' ,
+			headers: { 'Authorization': jwt }
+		}
+
+		return new Promise((resolve, reject) => {
+			request(options, (error, response, body) => {
+				resolve(response)
+			})
+		})
+	},
+
 
 /*************
 Scraper, post to netwrk
