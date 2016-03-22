@@ -286,7 +286,7 @@ class Dash < ActiveRecord::Base
 	def fb_oauth
 	    app_id = self.fb_app_id
 	    app_secret = self.fb_app_secret
-	    callback_url = "http://butterfli.herokuapp.com/dashes/#{self.id}/fb_set_token"
+	    callback_url = "http://localhost:4000/dashes/#{self.id}/fb_set_token"
 	    @oauth = Koala::Facebook::OAuth.new(app_id, app_secret, callback_url)
 	    oauth_url = @oauth.url_for_oauth_code
 	    puts oauth_url
@@ -295,7 +295,7 @@ class Dash < ActiveRecord::Base
 	def fb_set_token(code)
 	    app_id = self.fb_app_id
 	    app_secret = self.fb_app_secret
-	    callback_url = "http://butterfli.herokuapp.com/dashes/#{self.id}/fb_set_token"
+	    callback_url = "http://localhost:4000/dashes/#{self.id}/fb_set_token"
 	    @oauth = Koala::Facebook::OAuth.new(app_id, app_secret, callback_url)
 		access_token = @oauth.get_access_token(code)
 		self.fb_oauth_access_token = access_token
