@@ -165,22 +165,20 @@ class Dash < ActiveRecord::Base
 		post = Post.find(post)
 		puts post
 		begin
-			unless post.twit_published > 0
-				img = open(post.og_source)
-				puts img
-				if img.is_a?(StringIO)
-				  ext = File.extname(url)
-				  name = File.basename(url, ext)
-				  Tempfile.new([name, ext])
-				else
-				  img
-				end		
-				body = post.body.to_s
-				body_short = self.shorten(body, 90)
-				res = twitCli.update_with_media(body_short, img)
-				post.twit_published =  res.id
-				post.save
-			end
+			img = open(post.og_source)
+			puts img
+			if img.is_a?(StringIO)
+			  ext = File.extname(url)
+			  name = File.basename(url, ext)
+			  Tempfile.new([name, ext])
+			else
+			  img
+			end		
+			body = post.body.to_s
+			body_short = self.shorten(body, 90)
+			res = twitCli.update_with_media(body_short, img)
+			post.twit_published =  res.id.to_s
+			post.save
 		rescue => e
 			puts e
 			return 'tried'
