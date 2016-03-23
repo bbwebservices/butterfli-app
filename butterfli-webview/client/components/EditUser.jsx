@@ -1,7 +1,7 @@
 var React = require('react');
 var Navbar = require('./Navbar.jsx')
 
-var EditAccount = React.createClass({
+var EditUser = React.createClass({
 
 	animateListItems(){
 		TweenMax.staggerFrom('.stagger', 0.3, {y:30, x: 10, opacity: 0}, 0.02);
@@ -58,4 +58,4 @@ var EditAccount = React.createClass({
 	}
 })
 
-module.exports = EditAccount;
+module.exports = EditUser;

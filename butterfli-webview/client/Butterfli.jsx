@@ -188,6 +188,28 @@ SCRAPE FOR CONTENT
 		api.toggleApprove(this.state.jwt, dashId, postId, toggle)
 			.then((response) => {
 				if(response.statusCode === 200) {
+
+					if(toggle === 'toggle_approve'){
+						var newApprovedState = this.state.unapprovedPosts.filter((post) => {
+							console.log(post.id, postId)
+							if(post.id === postId){
+								return true;
+							} 
+							return false;
+						});
+						console.log('in toggle condition: ', newApprovedState)
+						if(this.state.approvedPosts === null){
+							this.setState({
+								approvedPosts: newApprovedState
+							})
+						} else {
+							var approveToAdd = this.state.approvedPosts.concat(newApprovedState);
+							this.setState({
+								approvedPosts: approveToAdd
+							})
+						}	
+					}
+
 					if(location === 'approved'){
 						var newApprovedState = this.state.approvedPosts.filter((post) => {
 							if(post.id === postId){
@@ -209,6 +231,8 @@ SCRAPE FOR CONTENT
 						this.setState({
 							unapprovedPosts: newUnapprovedState
 						})
+
+						
 					}
 
 				}
