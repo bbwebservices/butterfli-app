@@ -174,11 +174,11 @@ class Dash < ActiveRecord::Base
 			else
 			  img
 			end		
-			post.twit_published += 1
-			post.save
 			body = post.body.to_s
 			body_short = self.shorten(body, 90)
 			res = twitCli.update_with_media(body_short, img)
+			post.twit_published =  res.id.to_s
+			post.save
 		rescue => e
 			puts e
 			return 'tried'
@@ -197,7 +197,7 @@ class Dash < ActiveRecord::Base
 			if res["status"] == 401
 				return 'tried'
 			end
-			@post.tumblr_published += 1
+			@post.tumblr_published == res.id.to_s
 			@post.save
 		rescue
 			return 'tried'
