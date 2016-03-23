@@ -70,7 +70,7 @@ class DashesController < ApplicationController
     # Post Queue page
   def post_queue
       @posts = @dash.posts.where(approved: true).order(created_at: :desc)
-      render json: @posts   
+      render json: @posts, status: 200   
   end
     # Posting Controller Actions
   def post_to_network
@@ -102,7 +102,7 @@ class DashesController < ApplicationController
   def fb_set_token
       code = params[:code]
       @dash.fb_set_token(code)
-      redirect_to dash_post_queue_path(@dash)
+      render json: @dash, status: 200
   end
 
 
