@@ -75,17 +75,17 @@ class DashesController < ApplicationController
     # Posting Controller Actions
   def post_to_network
       network = params[:network]
-      post = params[:post_id]
-      puts 'post id: ' + post.to_s
-      @dash.post_content(post, network)
-      redirect_to dash_post_queue_path(@dash)
+      @post = params[:post_id]
+      puts 'post id: ' + @post.to_s
+      @dash.post_content(@post, network)
+      render json: @post, status: 200
   end
     # Edit post via AJAX
   def edit_post_body
-      post = params[:post_id]
+      @post = params[:post_id]
       body = params[:body_text]
-      @dash.edit_post_body_content(post, body)
-      redirect_to dash_post_queue_path(@dash)
+      @dash.edit_post_body_content(@post, body)
+      render json: @post, status: 200
   end
 
 
