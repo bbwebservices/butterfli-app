@@ -188,12 +188,16 @@ class Dash < ActiveRecord::Base
 		tumblr_client = self.get_tumblr_client
 		@post = Post.find(post)
 		@client = Tumblr::Client.new
+		puts @client
 		begin
 			url = @post.og_source
+
 			img = URI.parse(@post.image_src)
+			puts img
 			blog_name = self.tumblr_blog_name
 			uri = blog_name + ".tumblr.com"
 			res = @client.photo(uri, caption: @post.body, source: img)
+			puts res
 			if res["status"] == 401
 				return 'tried'
 			end
