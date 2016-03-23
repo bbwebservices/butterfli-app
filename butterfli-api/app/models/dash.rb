@@ -89,7 +89,7 @@ class Dash < ActiveRecord::Base
 		pic_limit = 0
 		pic_fail = 0
 		count = 0
-		t.search(search_var, options = {}).collect do |tweet|
+		t.search(search_var, options = {result_type: 'popular', max_id: '',  filter: 'twimg'}).collect do |tweet|
 			puts 'tweet', tweet.to_json
 			puts 'index', count
 			count += 1
@@ -188,12 +188,16 @@ class Dash < ActiveRecord::Base
 		tumblr_client = self.get_tumblr_client
 		@post = Post.find(post)
 		@client = Tumblr::Client.new
+		puts @client
 		begin
 			url = @post.og_source
+
 			img = URI.parse(@post.image_src)
+			puts img
 			blog_name = self.tumblr_blog_name
 			uri = blog_name + ".tumblr.com"
 			res = @client.photo(uri, caption: @post.body, source: img)
+			puts res
 			if res["status"] == 401
 				return 'tried'
 			end
