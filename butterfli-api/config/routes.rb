@@ -1,9 +1,9 @@
 Rails.application.routes.draw do
-
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
+
   resources :dashes do
     # Controller Action Routes
       # Scrape
@@ -15,9 +15,10 @@ Rails.application.routes.draw do
         get "/fb_set_token"  => 'dashes#fb_set_token' 
 
       # Queue
-        get "/post_queue"  => 'dashes#post_queue', path: 'queue'  	
+        get "/post_queue"  => 'dashes#post_queue', path: 'queue'    
         get "/post_to_network" => "dashes#post_to_network", path: 'post'
         get "/edit_post_body"  => 'dashes#edit_post_body', path: 'edit-post'
+        get 'add_chrome_post' => 'dashes#add_chrome_post', path: 'add-post'
     # Post resource and controller actions
     resources :posts do
       get 'toggle_approve', :on => :member   

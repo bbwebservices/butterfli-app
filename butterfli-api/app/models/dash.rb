@@ -7,6 +7,7 @@ class Dash < ActiveRecord::Base
 # - - - - - - - - - - - - - - - - - - - - -
 	def scraper(network, search)
 	    unless !network && !search
+	    	
 	      case network
 	      when 'twitter'
 	      	parameters = ["en", 'images']
@@ -89,7 +90,7 @@ class Dash < ActiveRecord::Base
 		pic_limit = 0
 		pic_fail = 0
 		count = 0
-		t.search(search_var, options = {result_type: 'popular', max_id: '',  filter: 'twimg'}).collect do |tweet|
+		t.search(search_var, options = {result_type: 'popular', max_id: '', lang: 'en',   filter: 'twimg'}).collect do |tweet|
 			puts 'tweet', tweet.to_json
 			puts 'index', count
 			count += 1
