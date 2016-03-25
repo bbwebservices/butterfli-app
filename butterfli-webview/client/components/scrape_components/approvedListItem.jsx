@@ -19,7 +19,7 @@ var approvedListItem = React.createClass({
 		}
 	},
 
-	componentWillMount: function() {
+	componentWillUnmount: function() {
 		this.setState(this.getInitialState())
 	},
 
