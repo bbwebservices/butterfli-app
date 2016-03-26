@@ -46,6 +46,7 @@ CREDENTIALS
 			// send login request, once we have creds
 			this.checkCreds();
 		});
+		//watch test
 	},
 
 	// make request to log the user in
