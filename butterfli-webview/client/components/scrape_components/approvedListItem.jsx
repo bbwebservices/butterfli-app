@@ -19,9 +19,9 @@ var approvedListItem = React.createClass({
 		}
 	},
 
-	componentWillUnmount: function() {
-		this.setState(this.getInitialState())
-	},
+	// componentWillUnmount: function() {
+	// 	this.setState(this.getInitialState())
+	// },
 
 	addText(){
 		this.setState({
@@ -46,7 +46,7 @@ var approvedListItem = React.createClass({
 		} else {
 			this.setState({
 				isSelected: false,
-				hasChanged: true,
+				// hasChanged: true,
 				newBody: this.refs.postInput.value
 			})
 		}
