@@ -32,6 +32,7 @@ var config = {
 		net: 'empty',
 		tls: 'empty'
 	},
+	watch: true
 }
 
 module.exports = config;
