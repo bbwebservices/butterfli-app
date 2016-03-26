@@ -19,6 +19,10 @@ var approvedListItem = React.createClass({
 		}
 	},
 
+	componentWillUnmount: function() {
+		this.setState(this.getInitialState())
+	},
+
 	addText(){
 		this.setState({
 			hasBody: true,

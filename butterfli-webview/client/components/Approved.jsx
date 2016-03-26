@@ -16,6 +16,7 @@ var Approved = React.createClass({
 	},
 
 	_renderContent(){
+		console.log('approved posts: ', this.props.approvedPosts)
 		return this.props.approvedPosts.map((element) => {
 			return ( 
 				<ApprovedListItem 
