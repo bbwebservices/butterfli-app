@@ -191,30 +191,24 @@ SCRAPE FOR CONTENT
 
 					if(toggle === 'toggle_approve'){
 						var newApprovedState = this.state.unapprovedPosts.filter((post) => {
-							console.log(post.id, postId)
-							if(post.id === postId){
-								return true;
-							} 
+							if(post.id === postId) return true;
 							return false;
 						});
-						console.log('in toggle condition: ', newApprovedState)
 						if(this.state.approvedPosts === null){
 							this.setState({
 								approvedPosts: newApprovedState
-							})
+							});
 						} else {
 							var approveToAdd = this.state.approvedPosts.concat(newApprovedState);
 							this.setState({
 								approvedPosts: approveToAdd
-							})
+							});
 						}	
 					}
 
 					if(location === 'approved'){
 						var newApprovedState = this.state.approvedPosts.filter((post) => {
-							if(post.id === postId){
-								return false
-							} 
+							if(post.id === postId) return false;
 							return true
 						});
 						this.setState({
@@ -223,14 +217,12 @@ SCRAPE FOR CONTENT
 
 					} else if (location === 'unapproved') {
 						var newUnapprovedState = this.state.unapprovedPosts.filter((post) => {
-							if(post.id === postId){
-								return false
-							} 
+							if(post.id === postId) return false
 							return true
 						});
 						this.setState({
 							unapprovedPosts: newUnapprovedState
-						})
+						});
 
 						
 					}
@@ -249,13 +241,13 @@ POST CONTENT
 				for (var i = 0; i < newApprovedState.length; i++) {
 					if(newApprovedState[i].id === postId){
 						newApprovedState[i].body = body;
+						console.log('Added this body: ', newApprovedState[i])
 					}
 				}
 				this.setState({
 					approvedPosts: newApprovedState
 				})
-				console.log('AP: ', this.state.approvedPosts)
-			})
+		})
 
 	},
 
