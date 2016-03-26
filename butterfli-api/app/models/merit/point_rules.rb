@@ -17,7 +17,7 @@ module Merit
       #   user.bio.present?
       # end
       #
-      # score 15, :on => 'reviews#create', :to => [:reviewer, :reviewed]
+      score 7, :on => 'dashes#add_chrome_post'
       #
       # score 20, :on => [
       #   'comments#create',
