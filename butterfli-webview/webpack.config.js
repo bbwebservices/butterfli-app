@@ -1,9 +1,11 @@
-var StringReplacePlugin = require("string-replace-webpack-plugin");
+var webpack = require('webpack');
+
+var PROD = JSON.parse(process.env.PROD_ENV || '0');
 
 var config = {
 	entry: './client/main.jsx',
 	output: {
-		filename: 'bundle.js',
+		filename: PROD ? 'bundle.min.js' : 'bundle.js',
 		path: './dest/'
 	},
 	module: {
@@ -22,6 +24,9 @@ var config = {
 			},
 		],
 	},
+	plugins: PROD ? [
+		new webpack.optimize.UglifyJsPlugin({minimize: true})
+	] : [],
 	node: {
 		fs: 'empty',
 		net: 'empty',
