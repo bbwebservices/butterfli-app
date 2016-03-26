@@ -9,35 +9,40 @@ class Dash < ActiveRecord::Base
 	    unless !network && !search
 	    	
 	      case network
-	      when 'twitter'
-	      	parameters = ["en", 'images']
-	        self.twitter_pic_scrape(search, parameters)
-	      when 'giphy'
-	      	parameters = ['']
-	        self.giphy_scrape(search, parameters)
-	      when 'tumblr'
-	        self.tumblr_pic_scrape(search)
-	      when 'reddit'
-	        self.reddit_pic_scrape(search)
+		      when 'twitter'
+		      	parameters = ["en", 'images']
+		        self.twitter_pic_scrape(search, parameters)
+		      when 'giphy'
+		      	parameters = ['translate']
+		      	type = 'standard'
+		        self.giphy_scrape(search, type, parameters[0])
+		      when 'tumblr'
+		        self.tumblr_pic_scrape(search)
+		      when 'reddit'
+		        self.reddit_pic_scrape(search)
 	      end
 	    end		
 	end
-	def giphy_scrape(search, type)
+
+	def giphy_search_controller(type, sanitize, key)
+		puts 'giphy serach cronller has fired'
+		if type == 'gifs'
+			return url = "http://api.giphy.com/v1/"+type+"/search?q=" + sanitize + "&api_key=" + key
+		elsif type == 'stickers'
+			return url = "http://api.giphy.com/v1/"+type+"/translate?s=" + sanitize + "&api_key=" + key
+		end
+	end	
+	def giphy_scrape(search, type, parameters)
 		begin
 		    self.giphy_search = search.downcase
 		    self.save
 			search = search ? search : self.giphy_search
 			sanitize = search.tr(" ", "+");
-			puts search
-			
+			puts search			
 			key = "dc6zaTOxFJmzC"
-			if type == 'stickers'
-				url = "http://api.giphy.com/v1/stickers/search?q=" + sanitize + "&api_key=" + key
-			elsif type == 'translate'
-				url = "http://api.giphy.com/v1/gifs/translate?q=" + sanitize + "&api_key=" + key
-			else
-				url = "http://api.giphy.com/v1/gifs/search?q=" + sanitize + "&api_key=" + key
-			end
+			type = parameters[0]
+			url = self.giphy_search_controller("gifs", sanitize, key)
+			puts url
 			resp = Net::HTTP.get_response(URI.parse(url))
 			buffer = resp.body
 			result = JSON.parse(buffer)
