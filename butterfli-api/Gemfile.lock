@@ -39,6 +39,7 @@ GEM
       thread_safe (~> 0.3, >= 0.3.4)
       tzinfo (~> 1.1)
     addressable (2.4.0)
+    ambry (0.3.1)
     arel (6.0.3)
     bcrypt (3.1.10)
     buftok (0.2.0)
@@ -83,6 +84,8 @@ GEM
       mime-types (>= 1.16, < 3)
     memoizable (0.4.2)
       thread_safe (~> 0.3, >= 0.3.1)
+    merit (2.3.3)
+      ambry (~> 0.3.0)
     mime-types (2.99.1)
     mini_portile2 (2.0.0)
     minitest (5.8.4)
@@ -176,6 +179,7 @@ DEPENDENCIES
   devise
   jwt
   koala (~> 2.2)
+  merit
   pg
   postmark
   rack-cors
@@ -184,3 +188,6 @@ DEPENDENCIES
   spring
   tumblr_client (~> 0.8.5)
   twitter (~> 5.15)
+
+BUNDLED WITH
+   1.10.6
