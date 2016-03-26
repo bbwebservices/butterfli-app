@@ -88,6 +88,21 @@ class DashesController < ApplicationController
       render json: @post, status: 200
   end
 
+  # Build Post
+  # - - - - - - - - - - - - - -   
+    # chrome extension
+
+  def add_chrome_post
+      link = params['link_url']
+      @dash = Dash.find(params['dash_id'])
+      @post = Post.new(title:'chrome ext', og_source: link)
+      @dash.posts << @post
+      puts @post.og_source
+      puts 'word!'
+      if @post 
+        render json: @post, status: 200
+      end
+  end
 
 
   # Auth Actions
