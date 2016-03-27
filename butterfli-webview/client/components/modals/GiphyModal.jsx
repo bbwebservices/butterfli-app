@@ -20,7 +20,7 @@ var GiphyModal = React.createClass({
 
 	// animate serach options down. need to work on this
 	animateDown(){
-		TweenMax.from('.dropIn', 1, {bottom: 100, opacity: 0})
+		TweenMax.from('.gifDropIn', 1, {bottom: 100, opacity: 0})
 	},
 
 	_renderChildOptions(){
@@ -126,7 +126,7 @@ var GiphyModal = React.createClass({
 
 	render(){
 		return (
-			<div className="dropIn">
+			<div className="gifDropIn">
 				<div 
 				className="uk-vertical-align uk-text-center uk-height-1-1 uk-margin-top"
 				
