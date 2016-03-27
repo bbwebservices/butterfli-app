@@ -7,13 +7,13 @@ var TwitterModal = React.createClass({
 	},
 
 	animateDown(){
-		TweenMax.from('.dropIn', 0.3, {top: -20, opacity: 0})
+		TweenMax.from('.twitDropIn', 0.3, {top: -20, opacity: 0})
 	},
 
 	render(){
 		return (
-			<div style={styles.container} className="dropIn">
-				<form className='uk-panel uk-panel-box uk-form'>
+			<div style={styles.container} className="twitDropIn">
+				<form className='uk-panel uk-panel-box uk-form uk-border'>
 					<h2>Advanced Twitter Search</h2>
 					<h3>Words</h3>
 					<div className='uk-form-row'>
@@ -57,6 +57,7 @@ var TwitterModal = React.createClass({
 						<label>Mentioning these accounts</label>
 						<input style={{left: 50, position: 'relative'}} />
 					</div>
+					<button className="uk-button">Save</button>
 				</form>
 			</div>
 		)
