@@ -9,7 +9,7 @@ class Dash < ActiveRecord::Base
 	    unless !parameters[0] && !search
 	      case parameters[0]
 		      when 'twitter'
-		      	ps = ["en", 'images']
+		      	ps = ["popular","en", 'images']
 		        self.twitter_pic_scrape(search, ps)
 		      when 'giphy'
 				sub_params = parameters[1]
@@ -29,6 +29,8 @@ class Dash < ActiveRecord::Base
 			search = search ? search : self.giphy_search
 			sanitize = search.tr(" ", "+");
 			key = "dc6zaTOxFJmzC"
+			type = parameters[0]
+			method = parameters[1]
 			url = self.giphy_search_controller(type, method, sanitize, key)
 			resp = Net::HTTP.get_response(URI.parse(url))
 			buffer = resp.body
@@ -84,16 +86,18 @@ class Dash < ActiveRecord::Base
 		end
 		return count
 	end	
+	# result_type: 'popular', max_id: '', lang: 'en',   filter: 'twimg'
 	def twitter_pic_scrape(search, parameters)
 	    self.twitter_pic_search = search.downcase
 	    puts "encoded: ", URI::encode(self.twitter_pic_search)
 	    self.save		
+	    result_type = parameters[0]
 		t = self.get_twit_client
 		search_var = search + " -rt"
 		pic_limit = 0
 		pic_fail = 0
 		count = 0
-		t.search(search_var, options = {result_type: 'popular', max_id: '', lang: 'en',   filter: 'twimg'}).collect do |tweet|
+		t.search(search_var, options = {result_type: result_type, max_id: '', lang: 'en',   filter: 'twimg'}).collect do |tweet|
 			puts 'tweet', tweet.to_json
 			puts 'index', count
 			count += 1
@@ -123,7 +127,7 @@ class Dash < ActiveRecord::Base
 		end	 		
 	end
 	def tumblr_pic_scrape(search)
-		if 
+		
 		sanitize = search.tr(" ", "+");
 		tum = self.get_tumblr_client
 		client = Tumblr::Client.new
