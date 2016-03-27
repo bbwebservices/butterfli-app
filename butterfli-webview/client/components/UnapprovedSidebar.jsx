@@ -16,8 +16,8 @@ var UnapprovedSidebar = React.createClass({
 	},
 
 	//Start api request to get content. based on network, search term, and search options
-	getPics(network, nTerm, advanced){
-		this.props.picScrape(this.props.id, network, this.state[nTerm], advanced)
+	getPics(network, nTerm){
+		this.props.picScrape(this.props.id, network, this.state[nTerm], this.state.advancedOptions)
 	},
 
 	updateTerms(networkTerm){
@@ -26,8 +26,23 @@ var UnapprovedSidebar = React.createClass({
 		})
 	},
 
-	setAdvancedOptions(network, searchTypes){
-		console.log(network, searchTypes);
+	setAdvancedOptions(options, remove){
+		var updatedOption,
+			reg;
+		if(remove){
+			if(options.match(/,/g)) this.setState({ advancedOptions: '' });
+		    else {
+				reg = new RegExp(options, 'i');
+				updatedOption = this.state.advancedOptions.replace(reg, '');
+				this.setState({ advancedOptions: updatedOption });
+			}
+		} else {
+			if(this.state.advancedOptions === '') this.setState({ advancedOptions: options });
+			else {
+				updatedOption = this.state.advancedOptions +options;
+				this.setState({ advancedOptions: updatedOption });
+			}
+		}
 	},
 
 	_renderGiphyOptions(){

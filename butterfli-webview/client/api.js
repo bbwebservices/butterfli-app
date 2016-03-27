@@ -128,7 +128,7 @@ Scraper, post to netwrk
 		//pass in params from unapproved page
 		var headers = { 'Authorization': jwt, 'Content-Type': 'application/json'};
 		var options = {
-			url: advanced ? 'http://localhost:3000/dashes/'+dashId+'/pic-scrape.json?network='+network+'&search_term='+term +'&param_array='+advanced
+			url: advanced !== '' ? 'http://localhost:3000/dashes/'+dashId+'/pic-scrape.json?network='+network+'&search_term='+term +'&param_array='+advanced
 						  : 'http://localhost:3000/dashes/'+dashId+'/pic-scrape.json?network='+network+'&search_term='+term,
 			method: 'GET',
 			headers: headers

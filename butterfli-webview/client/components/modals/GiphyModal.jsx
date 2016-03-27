@@ -14,13 +14,13 @@ var GiphyModal = React.createClass({
 		};
 	},
 
+	componentDidMount(){
+		this.animateDown();
+	},
+
 	// animate serach options down. need to work on this
 	animateDown(){
 		TweenMax.from('.dropIn', 1, {bottom: 100, opacity: 0})
-	},
-
-	componentDidMount(){
-		this.animateDown();
 	},
 
 	_renderChildOptions(){
@@ -40,18 +40,17 @@ var GiphyModal = React.createClass({
 									<input 
 									onClick={() => {
 										if(!this.state.searchChecked) {
+											// Set advancedTerms then update in parent
 											this.setState({
 												searchChecked: true,
-												advancedTerms: this.state.advancedTerms +'search'
 											});
-
+											this.props.setAdvancedOptions('search', false);
 										}
 					    				else {
-					    					var updatedTerms = this.state.advancedTerms.replace(/search/i, '');
 					    					this.setState({
 					    						searchChecked: false,
-					    						advancedTerms: updatedTerms
 					    					})
+					    					this.props.setAdvancedOptions('search', true);
 					    				}
 					    			}} 
 				    				type="checkbox" 
@@ -69,18 +68,19 @@ var GiphyModal = React.createClass({
 								return (
 									<input 
 									onClick={() => {
+
 										if(!this.state.translateChecked) {
+											// Set advancedTerms then update in parent
 											this.setState({
 												translateChecked: true,
-												advancedTerms: this.state.advancedTerms +'translate'
 											})
+											this.props.setAdvancedOptions('translate', false);
 										}
 					    				else {
-					    					var updatedTerms = this.state.advancedTerms.replace(/translate/i, '');
 					    					this.setState({
 					    						translateChecked: false,
-					    						advancedTerms: updatedTerms
 					    					})
+					    					this.props.setAdvancedOptions('translate', true);
 					    				}
 					    			}} 
 				    				type="checkbox"
@@ -98,17 +98,17 @@ var GiphyModal = React.createClass({
 									<input 
 									onClick={() => {
 										if(!this.state.randomChecked) {
+											// Set advancedTerms then update in parent
 											this.setState({
 												randomChecked: true,
-												advancedTerms: this.state.advancedTerms +'random'
 											})
+											this.props.setAdvancedOptions('random', false);
 										}
 					    				else {
-					    					var updatedTerms = this.state.advancedTerms.replace(/random/i, '');
 					    					this.setState({
 					    						randomChecked: false,
-					    						advancedTerms: updatedTerms
 					    					})
+					    					this.props.setAdvancedOptions('random', true);
 					    				}
 					    			}} 
 				    				type="checkbox"
@@ -142,17 +142,17 @@ var GiphyModal = React.createClass({
 										if(!this.state.gifsChecked) {
 											this.setState({
 												gifsChecked: true,
-												advancedTerms: 'gifs,'
 											});
-
+											this.props.setAdvancedOptions('gifs,', false);
 										}
 					    				else {
-					    					var updatedTerms = this.state.advancedTerms.replace(/gifs,/i, '');
 					    					this.setState({
 					    						gifsChecked: false,
-					    						advancedTerms: updatedTerms
+					    						searchChecked: false,
+									    		translateChecked: false,
+									    		randomChecked: false
 					    					});
-
+											this.props.setAdvancedOptions('gifs,', true);
 					    				}
 									}} style={{marginRight: 8}} type='checkbox'/>
 								)
@@ -169,15 +169,18 @@ var GiphyModal = React.createClass({
 										if(!this.state.stickersChecked) {
 											this.setState({
 												stickersChecked: true,
-												advancedTerms: 'stickers,'
 											})
+											this.props.setAdvancedOptions('stickers,', false);
+
 										}
 									    else {
-					    					var updatedTerms = this.state.advancedTerms.replace(/stickers,/i, '');
 									    	this.setState({
 									    		stickersChecked: false,
-									    		advancedTerms: updatedTerms
+									    		searchChecked: false,
+									    		translateChecked: false,
+									    		randomChecked: false
 									    	})
+									    	this.props.setAdvancedOptions('stickers,', true);
 									    }
 									}} type='checkbox' />
 								)
