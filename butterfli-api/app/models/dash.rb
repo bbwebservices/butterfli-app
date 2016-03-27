@@ -5,17 +5,15 @@ class Dash < ActiveRecord::Base
 
 # Scraper Methods
 # - - - - - - - - - - - - - - - - - - - - -
-	def scraper(network, search)
-	    unless !network && !search
-	    	
-	      case network
+	def scraper(search, parameters)
+		sub_params = parameters[1]
+	    unless !parameters[0] && !search
+	      case parameters[0]
 		      when 'twitter'
-		      	parameters = ["en", 'images']
-		        self.twitter_pic_scrape(search, parameters)
+		      	ps = ["en", 'images']
+		        self.twitter_pic_scrape(search, ps)
 		      when 'giphy'
-		      	parameters = ['translate']
-		      	type = 'standard'
-		        self.giphy_scrape(search, type, parameters[0])
+		        self.giphy_scrape(search, sub_params[0], sub_params[1])
 		      when 'tumblr'
 		        self.tumblr_pic_scrape(search)
 		      when 'reddit'
@@ -24,12 +22,14 @@ class Dash < ActiveRecord::Base
 	    end		
 	end
 
-	def giphy_search_controller(type, sanitize, key)
+	def giphy_search_controller(type, params, sanitize, key)
 		puts 'giphy serach cronller has fired'
-		if type == 'gifs'
+		if params == 'search'
 			return url = "http://api.giphy.com/v1/"+type+"/search?q=" + sanitize + "&api_key=" + key
-		elsif type == 'stickers'
+		elsif params == 'translate'
 			return url = "http://api.giphy.com/v1/"+type+"/translate?s=" + sanitize + "&api_key=" + key
+		elsif params == 'random'
+			return url = "http://api.giphy.com/v1/"+type+"/random?api_key=" + key + '&tag=' + sanitize 
 		end
 	end	
 	def giphy_scrape(search, type, parameters)
@@ -40,8 +40,7 @@ class Dash < ActiveRecord::Base
 			sanitize = search.tr(" ", "+");
 			puts search			
 			key = "dc6zaTOxFJmzC"
-			type = parameters[0]
-			url = self.giphy_search_controller("gifs", sanitize, key)
+			url = self.giphy_search_controller(type, parameters, sanitize, key)
 			puts url
 			resp = Net::HTTP.get_response(URI.parse(url))
 			buffer = resp.body
