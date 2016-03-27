@@ -75,7 +75,9 @@ var Unapproved = React.createClass({
 							this.props.picScrape(this.props.currentDash[0].id, 'twitter', this.state.twitterTerm);
 						}} className='uk-form'>
 							<input ref="twitterTerm" onChange={ this.updateTwitterTerm } type='text' className="uk-width-1-1" />
-							<a onClick={ ()=>{this.props.picScrape(this.props.currentDash[0].id, 'twitter', this.state.twitterTerm)} } className='uk-button uk-button-large uk-width-1-1'>Search Twitter</a>
+							<a onClick={ ()=>{this.props.picScrape(this.props.currentDash[0].id, 'twitter', this.state.twitterTerm)} } className='uk-button uk-button-large uk-width-1-1'>
+								Search Twitter
+							</a>
 						</form>
 					</div>
 					<div className="uk-panel uk-panel-box uk-panel-box-primary">
@@ -84,7 +86,9 @@ var Unapproved = React.createClass({
 							this.props.picScrape(this.props.currentDash[0].id, 'giphy', this.state.giphyTerm);
 						}} className='uk-form'>
 							<input ref="giphyTerm" onChange={ this.updateGiphyTerm } type='text' className="uk-width-1-1" />
-							<a onClick={ ()=>{this.props.picScrape(this.props.currentDash[0].id, 'giphy', this.state.giphyTerm)} } className='uk-button uk-button-large uk-width-1-1'>Search Giphy</a>
+							<a onClick={ ()=>{this.props.picScrape(this.props.currentDash[0].id, 'giphy', this.state.giphyTerm)} } className='uk-button uk-button-large uk-width-1-1'>
+								Search Giphy
+							</a>
 						</form>
 					</div>
 					<div className="uk-panel uk-panel-box uk-panel-box-primary">
@@ -93,7 +97,9 @@ var Unapproved = React.createClass({
 							this.props.picScrape(this.props.currentDash[0].id, 'reddit', this.state.redditTerm);
 						}} className='uk-form'>
 							<input ref="redditTerm" onChange={ this.updateRedditTerm } type='text' className="uk-width-1-1" />
-							<a onClick={ ()=>{this.props.picScrape(this.props.currentDash[0].id, 'reddit', this.state.redditTerm)} } className='uk-button uk-button-large uk-width-1-1'>Search Reddit</a>
+							<a onClick={ ()=>{this.props.picScrape(this.props.currentDash[0].id, 'reddit', this.state.redditTerm)} } className='uk-button uk-button-large uk-width-1-1'>
+								Search Reddit
+							</a>
 						</form>
 					</div>
 					<div className="uk-panel uk-panel-box uk-panel-box-primary">
@@ -102,7 +108,9 @@ var Unapproved = React.createClass({
 							this.props.picScrape(this.props.currentDash[0].id, 'tumblr', this.state.tumblrTerm);
 						}} className='uk-form'>
 							<input ref="tumblrTerm" onChange={ this.updateTumblrTerm } type='text' className="uk-width-1-1" />
-							<a onClick={ ()=>{this.props.picScrape(this.props.currentDash[0].id, 'tumblr', this.state.tumblrTerm)} } className='uk-button uk-button-large uk-width-1-1'>Search Tumblr</a>
+							<a onClick={ ()=>{this.props.picScrape(this.props.currentDash[0].id, 'tumblr', this.state.tumblrTerm)} } className='uk-button uk-button-large uk-width-1-1'>
+								Search Tumblr
+							</a>
 						</form>
 					</div>
 				</div>

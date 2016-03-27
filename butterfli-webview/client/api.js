@@ -121,13 +121,15 @@ Scraper, post to netwrk
 		}).then((dashes)=>{
 			return dashes;
 		})
-
 	},
 
 	scrapeForPics(jwt, dashId, network, term){
+
+		//find way to create params for different networks
+
 		var headers = { 'Authorization': jwt, 'Content-Type': 'application/json'};
 		var options = {
-			url: 'http://localhost:3000/dashes/'+dashId+'/pic-scrape.json?network='+network+'&search_term='+term,
+			url: 'http://localhost:3000/dashes/'+dashId+'/pic-scrape.json?network='+network+'&search_term='+term +'&param_array='+term,
 			method: 'GET',
 			headers: headers
 		}
