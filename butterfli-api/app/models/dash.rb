@@ -13,9 +13,7 @@ class Dash < ActiveRecord::Base
 		        self.twitter_pic_scrape(search, ps)
 		      when 'giphy'
 				sub_params = parameters[1]
-				type = sub_params[0]
-				params = sub_params[1]
-		        self.giphy_scrape(search, type, params)
+		        self.giphy_scrape(search, sub_params)
 		      when 'tumblr'
 		        self.tumblr_pic_scrape(search)
 		      when 'reddit'
@@ -24,7 +22,7 @@ class Dash < ActiveRecord::Base
 	    end		
 	end
 
-	def giphy_scrape(search, type, method)
+	def giphy_scrape(search, parameters)
 		begin
 		    self.giphy_search = search.downcase
 		    self.save
@@ -125,6 +123,7 @@ class Dash < ActiveRecord::Base
 		end	 		
 	end
 	def tumblr_pic_scrape(search)
+		if 
 		sanitize = search.tr(" ", "+");
 		tum = self.get_tumblr_client
 		client = Tumblr::Client.new
