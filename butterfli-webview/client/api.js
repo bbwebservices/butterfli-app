@@ -118,21 +118,22 @@ Scraper, post to netwrk
 			request(options, (error, response, body) => {	
 				resolve(JSON.parse(body).dashes)	
 			})
-		}).then((dashes)=>{
+		}).then((dashes) => {
 			return dashes;
 		})
 	},
 
-	scrapeForPics(jwt, dashId, network, term, unapprovedParams){
+	scrapeForPics(jwt, dashId, network, term, advanced){
 
 		//pass in params from unapproved page
 		var headers = { 'Authorization': jwt, 'Content-Type': 'application/json'};
 		var options = {
-			url: 'http://localhost:3000/dashes/'+dashId+'/pic-scrape.json?network='+network+'&search_term='+term +'&param_array=stickers,search',
+			url: advanced ? 'http://localhost:3000/dashes/'+dashId+'/pic-scrape.json?network='+network+'&search_term='+term +'&param_array='+advanced
+						  : 'http://localhost:3000/dashes/'+dashId+'/pic-scrape.json?network='+network+'&search_term='+term,
 			method: 'GET',
 			headers: headers
 		};
-		return new Promise( (resolve, reject) => {
+		return new Promise((resolve, reject) => {
 			request(options, function(error, response, body) {
 				if(error){
 					console.log('error getting pics: ', error)

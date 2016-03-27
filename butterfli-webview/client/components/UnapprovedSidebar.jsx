@@ -10,7 +10,8 @@ var UnapprovedSidebar = React.createClass({
 			twitterTerm: '',
 			giphyTerm: '',
 			redditTerm: '',
-			tumblrTerm: ''
+			tumblrTerm: '',
+			advancedOptions: ''
 		};
 	},
 
@@ -25,10 +26,14 @@ var UnapprovedSidebar = React.createClass({
 		})
 	},
 
+	setAdvancedOptions(network, searchTypes){
+		console.log(network, searchTypes);
+	},
+
 	_renderGiphyOptions(){
 		if(this.state.showGiphyOptions){
 			return (
-				<GiphyModal />
+				<GiphyModal setAdvancedOptions={this.setAdvancedOptions} />
 			) 
 		}
 	},
@@ -54,7 +59,7 @@ var UnapprovedSidebar = React.createClass({
 						}} className='uk-form'>
 							<input ref="giphyTerm" onChange={ () => {this.updateTerms('giphyTerm')} } type='text' className="uk-width-1-1" />
 							<a 
-							onClick={ ()=>{this.getPics('giphy', 'giphyTerm', 'gifs,translate')} } 
+							onClick={ ()=>{this.getPics('giphy', 'giphyTerm')} } 
 							className='uk-button uk-button-large uk-width-1-1'
 							>
 							Search Giphy

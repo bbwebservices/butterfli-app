@@ -8,7 +8,8 @@ var GiphyModal = React.createClass({
 			stickersChecked: false,
 			searchChecked: false,
 			translateChecked: false,
-			randomChecked: false
+			randomChecked: false,
+			advancedTerms: '',
 
 		};
 	},
@@ -24,10 +25,12 @@ var GiphyModal = React.createClass({
 
 	_renderChildOptions(){
 
+		// Render options to put after gifs or stickers are selected
 		if(this.state.stickersChecked || this.state.gifsChecked){
 			return (
 				<div className="uk-vertical-align uk-text-center uk-height-1-1 uk-margin-top">
 					<div style={{zIndex: 1}} className="uk-vertical-align-middle">
+						
 						<label>search</label>
 						{(() => {
 							if(this.state.translateChecked || this.state.randomChecked){
@@ -36,8 +39,21 @@ var GiphyModal = React.createClass({
 								return ( 
 									<input 
 									onClick={() => {
-										if(!this.state.searchChecked) this.setState({searchChecked: true})
-					    				else this.setState({searchChecked: false})}} 
+										if(!this.state.searchChecked) {
+											this.setState({
+												searchChecked: true,
+												advancedTerms: this.state.advancedTerms +'search'
+											});
+
+										}
+					    				else {
+					    					var updatedTerms = this.state.advancedTerms.replace(/search/i, '');
+					    					this.setState({
+					    						searchChecked: false,
+					    						advancedTerms: updatedTerms
+					    					})
+					    				}
+					    			}} 
 				    				type="checkbox" 
 				    				style={{marginRight: 8}}
 				    				/>
@@ -53,15 +69,26 @@ var GiphyModal = React.createClass({
 								return (
 									<input 
 									onClick={() => {
-										if(!this.state.translateChecked) this.setState({translateChecked: true})
-					    				else this.setState({translateChecked: false})}} 
+										if(!this.state.translateChecked) {
+											this.setState({
+												translateChecked: true,
+												advancedTerms: this.state.advancedTerms +'translate'
+											})
+										}
+					    				else {
+					    					var updatedTerms = this.state.advancedTerms.replace(/translate/i, '');
+					    					this.setState({
+					    						translateChecked: false,
+					    						advancedTerms: updatedTerms
+					    					})
+					    				}
+					    			}} 
 				    				type="checkbox"
 				    				/>
 				    			)
 							}
 						})()}
 						
-
 						<label>random</label>
 						{(() => {
 							if(this.state.searchChecked || this.state.translateChecked) {
@@ -70,15 +97,25 @@ var GiphyModal = React.createClass({
 								return (
 									<input 
 									onClick={() => {
-										if(!this.state.randomChecked) this.setState({randomChecked: true})
-					    				else this.setState({randomChecked: false})}} 
+										if(!this.state.randomChecked) {
+											this.setState({
+												randomChecked: true,
+												advancedTerms: this.state.advancedTerms +'random'
+											})
+										}
+					    				else {
+					    					var updatedTerms = this.state.advancedTerms.replace(/random/i, '');
+					    					this.setState({
+					    						randomChecked: false,
+					    						advancedTerms: updatedTerms
+					    					})
+					    				}
+					    			}} 
 				    				type="checkbox"
 				    				/>
 				    			)
 							}
 						})()}
-				
-
 					</div>
 				</div>
 
@@ -102,8 +139,21 @@ var GiphyModal = React.createClass({
 							} else {
 								return (
 									<input onClick={() => {
-										if(!this.state.gifsChecked) this.setState({gifsChecked: true})
-					    				else this.setState({gifsChecked: false})
+										if(!this.state.gifsChecked) {
+											this.setState({
+												gifsChecked: true,
+												advancedTerms: 'gifs,'
+											});
+
+										}
+					    				else {
+					    					var updatedTerms = this.state.advancedTerms.replace(/gifs,/i, '');
+					    					this.setState({
+					    						gifsChecked: false,
+					    						advancedTerms: updatedTerms
+					    					});
+
+					    				}
 									}} style={{marginRight: 8}} type='checkbox'/>
 								)
 							}
@@ -116,8 +166,19 @@ var GiphyModal = React.createClass({
 							} else {
 								return (
 									<input onClick={() => {
-										if(!this.state.stickersChecked) this.setState({stickersChecked: true})
-									    else this.setState({stickersChecked: false})
+										if(!this.state.stickersChecked) {
+											this.setState({
+												stickersChecked: true,
+												advancedTerms: 'stickers,'
+											})
+										}
+									    else {
+					    					var updatedTerms = this.state.advancedTerms.replace(/stickers,/i, '');
+									    	this.setState({
+									    		stickersChecked: false,
+									    		advancedTerms: updatedTerms
+									    	})
+									    }
 									}} type='checkbox' />
 								)
 							}
