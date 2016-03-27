@@ -13,6 +13,7 @@ var GiphyModal = React.createClass({
 		};
 	},
 
+	// animate serach options down. need to work on this
 	animateDown(){
 		TweenMax.from('.dropIn', 1, {bottom: 100, opacity: 0})
 	},
@@ -21,7 +22,8 @@ var GiphyModal = React.createClass({
 		this.animateDown();
 	},
 
-	_renderStickerOptions(){
+	_renderChildOptions(){
+
 		if(this.state.stickersChecked || this.state.gifsChecked){
 			return (
 				<div className="uk-vertical-align uk-text-center uk-height-1-1 uk-margin-top">
@@ -124,7 +126,7 @@ var GiphyModal = React.createClass({
 
 					</div>
 				</div>
-				{this._renderStickerOptions()}
+				{this._renderChildOptions()}
 			</div>
 		)
 	}
