@@ -10,47 +10,46 @@ var UnapprovedSidebar = React.createClass({
 			twitterTerm: '',
 			giphyTerm: '',
 			redditTerm: '',
-			tumblrTerm: ''
+			tumblrTerm: '',
+			advancedOptions: ''
 		};
 	},
 
+	//Start api request to get content. based on network, search term, and search options
 	getPics(network, nTerm){
-		this.props.picScrape(this.props.currentDash[0].id, network, this.state[nTerm])
+		this.props.picScrape(this.props.id, network, this.state[nTerm], this.state.advancedOptions)
 	},
 
-	updateTwitterTerm(){
+	updateTerms(networkTerm){
 		this.setState({
-			twitterTerm: this.refs.twitterTerm.value
-		})
-	},
-	
-	updateGiphyTerm(){
-		this.setState({
-			giphyTerm: this.refs.giphyTerm.value
+			[networkTerm]: this.refs[networkTerm].value
 		})
 	},
 
-	updateRedditTerm(){
-		this.setState({
-			redditTerm: this.refs.redditTerm.value
-		})
-	},
-
-	updateTumblrTerm(){
-		this.setState({
-			tumblrTerm: this.refs.tumblrTerm.value
-		})
+	setAdvancedOptions(options, remove){
+		var updatedOption,
+			reg;
+		if(remove){
+			if(options.match(/,/g)) this.setState({ advancedOptions: '' });
+		    else {
+				reg = new RegExp(options, 'i');
+				updatedOption = this.state.advancedOptions.replace(reg, '');
+				this.setState({ advancedOptions: updatedOption });
+			}
+		} else {
+			if(this.state.advancedOptions === '') this.setState({ advancedOptions: options });
+			else {
+				updatedOption = this.state.advancedOptions +options;
+				this.setState({ advancedOptions: updatedOption });
+			}
+		}
 	},
 
 	_renderGiphyOptions(){
 		if(this.state.showGiphyOptions){
 			return (
-				<GiphyModal />
+				<GiphyModal setAdvancedOptions={this.setAdvancedOptions} />
 			) 
-		} else {
-			return (
-				<div></div>
-			)
 		}
 	},
 
@@ -62,7 +61,7 @@ var UnapprovedSidebar = React.createClass({
 							e.preventDefault();
 							this.props.picScrape(this.props.id, 'twitter', this.state.twitterTerm);
 						}} className='uk-form'>
-							<input ref="twitterTerm" onChange={ this.updateTwitterTerm } type='text' className="uk-width-1-1" />
+							<input ref="twitterTerm" onChange={ () => {this.updateTerms('twitterTerm')} } type='text' className="uk-width-1-1" />
 							<a onClick={ ()=>{this.getPics('twitter', 'twitterTerm')} } className='uk-button uk-button-large uk-width-1-1'>
 								Search Twitter
 							</a>
@@ -73,7 +72,7 @@ var UnapprovedSidebar = React.createClass({
 							e.preventDefault();
 							this.props.picScrape(this.props.id, 'giphy', this.state.giphyTerm);
 						}} className='uk-form'>
-							<input ref="giphyTerm" onChange={ this.updateGiphyTerm } type='text' className="uk-width-1-1" />
+							<input ref="giphyTerm" onChange={ () => {this.updateTerms('giphyTerm')} } type='text' className="uk-width-1-1" />
 							<a 
 							onClick={ ()=>{this.getPics('giphy', 'giphyTerm')} } 
 							className='uk-button uk-button-large uk-width-1-1'
@@ -98,7 +97,7 @@ var UnapprovedSidebar = React.createClass({
 							e.preventDefault();
 							this.props.picScrape(this.props.id, 'reddit', this.state.redditTerm);
 						}} className='uk-form'>
-							<input ref="redditTerm" onChange={ this.updateRedditTerm } type='text' className="uk-width-1-1" />
+							<input ref="redditTerm" onChange={ () => {this.updateTerms('redditTerm')} } type='text' className="uk-width-1-1" />
 							<a onClick={ ()=>{this.getPics('reddit', 'redditTerm')} } className='uk-button uk-button-large uk-width-1-1'>
 								Search Reddit
 							</a>
@@ -109,7 +108,7 @@ var UnapprovedSidebar = React.createClass({
 							e.preventDefault();
 							this.props.picScrape(this.props.id, 'tumblr', this.state.tumblrTerm);
 						}} className='uk-form'>
-							<input ref="tumblrTerm" onChange={ this.updateTumblrTerm } type='text' className="uk-width-1-1" />
+							<input ref="tumblrTerm" onChange={ () => {this.updateTerms('tumblrTerm')} } type='text' className="uk-width-1-1" />
 							<a onClick={ ()=>{this.getPics('tumblr', 'tumblrTerm')} } className='uk-button uk-button-large uk-width-1-1'>
 								Search Tumblr
 							</a>

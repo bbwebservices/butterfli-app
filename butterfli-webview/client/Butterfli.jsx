@@ -163,8 +163,8 @@ SCRAPE FOR CONTENT
 			})
 	},
 
-	picScrape: function (dashId, network, term) {
-		api.scrapeForPics(this.state.jwt, dashId, network, term)
+	picScrape: function (dashId, network, term, advanced) {
+		api.scrapeForPics(this.state.jwt, dashId, network, term, advanced)
 			.then((response) => {
 				if(response.statusCode === 200) {
 					this.scraper(dashId);	
