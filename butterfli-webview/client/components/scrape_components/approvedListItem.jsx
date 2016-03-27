@@ -12,16 +12,18 @@ var approvedListItem = React.createClass({
 	},
 
 	componentDidMount() {
+		// fix blank input problem here
 		if(this.props.body) {
 			this.setState({
-				hasBody: true
+				hasBody: true,
+				isSelected: true
 			})
 		}
 	},
 
-	componentWillUnmount: function() {
-		this.setState(this.getInitialState())
-	},
+	// componentWillUnmount: function() {
+	// 	this.setState(this.getInitialState())
+	// },
 
 	addText(){
 		this.setState({
@@ -36,7 +38,7 @@ var approvedListItem = React.createClass({
 	},
 
 	onSubmit(e){
-		e.preventDefault()
+		e.preventDefault();
 		this.props.editPostBody(this.props.currentDash[0].id, this.props.id, this.refs.postInput.value);
 		if(this.refs.postInput.value === ''){
 			this.setState({
@@ -46,7 +48,7 @@ var approvedListItem = React.createClass({
 		} else {
 			this.setState({
 				isSelected: false,
-				hasChanged: true,
+				// hasChanged: true,
 				newBody: this.refs.postInput.value
 			})
 		}
