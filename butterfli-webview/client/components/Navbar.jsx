@@ -11,6 +11,11 @@ var Navbar = React.createClass({
 		TweenMax.to(this.refs.dropDown, 1, {y: -10})
 	},
 
+	signOut(){
+		localStorage.removeItem('state');
+		location.reload();
+	},
+
 	_renderDashTitle(){
 		return this.props.currentDash ? <span style={{fontSize: 14, opacity: 0.6}}>/ {this.props.currentDash[0].title}</span> : '';
 	},
@@ -39,6 +44,13 @@ var Navbar = React.createClass({
 							{/*{this._renderDropDown()*/}
 							</li>
 						</ul>
+						
+						{(() =>{
+							if(this.props.username){
+								return <div style={signOutStyle} onClick={this.signOut}>Sign Out</div>
+							}
+						})()}
+						
 					</div>
 				</nav>
 			</div>
@@ -52,6 +64,14 @@ var dropDownStyle = {
 	zIndex: 2,
 	width: 100,
 	height: 200
+}
+
+var signOutStyle = {
+	top: -30,
+    right: 79,
+    position: 'relative',
+    color: '#999999',
+    fontSize: '13px'
 }
 
 module.exports = Navbar;

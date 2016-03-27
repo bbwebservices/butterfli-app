@@ -1,5 +1,6 @@
 var React = require('react');
 var GiphyModal = require('./modals/GiphyModal.jsx');
+var TwitterModal = require('./modals/TwitterModal.jsx');
 
 
 var UnapprovedSidebar = React.createClass({
@@ -7,6 +8,7 @@ var UnapprovedSidebar = React.createClass({
 	getInitialState() {
 		return {
 			showGiphyOptions: false,
+			showTwitterOptions: false,
 			twitterTerm: '',
 			giphyTerm: '',
 			redditTerm: '',
@@ -53,6 +55,14 @@ var UnapprovedSidebar = React.createClass({
 		}
 	},
 
+	_renderTwitterOptions(){
+		if(this.state.showTwitterOptions){
+			return (
+				<TwitterModal />
+			)
+		}
+	},
+
 	render(){
 		return (
 			<div className="uk-width-1-4">
@@ -65,6 +75,17 @@ var UnapprovedSidebar = React.createClass({
 							<a onClick={ ()=>{this.getPics('twitter', 'twitterTerm')} } className='uk-button uk-button-large uk-width-1-1'>
 								Search Twitter
 							</a>
+							<div 
+							onClick={(e) => {
+								e.preventDefault();
+								if(!this.state.showTwitterOptions) this.setState({showTwitterOptions: true});
+								else this.setState({showTwitterOptions: false})
+							}} 
+							className='uk-button uk-button-small uk-width-1-1' style={{marginTop: 10}}
+							>
+								Advanced Search
+							</div>
+							{this._renderTwitterOptions()}
 						</form>
 					</div>
 					<div className="uk-panel uk-panel-box uk-panel-box-primary">

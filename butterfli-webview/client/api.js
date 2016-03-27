@@ -140,7 +140,7 @@ Scraper, post to netwrk
 				}
 				resolve(response);
 			})
-		}).then((response)=>{
+		}).then((response) => {
 			return response;
 		})
 	},

@@ -88,7 +88,7 @@ var approvedListItem = React.createClass({
 	render(){
 		// console.log('BODY: ', this.props.body)
 		return (
-			<div key={this.props.currentDash[0].id} style={{textAlign: 'center'}} className="uk-width-1-2 uk-panel uk-panel-box stagger dropIn">
+			<div key={this.props.currentDash[0].id} style={{textAlign: 'center', position:'absolute'}} className="uk-width-1-2 uk-panel uk-panel-box stagger dropIn">
 				<img style={{height: 300}} src={this.props.og_source}></img>
 				<p>{this.props.title}</p>
 				<div className="uk-width-1-1">
