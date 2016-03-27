@@ -6,14 +6,16 @@ class Dash < ActiveRecord::Base
 # Scraper Methods
 # - - - - - - - - - - - - - - - - - - - - -
 	def scraper(search, parameters)
-		sub_params = parameters[1]
 	    unless !parameters[0] && !search
 	      case parameters[0]
 		      when 'twitter'
 		      	ps = ["en", 'images']
 		        self.twitter_pic_scrape(search, ps)
 		      when 'giphy'
-		        self.giphy_scrape(search, sub_params[0], sub_params[1])
+				sub_params = parameters[1]
+				type = sub_params[0]
+				params = sub_params[1]
+		        self.giphy_scrape(search, type, params)
 		      when 'tumblr'
 		        self.tumblr_pic_scrape(search)
 		      when 'reddit'
@@ -22,38 +24,27 @@ class Dash < ActiveRecord::Base
 	    end		
 	end
 
-	def giphy_search_controller(type, params, sanitize, key)
-		puts 'giphy serach cronller has fired'
-		if params == 'search'
-			return url = "http://api.giphy.com/v1/"+type+"/search?q=" + sanitize + "&api_key=" + key
-		elsif params == 'translate'
-			return url = "http://api.giphy.com/v1/"+type+"/translate?s=" + sanitize + "&api_key=" + key
-		elsif params == 'random'
-			return url = "http://api.giphy.com/v1/"+type+"/random?api_key=" + key + '&tag=' + sanitize 
-		end
-	end	
-	def giphy_scrape(search, type, parameters)
+	def giphy_scrape(search, type, method)
 		begin
 		    self.giphy_search = search.downcase
 		    self.save
 			search = search ? search : self.giphy_search
 			sanitize = search.tr(" ", "+");
-			puts search			
 			key = "dc6zaTOxFJmzC"
-			url = self.giphy_search_controller(type, parameters, sanitize, key)
-			puts url
+			url = self.giphy_search_controller(type, method, sanitize, key)
 			resp = Net::HTTP.get_response(URI.parse(url))
 			buffer = resp.body
 			result = JSON.parse(buffer)
-			puts "results: ", result['data']
 			temp = []
-			pic_limit = 0
-			pic_fail = 0
-			count = 0
-			result['data'].each do |x|
-				temp.push(x["images"]["fixed_height"]["url"])
-			end	
-			puts temp
+
+			# decided between multiple or singular gifs
+			if method == 'search'
+				result['data'].each do |x|
+					temp.push(x["images"]["fixed_height"]["url"])
+				end	
+			elsif method == 'translate' || method == 'random'
+				temp.push(result['data']["images"]['fixed_height']['url']);
+			end
 			temp.each do |post|
 				self.build_post("giphy", post, nil, post, "giphy", post)
 			end
@@ -62,6 +53,16 @@ class Dash < ActiveRecord::Base
 			return nil
 		end
 	end
+	def giphy_search_controller(type, method, sanitize, key)
+		puts 'giphy serach cronller has fired'
+		if method == 'search'
+			return url = "http://api.giphy.com/v1/"+type+"/search?q=" + sanitize + "&api_key=" + key
+		elsif method == 'translate'
+			return url = "http://api.giphy.com/v1/"+type+"/translate?s=" + sanitize + "&api_key=" + key
+		elsif method == 'random'
+			return url = "http://api.giphy.com/v1/"+type+"/random?api_key=" + key + '&tag=' + sanitize 
+		end
+	end	
 	def reddit_pic_scrape(sub)
 	    self.subreddit = sub.downcase
 	    # term_arr = search_term.split(",")

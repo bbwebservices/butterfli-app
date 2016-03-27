@@ -57,11 +57,11 @@ class DashesController < ApplicationController
     # Scraper Controller Action
   def scrape_for_pics
       network = params[:network]
-      search_param_str = params[:param_aray]
-      test_param_str = 'stickers,translate'
-      test_arr = test_param_str.split(',').to_a
+      # search_param_str = params[:param_array]
+      search_param_str = 'stickers,random'
+      arr_reform = search_param_str.split(',').to_a
       # parameters = ['stickers', 'gifs','search','translate','random']
-      param_array = [network, test_arr]
+      param_array = [network, arr_reform]
       search_term = params[:search_term]
       @dash.scraper(search_term, param_array)
       @posts = @dash.posts.where(approved: nil)
