@@ -2,7 +2,8 @@ var React = require('react'),
 	ReactDOM = require('react-dom'),
     Login = require('./components/Login.jsx'),
     AccountHome = require('./components/AccountHome.jsx'),
-    api = require('./api.js');
+    api = require('./api.js'),
+    R = require('ramda');
 
 var Butterfli = React.createClass({
 
@@ -22,7 +23,6 @@ var Butterfli = React.createClass({
 				unapprovedPosts: null
 			}
 		}
-		
 	},
 
 	componentDidUpdate: function (prevProps, prevState) {
@@ -96,6 +96,7 @@ DASHES
 			})
 	},
 
+	// grab user selected dash, then save to state
 	saveCurrentDash: function (dashId){
 		var dashToSave = this.state.dashes.filter((element) => {
 			if(element.id === dashId) {
@@ -117,6 +118,7 @@ DASHES
 
 	},
 
+	// fire create dash, on response update dash state with new
 	createDash: function (options) {
 		api.createDash(this.state.jwt, options)
 			.then((res) => {
@@ -131,6 +133,7 @@ DASHES
 			})
 	},
 
+	// fire delete dash, on success filter out of current state 
 	deleteDash: function (dashId) {
 		api.deleteDash(this.state.jwt, dashId)
 			.then((res) => {
@@ -251,6 +254,19 @@ POST CONTENT
 
 	},
 
+	selectedForEdit: function(postId){
+		var postToPrepend = this.state.approvedPosts.filter((post) => {
+			if(post.id === postId){
+				return true;
+			}
+			return false
+		})
+		// console.log(postToPrepend);
+		// var selectedMoved = R.concat(this.state.approvedPosts, postToPrepend)
+		// console.log('new: ', selectedMoved)
+		// this.setState({approvedPosts: selectedMoved})
+	},
+
 	postToNetwork: function(dashId, postId, network) {
 		console.log('post id: ', postId);
 		console.log('dash id: ', dashId);
@@ -304,7 +320,8 @@ RENDERING
 						deleteDash: this.deleteDash,
 						editPostBody: this.editPostBody,
 						fbOAuth: this.fbOAuth,
-						updatePassword: this.updatePassword
+						updatePassword: this.updatePassword,
+						selectedForEdit: this.selectedForEdit
 						
 					})
 				}

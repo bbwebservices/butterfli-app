@@ -89,10 +89,11 @@ var approvedListItem = React.createClass({
 	render(){
 		return (
 			<div 
+			onClick={()=>console.log(this.props.id)}
 			key={this.props.currentDash[0].id} 
 			style={
 			(()=>{
-				{/* if we are currently editing this post, give it a border, else render usual style */}
+				{/* if we are currently editing this post (last index in array), give it a border, else render usual style */}
 				if(this.props.index === this.props.approvedPosts.length-1){
 					return {border: 'green 5px solid', textAlign: 'center', top: 500}
 				}
