@@ -15,7 +15,7 @@ var Approved = React.createClass({
 		this.animateListItems();
 	},
 
-	_renderContent(){
+	_renderMainContent(){
 		console.log('approved posts: ', this.props.approvedPosts)
 		return this.props.approvedPosts.map((element) => {
 			return ( 
@@ -28,10 +28,33 @@ var Approved = React.createClass({
 					postToNetwork={this.props.postToNetwork}
 					body={element.body}
 					editPostBody={this.props.editPostBody}
+					columnSize={'uk-width-1-2'}
+					positionStyle={{textAlign: 'center', position: 'absolute'}}
+					showButtons={true}
 				/>
 			)
 		})
 		
+	},
+
+	_renderSmallContent(){
+		return this.props.approvedPosts.map((element) => {
+			return ( 
+				<ApprovedListItem 
+					id={element.id} 
+					og_source={element.og_source} 
+					title={element.title} 
+					currentDash={this.props.currentDash} 
+					postApproval={this.props.postApproval} 
+					postToNetwork={this.props.postToNetwork}
+					body={element.body}
+					editPostBody={this.props.editPostBody}
+					columnSize={'uk-width-1-3'}
+					positionStyle={{textAlign: 'center', top: 500}}
+					showButtons={false}
+				/>
+			)
+		})
 	},
 
 	render(){
@@ -39,12 +62,34 @@ var Approved = React.createClass({
 			<div className="uk-grid uk-margin-top">
 				<div className="uk-width-1-1">
 					<div className="uk-grid">
-						{this._renderContent()}
+						<div style={styles.leftArrow} className="uk-width-1-4 uk-text-center uk-icon-arrow-circle-left"></div>
+						{this._renderMainContent()}
+						<div style={styles.rightArrow} className="uk-width-1-4 uk-text-center uk-icon-arrow-circle-right"></div>
+					</div>
+					<div className="uk-grid uk-border-top">
+						{this._renderSmallContent()}
 					</div>
 				</div>
 			</div>
 		)
 	}
 })
+
+var styles = {
+	leftArrow: {
+	    bottom: '-165px',
+	    left: '157px',
+	    position: 'relative',
+	    zIndex: 10,
+	    fontSize: 30
+	},
+	rightArrow: {
+	    bottom: '-165px',
+	    position: 'relative',
+	    zIndex: 10,
+	    left: '310px',
+	    fontSize: 30
+	}
+}
 
 module.exports = Approved;

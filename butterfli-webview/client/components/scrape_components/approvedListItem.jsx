@@ -62,7 +62,7 @@ var approvedListItem = React.createClass({
 	_renderPostBody(){
 		if(!this.state.hasBody){
 			return (
-				<div onClick={this.addText} className="uk-button uk-width-1-4" style={{marginLeft:10, marginBottom:5}}>
+				<div onClick={this.addText} className="uk-button uk-button-primary uk-width-1-4" style={{marginLeft:10, marginBottom:5}}>
 					Add Text
 				</div>
 			)
@@ -88,21 +88,31 @@ var approvedListItem = React.createClass({
 	render(){
 		// console.log('BODY: ', this.props.body)
 		return (
-			<div key={this.props.currentDash[0].id} style={{textAlign: 'center', position:'absolute'}} className="uk-width-1-2 uk-panel uk-panel-box stagger dropIn">
+			<div key={this.props.currentDash[0].id} style={this.props.positionStyle} className={"uk-panel uk-panel-box stagger dropIn "+this.props.columnSize}>
 				<img style={{height: 300}} src={this.props.og_source}></img>
 				<p>{this.props.title}</p>
-				<div className="uk-width-1-1">
-					{this._renderPostBody()}
-				</div>
-				<div style={{marginBottom:5}} className="uk-width-1-1">
-					<a onClick={ () => {
-						console.log(this.props.id)
-						this.props.postToNetwork(this.props.currentDash[0].id, this.props.id, 'twitter');
-					}} style={{marginLeft:10}} className="uk-button uk-width-1-4">Twitter</a>
-					<a style={{marginLeft:10}} className="uk-button uk-width-1-4">Facebook</a>
-					<a style={{marginLeft:10}} className="uk-button uk-width-1-4">Tumblr</a>
-				</div>
-				<a onClick={ () => {this.props.postApproval(this.props.currentDash[0].id, this.props.id, 'toggle_disapprove', 'approved') } } className="uk-button uk-width-1-2">Remove</a>
+				
+
+				{(()=>{
+					if(this.props.showButtons){
+						return(
+							<div>
+							<div className="uk-width-1-1">
+								{this._renderPostBody()}
+							</div>
+							<div style={{marginBottom:5}} className="uk-width-1-1">
+								<a onClick={ () => {
+									this.props.postToNetwork(this.props.currentDash[0].id, this.props.id, 'twitter');
+								}} style={{marginLeft:10}} className="uk-button uk-width-1-4">Twitter</a>
+								<a style={{marginLeft:10}} className="uk-button uk-width-1-4">Facebook</a>
+								<a style={{marginLeft:10}} className="uk-button uk-width-1-4">Tumblr</a>
+							</div>
+							</div>
+						)
+					}
+				})()}
+				
+				<a onClick={ () => {this.props.postApproval(this.props.currentDash[0].id, this.props.id, 'toggle_disapprove', 'approved') } } className="uk-button uk-button-danger uk-width-1-2">Remove</a>
 			</div>
 		)
 	}
