@@ -1,4 +1,5 @@
 var React = require('react');
+var R = require('ramda');
 
 var approvedListItem = React.createClass({
 
@@ -19,11 +20,9 @@ var approvedListItem = React.createClass({
 				isSelected: true
 			})
 		}
+		console.log(this.props.id);
+		console.log(R.findIndex(R.propEq('id', this.props.id))(this.props.approvedPosts))
 	},
-
-	// componentWillUnmount: function() {
-	// 	this.setState(this.getInitialState())
-	// },
 
 	addText(){
 		this.setState({
@@ -59,6 +58,10 @@ var approvedListItem = React.createClass({
 		return this.state.hasChanged ? <p>{this.state.newBody}</p> : <p>{this.props.body}</p>
 	},
 
+
+	// if there is no body, render add text button. 
+	// if it is not selected for editing, render out original post body. 
+	// else render out input field
 	_renderPostBody(){
 		if(!this.state.hasBody){
 			return (
@@ -74,44 +77,50 @@ var approvedListItem = React.createClass({
 				)
 		} else if (this.state.isSelected) {
 			return( 
-				
 				<form onSubmit={this.onSubmit} className="uk-panel uk-panel-box uk-form">
 					<div className="uk-form-row">
 						<input  ref="postInput" className="uk-width-1-1" type="text" placeholder={this.props.body} />
 					</div>
 				</form> 
-				
-				)
+			)
 		}
 	},
 
 	render(){
-		// console.log('BODY: ', this.props.body)
 		return (
-			<div key={this.props.currentDash[0].id} style={this.props.positionStyle} className={"uk-panel uk-panel-box stagger dropIn "+this.props.columnSize}>
+			<div 
+			key={this.props.currentDash[0].id} 
+			style={
+			(()=>{
+				{/* if we are currently editing this post, give it a border, else render usual style */}
+				if(this.props.index === this.props.approvedPosts.length-1){
+					return {border: 'green 5px solid', textAlign: 'center', top: 500}
+				}
+				else return this.props.positionStyle
+			})()}	 
+			className={"uk-panel uk-panel-box "+this.props.animationsCSS+" "+this.props.columnSize}
+			>
 				<img style={{height: 300}} src={this.props.og_source}></img>
 				<p>{this.props.title}</p>
-				
-
 				{(()=>{
+					{/* If we are viewing in the editor, render out all buttons */}
 					if(this.props.showButtons){
 						return(
 							<div>
-							<div className="uk-width-1-1">
-								{this._renderPostBody()}
-							</div>
-							<div style={{marginBottom:5}} className="uk-width-1-1">
-								<a onClick={ () => {
-									this.props.postToNetwork(this.props.currentDash[0].id, this.props.id, 'twitter');
-								}} style={{marginLeft:10}} className="uk-button uk-width-1-4">Twitter</a>
-								<a style={{marginLeft:10}} className="uk-button uk-width-1-4">Facebook</a>
-								<a style={{marginLeft:10}} className="uk-button uk-width-1-4">Tumblr</a>
-							</div>
+								<div className="uk-width-1-1">
+									{this._renderPostBody()}
+								</div>
+								<div style={{marginBottom:5}} className="uk-width-1-1">
+									<a onClick={ () => {
+										this.props.postToNetwork(this.props.currentDash[0].id, this.props.id, 'twitter');
+									}} style={{marginLeft:10}} className="uk-button uk-width-1-4">Twitter</a>
+									<a style={{marginLeft:10}} className="uk-button uk-width-1-4">Facebook</a>
+									<a style={{marginLeft:10}} className="uk-button uk-width-1-4">Tumblr</a>
+								</div>
 							</div>
 						)
 					}
 				})()}
-				
 				<a onClick={ () => {this.props.postApproval(this.props.currentDash[0].id, this.props.id, 'toggle_disapprove', 'approved') } } className="uk-button uk-button-danger uk-width-1-2">Remove</a>
 			</div>
 		)

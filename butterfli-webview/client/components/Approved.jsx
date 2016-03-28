@@ -10,6 +10,8 @@ var Approved = React.createClass({
 
 	animateListItems(){
 		TweenMax.staggerFrom('.stagger', 0.3, {y:30, x: 10, opacity: 0}, 0.05);
+		TweenMax.from('.approveFadeIn', 0.3, {opacity: 0})
+
 	},
 
 	componentDidMount(){
@@ -18,9 +20,10 @@ var Approved = React.createClass({
 
 	_renderMainContent(){
 		console.log('approved posts: ', this.props.approvedPosts)
-		return R.reverse(this.props.approvedPosts.map((element) => {
+		return this.props.approvedPosts.map((element) => {
 			return ( 
 				<ApprovedListItem 
+					approvedPosts={this.props.approvedPosts}
 					id={element.id} 
 					og_source={element.og_source} 
 					title={element.title} 
@@ -32,16 +35,20 @@ var Approved = React.createClass({
 					columnSize={'uk-width-1-2'}
 					positionStyle={{textAlign: 'center', position: 'absolute'}}
 					showButtons={true}
+					animationsCSS={'approveFadeIn'}
+
 				/>
 			)
-		}))
+		})
 		
 	},
 
 	_renderSmallContent(){
-		return this.props.approvedPosts.map((element) => {
+		return R.reverse(this.props.approvedPosts.map((element, i) => {
 			return ( 
 				<ApprovedListItem 
+					index={i}
+					approvedPosts={this.props.approvedPosts}
 					id={element.id} 
 					og_source={element.og_source} 
 					title={element.title} 
@@ -51,11 +58,13 @@ var Approved = React.createClass({
 					body={element.body}
 					editPostBody={this.props.editPostBody}
 					columnSize={'uk-width-1-3'}
-					positionStyle={{textAlign: 'center', top: 500}}
+					positionStyle={{border: '#eeeeee 5px solid', textAlign: 'center', top: 500}}
 					showButtons={false}
+					animations={'stagger'}
+
 				/>
 			)
-		})
+		}))
 	},
 
 	render(){
@@ -63,9 +72,9 @@ var Approved = React.createClass({
 			<div className="uk-grid uk-margin-top">
 				<div className="uk-width-1-1">
 					<div className="uk-grid">
-						<div style={styles.leftArrow} className="uk-width-1-4 uk-text-center uk-icon-arrow-circle-left"></div>
+						<div className="uk-width-1-4 uk-text-center uk-icon-arrow-circle-left"></div>
 						{this._renderMainContent()}
-						<div style={styles.rightArrow} className="uk-width-1-4 uk-text-center uk-icon-arrow-circle-right"></div>
+						{/*<div style={styles.rightArrow} className="uk-width-1-4 uk-text-center uk-icon-arrow-circle-right"></div>*/}
 					</div>
 					<div className="uk-grid uk-border-top">
 						{this._renderSmallContent()}
