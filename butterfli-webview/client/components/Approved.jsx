@@ -1,5 +1,6 @@
 var React = require('react');
 var ReactDOM = require('react-dom');
+var R = require('ramda');
 // var gsap = require('gsap');
 // var TweenMax = gsap.TweenMax;
 
@@ -17,7 +18,7 @@ var Approved = React.createClass({
 
 	_renderMainContent(){
 		console.log('approved posts: ', this.props.approvedPosts)
-		return this.props.approvedPosts.map((element) => {
+		return R.reverse(this.props.approvedPosts.map((element) => {
 			return ( 
 				<ApprovedListItem 
 					id={element.id} 
@@ -33,7 +34,7 @@ var Approved = React.createClass({
 					showButtons={true}
 				/>
 			)
-		})
+		}))
 		
 	},
 
