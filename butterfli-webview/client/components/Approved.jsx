@@ -18,7 +18,7 @@ var Approved = React.createClass({
 	},
 
 	componentWillMount(){
-		window.addEventListener('keydown', this.handleKeyPress, true);
+		window.addEventListener('keyup', this.handleKeyPress, true);
 	},
 
 	handleKeyPress(e){
