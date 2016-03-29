@@ -89,7 +89,7 @@ var approvedListItem = React.createClass({
 	render(){
 		return (
 			<div 
-			onClick={()=>console.log(this.props.id)}
+			onClick={()=> this.props.selectedForEdit(this.props.id)}
 			key={this.props.currentDash[0].id} 
 			style={
 			(()=>{

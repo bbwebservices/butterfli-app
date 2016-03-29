@@ -255,16 +255,12 @@ POST CONTENT
 	},
 
 	selectedForEdit: function(postId){
-		var postToPrepend = this.state.approvedPosts.filter((post) => {
-			if(post.id === postId){
-				return true;
-			}
-			return false
-		})
-		// console.log(postToPrepend);
-		// var selectedMoved = R.concat(this.state.approvedPosts, postToPrepend)
-		// console.log('new: ', selectedMoved)
-		// this.setState({approvedPosts: selectedMoved})
+		var postToMove = R.filter(R.propEq('id', postId), this.state.approvedPosts),
+		    postRemoved = R.reject((post) => {return post.id === postId}, this.state.approvedPosts);
+		this.setState({
+			approvedPosts: R.append(postToMove[0], postRemoved)
+		});
+
 	},
 
 	postToNetwork: function(dashId, postId, network) {
