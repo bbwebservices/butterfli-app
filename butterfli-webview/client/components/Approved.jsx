@@ -22,24 +22,25 @@ var Approved = React.createClass({
 			var length = this.props.approvedPosts.length
 				return ( 
 					<ApprovedListItem 
-						approvedPosts={this.props.approvedPosts[length-1]}
-						id={this.props.approvedPosts[length-1].id} 
-						og_source={this.props.approvedPosts[length-1].og_source} 
-						title={this.props.approvedPosts[length-1].title} 
+						approvedPosts={this.props.approvedPosts[0]}
+						id={this.props.approvedPosts[0].id} 
+						og_source={this.props.approvedPosts[0].og_source} 
+						title={this.props.approvedPosts[0].title} 
 						currentDash={this.props.currentDash} 
 						postApproval={this.props.postApproval} 
 						postToNetwork={this.props.postToNetwork}
-						body={this.props.approvedPosts[length-1].body}
+						body={this.props.approvedPosts[0].body}
 						editPostBody={this.props.editPostBody}
 						columnSize={'uk-width-1-2'}
 						positionStyle={{textAlign: 'center', position: 'absolute'}}
 						showButtons={true}
 						animationsCSS={'approveFadeIn'}
+						editWindow={true}
 
 					/>
 				)
 		} else {
-			return R.reverse(this.props.approvedPosts.map((element, i) => {
+			return this.props.approvedPosts.map((element, i) => {
 				return ( 
 						<ApprovedListItem 
 							index={i}
@@ -59,7 +60,7 @@ var Approved = React.createClass({
 							selectedForEdit={this.props.selectedForEdit}
 						/>
 				)
-			}))
+			})
 		}
 
 		
@@ -73,16 +74,34 @@ var Approved = React.createClass({
 	render(){
 		return (
 			<div className="uk-grid uk-margin-top">
-				<div className="uk-width-1-1">
-					<div className="uk-grid">
-						<div className="uk-width-1-4 uk-text-center uk-icon-arrow-circle-left"></div>
-						{this._renderContent(true)}
-						{/*<div style={styles.rightArrow} className="uk-width-1-4 uk-text-center uk-icon-arrow-circle-right"></div>*/}
-					</div>
-					<div className="uk-grid uk-border-top">
-						{this._renderContent(false)}
-					</div>
-				</div>
+					{(() => {
+						if(this.props.approvedPosts.length){
+							return (
+								<div className="uk-width-1-1">
+									<div className="uk-grid">
+										
+										<div style={styles.leftArrow} 
+										className="uk-width-1-4 uk-text-center uk-icon-arrow-circle-left"
+										onClick={()=>{this.props.shiftPost(false)}}
+										>
+										</div>
+
+										{this._renderContent(true)}
+
+										<div style={styles.rightArrow} 
+										onClick={()=>{this.props.shiftPost(true)}}
+										className="uk-width-1-4 uk-text-center uk-icon-arrow-circle-right"
+										>
+										</div>
+
+									</div>
+									<div className="uk-grid uk-border-top">
+										{this._renderContent(false)}
+									</div>
+								</div>
+							)
+						}
+					})()}	
 			</div>
 		)
 	}
@@ -91,7 +110,7 @@ var Approved = React.createClass({
 var styles = {
 	leftArrow: {
 	    bottom: '-165px',
-	    left: '157px',
+	    left: '-17px',
 	    position: 'relative',
 	    zIndex: 10,
 	    fontSize: 30
@@ -100,7 +119,7 @@ var styles = {
 	    bottom: '-165px',
 	    position: 'relative',
 	    zIndex: 10,
-	    left: '310px',
+	    left: '50%',
 	    fontSize: 30
 	}
 }

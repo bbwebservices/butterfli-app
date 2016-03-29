@@ -64,6 +64,7 @@ var ScrapeHome = React.createClass({
 					postToNetwork={this.props.postToNetwork} 
 					editPostBody={this.props.editPostBody}
 					selectedForEdit={this.props.selectedForEdit}
+					shiftPost={this.props.shiftPost}
 				/>
 			)
 		}

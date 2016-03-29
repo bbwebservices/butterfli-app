@@ -191,7 +191,6 @@ SCRAPE FOR CONTENT
 		api.toggleApprove(this.state.jwt, dashId, postId, toggle)
 			.then((response) => {
 				if(response.statusCode === 200) {
-
 					if(toggle === 'toggle_approve'){
 						var newApprovedState = this.state.unapprovedPosts.filter((post) => {
 							if(post.id === postId) return true;
@@ -208,7 +207,6 @@ SCRAPE FOR CONTENT
 							});
 						}	
 					}
-
 					if(location === 'approved'){
 						var newApprovedState = this.state.approvedPosts.filter((post) => {
 							if(post.id === postId) return false;
@@ -217,7 +215,6 @@ SCRAPE FOR CONTENT
 						this.setState({
 							approvedPosts: newApprovedState
 						})
-
 					} else if (location === 'unapproved') {
 						var newUnapprovedState = this.state.unapprovedPosts.filter((post) => {
 							if(post.id === postId) return false
@@ -226,10 +223,7 @@ SCRAPE FOR CONTENT
 						this.setState({
 							unapprovedPosts: newUnapprovedState
 						});
-
-						
 					}
-
 				}
 			})
 	},
@@ -258,9 +252,28 @@ POST CONTENT
 		var postToMove = R.filter(R.propEq('id', postId), this.state.approvedPosts),
 		    postRemoved = R.reject((post) => {return post.id === postId}, this.state.approvedPosts);
 		this.setState({
-			approvedPosts: R.append(postToMove[0], postRemoved)
+			approvedPosts: R.prepend(postToMove[0], postRemoved)
 		});
 
+	},
+
+	shiftPost: function(foreward) {
+		if(foreward){
+			var last = this.state.approvedPosts[0],
+			    postRemoved = R.drop(1, this.state.approvedPosts);
+
+			this.setState({
+				approvedPosts: R.append(last, postRemoved)
+			});
+		}
+		else {
+			var first = this.state.approvedPosts[this.state.approvedPosts.length-1],
+			postRemoved = R.dropLast(1, this.state.approvedPosts)
+
+			this.setState({
+				approvedPosts: R.prepend(first, postRemoved)
+			})
+		}
 	},
 
 	postToNetwork: function(dashId, postId, network) {
@@ -317,7 +330,8 @@ RENDERING
 						editPostBody: this.editPostBody,
 						fbOAuth: this.fbOAuth,
 						updatePassword: this.updatePassword,
-						selectedForEdit: this.selectedForEdit
+						selectedForEdit: this.selectedForEdit,
+						shiftPost: this.shiftPost
 						
 					})
 				}
