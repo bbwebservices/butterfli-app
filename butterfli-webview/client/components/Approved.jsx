@@ -31,7 +31,6 @@ var Approved = React.createClass({
 	},
 
 	_renderContent(editor){
-		console.log('approved posts: ', this.props.approvedPosts)
 		if(editor){
 			var length = this.props.approvedPosts.length
 				return ( 
