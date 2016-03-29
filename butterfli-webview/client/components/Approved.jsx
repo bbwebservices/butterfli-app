@@ -57,7 +57,6 @@ var Approved = React.createClass({
 							showButtons={false}
 							animations={'stagger'}
 							selectedForEdit={this.props.selectedForEdit}
-
 						/>
 				)
 			}))
