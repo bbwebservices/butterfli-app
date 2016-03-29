@@ -28,7 +28,7 @@ var GiphyModal = React.createClass({
 		// Render options to put after gifs or stickers are selected
 		if(this.state.stickersChecked || this.state.gifsChecked){
 			return (
-				<div className="uk-vertical-align uk-text-center uk-height-1-1 uk-margin-top">
+				<div className="uk-vertical-align uk-text-center uk-height-1-1 uk-margin-top gifDropIn">
 					<div style={{zIndex: 1}} className="uk-vertical-align-middle">
 						
 						<label>search</label>
@@ -191,6 +191,7 @@ var GiphyModal = React.createClass({
 					</div>
 				</div>
 				{this._renderChildOptions()}
+				
 			</div>
 		)
 	}

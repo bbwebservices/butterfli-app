@@ -2,7 +2,8 @@ var React = require('react'),
 	ReactDOM = require('react-dom'),
     Login = require('./components/Login.jsx'),
     AccountHome = require('./components/AccountHome.jsx'),
-    api = require('./api.js');
+    api = require('./api.js'),
+    R = require('ramda');
 
 var Butterfli = React.createClass({
 
@@ -22,7 +23,6 @@ var Butterfli = React.createClass({
 				unapprovedPosts: null
 			}
 		}
-		
 	},
 
 	componentDidUpdate: function (prevProps, prevState) {
@@ -96,6 +96,7 @@ DASHES
 			})
 	},
 
+	// grab user selected dash, then save to state
 	saveCurrentDash: function (dashId){
 		var dashToSave = this.state.dashes.filter((element) => {
 			if(element.id === dashId) {
@@ -117,6 +118,7 @@ DASHES
 
 	},
 
+	// fire create dash, on response update dash state with new
 	createDash: function (options) {
 		api.createDash(this.state.jwt, options)
 			.then((res) => {
@@ -131,6 +133,7 @@ DASHES
 			})
 	},
 
+	// fire delete dash, on success filter out of current state 
 	deleteDash: function (dashId) {
 		api.deleteDash(this.state.jwt, dashId)
 			.then((res) => {
@@ -188,7 +191,6 @@ SCRAPE FOR CONTENT
 		api.toggleApprove(this.state.jwt, dashId, postId, toggle)
 			.then((response) => {
 				if(response.statusCode === 200) {
-
 					if(toggle === 'toggle_approve'){
 						var newApprovedState = this.state.unapprovedPosts.filter((post) => {
 							if(post.id === postId) return true;
@@ -205,7 +207,6 @@ SCRAPE FOR CONTENT
 							});
 						}	
 					}
-
 					if(location === 'approved'){
 						var newApprovedState = this.state.approvedPosts.filter((post) => {
 							if(post.id === postId) return false;
@@ -214,7 +215,6 @@ SCRAPE FOR CONTENT
 						this.setState({
 							approvedPosts: newApprovedState
 						})
-
 					} else if (location === 'unapproved') {
 						var newUnapprovedState = this.state.unapprovedPosts.filter((post) => {
 							if(post.id === postId) return false
@@ -223,10 +223,7 @@ SCRAPE FOR CONTENT
 						this.setState({
 							unapprovedPosts: newUnapprovedState
 						});
-
-						
 					}
-
 				}
 			})
 	},
@@ -249,6 +246,33 @@ POST CONTENT
 				})
 		})
 
+	},
+
+	selectedForEdit: function(postId){
+		var postToMove = R.filter(R.propEq('id', postId), this.state.approvedPosts),
+		    postRemoved = R.reject((post) => {return post.id === postId}, this.state.approvedPosts);
+		this.setState({
+			approvedPosts: R.prepend(postToMove[0], postRemoved)
+		});
+	},
+
+	shiftPost: function(foreward) {
+		if(foreward){
+			var last = this.state.approvedPosts[0],
+			    postRemoved = R.drop(1, this.state.approvedPosts);
+
+			this.setState({
+				approvedPosts: R.append(last, postRemoved)
+			});
+		}
+		else {
+			var first = this.state.approvedPosts[this.state.approvedPosts.length-1],
+			postRemoved = R.dropLast(1, this.state.approvedPosts)
+
+			this.setState({
+				approvedPosts: R.prepend(first, postRemoved)
+			})
+		}
 	},
 
 	postToNetwork: function(dashId, postId, network) {
@@ -304,7 +328,9 @@ RENDERING
 						deleteDash: this.deleteDash,
 						editPostBody: this.editPostBody,
 						fbOAuth: this.fbOAuth,
-						updatePassword: this.updatePassword
+						updatePassword: this.updatePassword,
+						selectedForEdit: this.selectedForEdit,
+						shiftPost: this.shiftPost
 						
 					})
 				}

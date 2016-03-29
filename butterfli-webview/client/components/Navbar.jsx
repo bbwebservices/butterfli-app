@@ -71,7 +71,8 @@ var signOutStyle = {
     right: 79,
     position: 'relative',
     color: '#999999',
-    fontSize: '13px'
+    fontSize: '13px',
+    width: 70
 }
 
 module.exports = Navbar;
