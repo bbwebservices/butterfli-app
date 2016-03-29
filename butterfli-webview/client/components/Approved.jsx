@@ -14,6 +14,20 @@ var Approved = React.createClass({
 
 	componentDidMount(){
 		this.animateListItems();
+		this.handleKeyPress()
+	},
+
+	componentWillMount(){
+		window.addEventListener('keydown', this.handleKeyPress, true);
+	},
+
+	handleKeyPress(e){
+		if(e.keyCode === 39) {
+			this.props.shiftPost(true)
+		}
+		if (e.keyCode === 37) {
+			this.props.shiftPost(false)
+		}
 	},
 
 	_renderContent(editor){
