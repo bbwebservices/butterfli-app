@@ -98,7 +98,7 @@ var approvedListItem = React.createClass({
 			style={
 			(()=>{
 				{/* if currently editing this post (last index in array), give it a border, else render usual style */}
-				if(this.props.index === this.props.approvedPosts.length-1){
+				if(this.props.index === 0){
 					return {border: 'green 5px solid', textAlign: 'center', top: 500}
 				}
 				else return this.props.positionStyle

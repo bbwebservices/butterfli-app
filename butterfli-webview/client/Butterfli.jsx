@@ -254,7 +254,6 @@ POST CONTENT
 		this.setState({
 			approvedPosts: R.prepend(postToMove[0], postRemoved)
 		});
-
 	},
 
 	shiftPost: function(foreward) {
