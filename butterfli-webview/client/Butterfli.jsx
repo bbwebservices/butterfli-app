@@ -231,6 +231,8 @@ SCRAPE FOR CONTENT
 /*****************
 POST CONTENT
 *****************/
+
+	// Send new post body to db. on user submit in Approved Tab
 	editPostBody: function (dashId, postId, body) {
 		api.editPostBody(this.state.jwt, dashId, postId, body)
 			.then((res) => {
@@ -248,6 +250,7 @@ POST CONTENT
 
 	},
 
+	// fires when user clicks on an image in Approved Tab. brings selected post to the front of stack.
 	selectedForEdit: function(postId){
 		var postToMove = R.filter(R.propEq('id', postId), this.state.approvedPosts),
 		    postRemoved = R.reject((post) => {return post.id === postId}, this.state.approvedPosts);
@@ -256,24 +259,24 @@ POST CONTENT
 		});
 	},
 
+	// fires either when user clicks arrows, or right or left keys in Approved Tab. Shifts stack right or left.
 	shiftPost: function(foreward) {
 		if(foreward){
 			var last = this.state.approvedPosts[0],
 			    postRemoved = R.drop(1, this.state.approvedPosts);
-
 			this.setState({
 				approvedPosts: R.append(last, postRemoved)
 			});
 		}
 		else {
 			var first = this.state.approvedPosts[this.state.approvedPosts.length-1],
-			postRemoved = R.dropLast(1, this.state.approvedPosts)
-
+				postRemoved = R.dropLast(1, this.state.approvedPosts)
 			this.setState({
 				approvedPosts: R.prepend(first, postRemoved)
 			})
 		}
 	},
+
 
 	postToNetwork: function(dashId, postId, network) {
 		console.log('post id: ', postId);
