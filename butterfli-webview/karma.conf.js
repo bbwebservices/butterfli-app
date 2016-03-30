@@ -32,6 +32,11 @@ module.exports = function (config) {
 					},
 				],
 			},
+			node: {
+				fs: 'empty',
+				net: 'empty',
+				tls: 'empty'
+			},
 		},
 		webpackMiddleware: { 
 			noInfo: true 
