@@ -4,7 +4,7 @@ var React = require('react'),
 	Navbar = require('./../../client/components/Navbar.jsx');
 
 
-describe('root', function () {
+describe('Navbar component', function() {
 	it('renders without problems', function () {
 		var nav = TestUtils.renderIntoDocument(<Navbar />);
 		expect(nav).toExist();

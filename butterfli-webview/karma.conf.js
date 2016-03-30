@@ -11,8 +11,7 @@ module.exports = function (config) {
 		frameworks: [ 'mocha' ], //use mocha
 		files: [ 'test/test.jsx' ], //load this file
 		preprocessors: {
-			'test/test.jsx': [ 'webpack', 'sourcemap' ]
-			 // use webpack for preprocess
+			'test/test.jsx': [ 'webpack', 'sourcemap' ] // use webpack + sourcemap for preprocess
 		},
 		reporters: [ 'dots' ], //report results in dots format
 		webpack: { // similar to webpack.config
