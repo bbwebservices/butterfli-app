@@ -24,6 +24,44 @@ var approvedListItem = React.createClass({
 		console.log(R.findIndex(R.propEq('id', this.props.id))(this.props.approvedPosts))
 	},
 
+	mouseEnterAnimations(element){
+		TweenMax.to(element, 0.3, {opacity: 0.7})
+	},
+
+	mouseLeaveAnimations(element){
+		TweenMax.to(element, 0.3, {opacity: 1})
+	},
+
+	mouseDownAnimations(element){
+		TweenMax.to(element, 0.3, {opacity: 1})
+	},
+
+	//parse numbers into css classes
+	numberParse(input){
+		if(typeof input !== 'string'){
+			input = input.toString();
+		}
+		var nums = {
+				'1': 'one',
+				'2': 'two',
+				'3': 'three',
+				'4': 'four',
+				'5': 'five',
+				'6': 'six',
+				'7': 'seven',
+				'8': 'eight',
+				'9': 'nine' ,
+				'0': 'zero'
+		}
+		var trimmed = input.replace(/\s+/g, "");
+		if(nums[trimmed[0]]) {
+			var str = trimmed.slice(1, trimmed.length)
+			str = nums[trimmed[0]] + str;
+			return str
+		}
+		return trimmed;	
+	},
+
 	addText(){
 		this.setState({
 			hasBody: true,
@@ -33,7 +71,6 @@ var approvedListItem = React.createClass({
 
 	inputChange(){
 		this.state.isSelected ? this.setState({isSelected: false}) : this.setState({isSelected: true});
-		console.log(this.state.isSelected)
 	},
 
 	onSubmit(e){
@@ -87,13 +124,11 @@ var approvedListItem = React.createClass({
 	},
 
 	render(){
+
+		var imageClass = this.numberParse(this.props.id)+'-ali';
+
 		return (
 			<div 
-			onClick={()=> {
-				if(!this.props.editWindow){
-					this.props.selectedForEdit(this.props.id)
-				}
-			}}
 			key={this.props.currentDash[0].id} 
 			style={
 			(()=>{
@@ -104,8 +139,38 @@ var approvedListItem = React.createClass({
 				else return this.props.positionStyle
 			})()}	 
 			className={"uk-panel uk-panel-box "+this.props.animationsCSS+" "+this.props.columnSize}
-			>
-				<img style={{height: 300}} src={this.props.og_source}></img>
+			> 
+				{(()=>{
+					if(this.props.showButtons){
+						return (
+							<img 
+							style={{height: 300}} 
+							src={this.props.og_source}
+							>
+							</img>
+						)
+					}
+					else {
+						return (
+							<img 
+							onClick={()=> {
+								if(!this.props.editWindow){
+									this.props.selectedForEdit(this.props.id)
+								}
+							}}
+							onMouseEnter={() => this.mouseEnterAnimations('.'+imageClass)}
+							onMouseLeave={() => this.mouseLeaveAnimations('.'+imageClass)}
+							onMouseMove={() => this.mouseEnterAnimations('.'+imageClass)}
+							onMouseDown={() => this.mouseDownAnimations('.'+imageClass)}
+							style={{height: 300}} 
+							src={this.props.og_source}
+							className={imageClass}
+							>
+							</img>
+						)
+					}
+				})()}
+				
 				<p>{this.props.title}</p>
 				{(()=>{
 					{/* If we are viewing in the editor, render out all buttons */}
