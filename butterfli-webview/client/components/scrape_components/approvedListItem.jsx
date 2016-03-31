@@ -144,7 +144,7 @@ var approvedListItem = React.createClass({
 					if(this.props.showButtons){
 						return (
 							<img 
-							style={{height: 300}} 
+							style={{maxHeight: 500, height: 'auto'}} 
 							src={this.props.og_source}
 							>
 							</img>
@@ -162,7 +162,7 @@ var approvedListItem = React.createClass({
 							onMouseLeave={() => this.mouseLeaveAnimations('.'+imageClass)}
 							onMouseMove={() => this.mouseEnterAnimations('.'+imageClass)}
 							onMouseDown={() => this.mouseDownAnimations('.'+imageClass)}
-							style={{height: 300}} 
+							style={{minHeight: 100, height: 'auto'}} 
 							src={this.props.og_source}
 							className={imageClass}
 							>

@@ -80,9 +80,6 @@ var Approved = React.createClass({
 		
 	},
 
-	_renderSmallContent(){
-		
-	},
 
 	render(){
 		return (
