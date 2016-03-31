@@ -9,7 +9,7 @@ module.exports = function (config) {
 		browsers: [ 'Chrome' ], //run in chrome
 		singleRun: true, //run only once by default
 		frameworks: [ 'mocha' ], //use mocha
-		files: [ 'test/test.jsx' ], //load this file
+		files: [ 'https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/TweenMax.min.js' , 'test/test.jsx' ], //load this file
 		preprocessors: {
 			'test/test.jsx': [ 'webpack', 'sourcemap' ] // use webpack + sourcemap for preprocess
 		},
