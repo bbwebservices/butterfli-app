@@ -59,7 +59,11 @@ class DashesController < ApplicationController
       network = params[:network]
       search_param_str = params[:param_array]
       # search_param_str = 'stickers,random'
-      arr_reform = search_param_str.split(',').to_a
+      if search_param_str
+        arr_reform = search_param_str.split(',').to_a
+      else
+        arr_reform = search_param_str.to_a
+      end
       # parameters = ['stickers', 'gifs','search','translate','random']
       param_array = [network, arr_reform]
       search_term = params[:search_term]
