@@ -1,11 +1,15 @@
 class Dash < ActiveRecord::Base
 	belongs_to :user
 	has_many :posts
+	has_many :searches
 
 
 # Scraper Methods
 # - - - - - - - - - - - - - - - - - - - - -
 	def scraper(search, parameters)
+
+
+
 	    unless !parameters[0] && !search
 	      case parameters[0]
 		      when 'twitter'
