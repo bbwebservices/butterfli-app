@@ -67,7 +67,7 @@ var Approved = React.createClass({
 							body={element.body}
 							editPostBody={this.props.editPostBody}
 							columnSize={'uk-width-1-3'}
-							positionStyle={{border: '#eeeeee 5px solid', textAlign: 'center', top: 500, cursor: 'pointer'}}
+							positionStyle={{border: '#eeeeee 5px solid', textAlign: 'center', top: 450, cursor: 'pointer'}}
 							showButtons={false}
 							animations={'stagger'}
 							selectedForEdit={this.props.selectedForEdit}
@@ -80,9 +80,6 @@ var Approved = React.createClass({
 		
 	},
 
-	_renderSmallContent(){
-		
-	},
 
 	render(){
 		return (

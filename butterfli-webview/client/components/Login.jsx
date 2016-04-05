@@ -15,7 +15,7 @@ var Login = React.createClass({
 
 	render(){
 		return (
-			<div>
+			<div className='loginCont'>
 				<Navbar />
 				<div className="uk-vertical-align uk-text-center uk-height-1-1 uk-margin-top dropIn">
 					<div style={{zIndex: 1}} className="uk-vertical-align-middle" style={styles.formContainer}>
