@@ -134,7 +134,7 @@ var approvedListItem = React.createClass({
 			(()=>{
 				{/* if currently editing this post (last index in array), give it a border, else render usual style */}
 				if(this.props.index === 0){
-					return {border: 'green 5px solid', textAlign: 'center', top: 500}
+					return {border: 'green 5px solid', textAlign: 'center', top: 450}
 				}
 				else return this.props.positionStyle
 			})()}	 
@@ -144,7 +144,7 @@ var approvedListItem = React.createClass({
 					if(this.props.showButtons){
 						return (
 							<img 
-							style={{maxHeight: 500, height: 'auto'}} 
+							style={{minHeight:250, height: 'auto'}} 
 							src={this.props.og_source}
 							>
 							</img>

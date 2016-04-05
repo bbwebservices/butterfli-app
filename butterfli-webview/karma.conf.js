@@ -1,9 +1,6 @@
 var webpack = require('webpack');
 // var sourcemap = require('karma-sourcemap-loader');
 
-
-
-
 module.exports = function (config) {
 	config.set({
 		browsers: [ 'jsdom' ], //run in chrome

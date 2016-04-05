@@ -4,7 +4,6 @@ var AccountHome = require('./AccountHome.jsx');
 
 var Landing = React.createClass({
 
-
 	_renderLoginRoute(){
 		//check if logged in, render appropriate component
 		if(this.props.isLoggedIn) {

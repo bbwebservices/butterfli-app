@@ -334,7 +334,6 @@ RENDERING
 						updatePassword: this.updatePassword,
 						selectedForEdit: this.selectedForEdit,
 						shiftPost: this.shiftPost
-						
 					})
 				}
 			</div>

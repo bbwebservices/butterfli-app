@@ -8,6 +8,7 @@
     "start": "nodemon server/server.js"
   },
   "dependencies": {
+    "bluebird": "^3.3.4",
     "compression": "^1.6.1",
     "express": "^4.13.4",
     "express-cors": "0.0.3",
