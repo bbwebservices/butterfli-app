@@ -1,15 +1,12 @@
 var webpack = require('webpack');
 // var sourcemap = require('karma-sourcemap-loader');
 
-
-
-
 module.exports = function (config) {
 	config.set({
-		browsers: [ 'Chrome' ], //run in chrome
+		browsers: [ 'jsdom' ], //run in chrome
 		singleRun: true, //run only once by default
 		frameworks: [ 'mocha' ], //use mocha
-		files: [ 'test/test.jsx' ], //load this file
+		files: [ 'https://cdnjs.cloudflare.com/ajax/libs/gsap/1.18.2/TweenMax.min.js', 'test/test.jsx' ], //load test file, and TweenMax CDN (only dep we dont require)
 		preprocessors: {
 			'test/test.jsx': [ 'webpack', 'sourcemap' ] // use webpack + sourcemap for preprocess
 		},
@@ -21,7 +18,7 @@ module.exports = function (config) {
 					{
 						test: /\.jsx$/, 
 						exclude: /node_modules/,
-						loader: 'babel-loader',
+						loader: ['babel-loader'],
 						query: {
 							presets: ['es2015', 'react']
 						}
@@ -31,6 +28,11 @@ module.exports = function (config) {
 						loader: 'json-loader' 
 					},
 				],
+			},
+			node: {
+				fs: 'empty',
+				net: 'empty',
+				tls: 'empty'
 			},
 		},
 		webpackMiddleware: { 
@@ -43,7 +45,8 @@ module.exports = function (config) {
 			require('karma-webpack'),
 			require('karma-mocha'),
 			require('karma-chrome-launcher'),
-			require('karma-sourcemap-loader')
+			require('karma-sourcemap-loader'),
+			require('karma-jsdom-launcher'),
 		]
 	})
 }

@@ -134,7 +134,7 @@ var approvedListItem = React.createClass({
 			(()=>{
 				{/* if currently editing this post (last index in array), give it a border, else render usual style */}
 				if(this.props.index === 0){
-					return {border: 'green 5px solid', textAlign: 'center', top: 500}
+					return {border: 'green 5px solid', textAlign: 'center', top: 450}
 				}
 				else return this.props.positionStyle
 			})()}	 
@@ -144,7 +144,7 @@ var approvedListItem = React.createClass({
 					if(this.props.showButtons){
 						return (
 							<img 
-							style={{height: 300}} 
+							style={{minHeight:250, height: 'auto'}} 
 							src={this.props.og_source}
 							>
 							</img>
@@ -162,7 +162,7 @@ var approvedListItem = React.createClass({
 							onMouseLeave={() => this.mouseLeaveAnimations('.'+imageClass)}
 							onMouseMove={() => this.mouseEnterAnimations('.'+imageClass)}
 							onMouseDown={() => this.mouseDownAnimations('.'+imageClass)}
-							style={{height: 300}} 
+							style={{minHeight: 100, height: 'auto'}} 
 							src={this.props.og_source}
 							className={imageClass}
 							>
