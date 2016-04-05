@@ -67,6 +67,8 @@ class DashesController < ApplicationController
       # parameters = ['stickers', 'gifs','search','translate','random']
       param_array = [network, arr_reform]
       search_term = params[:search_term]
+      
+      
       @dash.scraper(search_term, param_array)
       @posts = @dash.posts.where(approved: nil)
       render json: @posts, status: 200

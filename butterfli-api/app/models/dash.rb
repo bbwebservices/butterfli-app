@@ -1,16 +1,28 @@
 class Dash < ActiveRecord::Base
 	belongs_to :user
 	has_many :posts
+	has_many :searches
 
 
 # Scraper Methods
 # - - - - - - - - - - - - - - - - - - - - -
 	def scraper(search, parameters)
+		puts 'hello! from scraper'
+		if self.searches.where(term: search.to_s, network: parameters[0]) != []
+			puts 'this already exists!'
+			search_obj = self.searches.where(term: search.to_s).first
+		elsif self.searches.where(term: search.to_s, network: parameters[0]) == []
+			search_obj = Search.new(term: search, network: parameters[0])
+			self.searches << search_obj
+			puts 'made obj!'
+		end
+
+
 	    unless !parameters[0] && !search
-	      case parameters[0]
+	      case search_obj.network
 		      when 'twitter'
 		      	ps = ["popular","en", 'images']
-		        self.twitter_pic_scrape(search, ps)
+		        self.twitter_pic_scrape(search_obj, ps)
 		      when 'giphy'
 				sub_params = parameters[1]
 		        self.giphy_scrape(search, sub_params)
@@ -87,17 +99,24 @@ class Dash < ActiveRecord::Base
 		return count
 	end	
 	# result_type: 'popular', max_id: '', lang: 'en',   filter: 'twimg'
-	def twitter_pic_scrape(search, parameters)
-	    self.twitter_pic_search = search.downcase
+	def twitter_pic_scrape(search_obj, parameters)
+	    self.twitter_pic_search = search_obj.term.downcase
 	    puts "encoded: ", URI::encode(self.twitter_pic_search)
 	    self.save		
 	    result_type = parameters[0]
 		t = self.get_twit_client
-		search_var = search + " -rt"
+		search_var = search_obj.term + " -rt"
 		pic_limit = 0
 		pic_fail = 0
 		count = 0
-		t.search(search_var, options = {result_type: result_type, max_id: '', lang: 'en',   filter: 'twimg'}).collect do |tweet|
+		if !search_obj.since_id
+			max_id = ''
+			puts 'max_id: ', max_id 
+		else
+			max_id = search_obj.since_id
+			puts 'max_id: ', max_id 
+		end
+		t.search(search_var, options = {result_type: result_type, max_id: max_id, lang: 'en',   filter: 'twimg'}).collect do |tweet|
 			puts 'tweet', tweet.to_json
 			puts 'index', count
 			count += 1
@@ -113,6 +132,10 @@ class Dash < ActiveRecord::Base
 					else
 						pic_fail += 1
 					end
+					search_obj.since_id = tweet.id.to_s
+					puts "trying this: " + search_obj.since_id
+					search_obj.save
+					puts 'saved!!   ~~ !@!!'
 				else
 					puts 'breakin out!'
 					break

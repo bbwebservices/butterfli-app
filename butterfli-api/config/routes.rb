@@ -21,7 +21,7 @@ Rails.application.routes.draw do
         get 'add_chrome_post' => 'dashes#add_chrome_post', path: 'add-post'
     # Post resource and controller actions
     resources :posts do
-      get 'toggle_approve', :on => :member   
+      get 'toggle_approve', :on => :member
       get 'toggle_disapprove', :on => :member   
     end
   end
