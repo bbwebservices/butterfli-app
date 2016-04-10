@@ -11,7 +11,11 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
+<<<<<<< HEAD
 ActiveRecord::Schema.define(version: 20160404211548) do
+=======
+ActiveRecord::Schema.define(version: 20160319192839) do
+>>>>>>> stripe
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -141,10 +145,13 @@ ActiveRecord::Schema.define(version: 20160404211548) do
     t.datetime "updated_at",                             null: false
     t.boolean  "subscribed",             default: false
     t.string   "stripeid"
+<<<<<<< HEAD
     t.integer  "sash_id"
     t.integer  "level",                  default: 0
     t.string   "first_name"
     t.string   "last_name"
+=======
+>>>>>>> stripe
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

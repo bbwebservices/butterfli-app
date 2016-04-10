@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
+
+  get 'subscribe/new'
+
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
+
+  resources :subscribe
 
   resources :dashes do
     # Controller Action Routes

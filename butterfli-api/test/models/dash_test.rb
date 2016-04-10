@@ -1,7 +1,8 @@
 require 'test_helper'
 
 class DashTest < ActiveSupport::TestCase
-  # test "the truth" do
-  #   assert true
-  # end
+  test "new dash" do
+  	Dash.new
+    assert true
+  end
 end
