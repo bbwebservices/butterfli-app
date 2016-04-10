@@ -7,14 +7,12 @@ var Link = require('react-router').Link;
 var ScrapeHome = React.createClass({
 
 	getInitialState() {
-			return {
-				selected: '', 
-				// isSelected: false,
-				// hasChanged: false,
-				// newBody: null
-			}
-		
-		
+		return {
+			selected: '', 
+			// isSelected: false,
+			// hasChanged: false,
+			// newBody: null
+		}
 	},
 
 	selectTab(tab){
@@ -65,6 +63,8 @@ var ScrapeHome = React.createClass({
 					currentDash={this.props.currentDash}	
 					postToNetwork={this.props.postToNetwork} 
 					editPostBody={this.props.editPostBody}
+					selectedForEdit={this.props.selectedForEdit}
+					shiftPost={this.props.shiftPost}
 				/>
 			)
 		}

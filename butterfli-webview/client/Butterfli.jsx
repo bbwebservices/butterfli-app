@@ -2,7 +2,8 @@ var React = require('react'),
 	ReactDOM = require('react-dom'),
     Login = require('./components/Login.jsx'),
     AccountHome = require('./components/AccountHome.jsx'),
-    api = require('./api.js');
+    api = require('./api.js'),
+    R = require('ramda');
 
 var Butterfli = React.createClass({
 
@@ -22,7 +23,6 @@ var Butterfli = React.createClass({
 				unapprovedPosts: null
 			}
 		}
-		
 	},
 
 	componentDidUpdate: function (prevProps, prevState) {
@@ -68,6 +68,21 @@ CREDENTIALS
 			})	
 	},
 
+	fbOAuth: function (dashId) {
+		console.log('in bfli fboauth')
+		api.fbOAuth(this.state.jwt, dashId)
+			.then((response) => {
+				console.log('fb OAuth Response: ', response)
+			})
+	},
+
+	updatePassword: function (password, password_confirmation) {
+		api.updatePassword(this.state.jwt, password, password_confirmation)
+			.then((response) => {
+				console.log('Update Password Response: ', response);
+			})
+	},
+
 /****************
 DASHES
 ****************/
@@ -81,6 +96,7 @@ DASHES
 			})
 	},
 
+	// grab user selected dash, then save to state
 	saveCurrentDash: function (dashId){
 		var dashToSave = this.state.dashes.filter((element) => {
 			if(element.id === dashId) {
@@ -102,6 +118,7 @@ DASHES
 
 	},
 
+	// fire create dash, on response update dash state with new
 	createDash: function (options) {
 		api.createDash(this.state.jwt, options)
 			.then((res) => {
@@ -116,6 +133,7 @@ DASHES
 			})
 	},
 
+	// fire delete dash, on success filter out of current state 
 	deleteDash: function (dashId) {
 		api.deleteDash(this.state.jwt, dashId)
 			.then((res) => {
@@ -148,8 +166,8 @@ SCRAPE FOR CONTENT
 			})
 	},
 
-	picScrape: function (dashId, network, term) {
-		api.scrapeForPics(this.state.jwt, dashId, network, term)
+	picScrape: function (dashId, network, term, advanced) {
+		api.scrapeForPics(this.state.jwt, dashId, network, term, advanced)
 			.then((response) => {
 				if(response.statusCode === 200) {
 					this.scraper(dashId);	
@@ -173,29 +191,39 @@ SCRAPE FOR CONTENT
 		api.toggleApprove(this.state.jwt, dashId, postId, toggle)
 			.then((response) => {
 				if(response.statusCode === 200) {
+					if(toggle === 'toggle_approve'){
+						var newApprovedState = this.state.unapprovedPosts.filter((post) => {
+							if(post.id === postId) return true;
+							return false;
+						});
+						if(this.state.approvedPosts === null){
+							this.setState({
+								approvedPosts: newApprovedState
+							});
+						} else {
+							var approveToAdd = this.state.approvedPosts.concat(newApprovedState);
+							this.setState({
+								approvedPosts: approveToAdd
+							});
+						}	
+					}
 					if(location === 'approved'){
 						var newApprovedState = this.state.approvedPosts.filter((post) => {
-							if(post.id === postId){
-								return false
-							} 
+							if(post.id === postId) return false;
 							return true
 						});
 						this.setState({
 							approvedPosts: newApprovedState
 						})
-
 					} else if (location === 'unapproved') {
 						var newUnapprovedState = this.state.unapprovedPosts.filter((post) => {
-							if(post.id === postId){
-								return false
-							} 
+							if(post.id === postId) return false
 							return true
 						});
 						this.setState({
 							unapprovedPosts: newUnapprovedState
-						})
+						});
 					}
-
 				}
 			})
 	},
@@ -203,6 +231,8 @@ SCRAPE FOR CONTENT
 /*****************
 POST CONTENT
 *****************/
+
+	// Send new post body to db. on user submit in Approved Tab
 	editPostBody: function (dashId, postId, body) {
 		api.editPostBody(this.state.jwt, dashId, postId, body)
 			.then((res) => {
@@ -210,15 +240,43 @@ POST CONTENT
 				for (var i = 0; i < newApprovedState.length; i++) {
 					if(newApprovedState[i].id === postId){
 						newApprovedState[i].body = body;
+						console.log('Added this body: ', newApprovedState[i])
 					}
 				}
 				this.setState({
 					approvedPosts: newApprovedState
 				})
-				console.log('AP: ', this.state.approvedPosts)
-			})
+		})
 
 	},
+
+	// fires when user clicks on an image in Approved Tab. brings selected post to the front of stack.
+	selectedForEdit: function(postId){
+		var postToMove = R.filter(R.propEq('id', postId), this.state.approvedPosts),
+		    postRemoved = R.reject((post) => {return post.id === postId}, this.state.approvedPosts);
+		this.setState({
+			approvedPosts: R.prepend(postToMove[0], postRemoved)
+		});
+	},
+
+	// fires either when user clicks arrows, or right or left keys in Approved Tab. Shifts stack right or left.
+	shiftPost: function(foreward) {
+		if(foreward){
+			var last = this.state.approvedPosts[0],
+			    postRemoved = R.drop(1, this.state.approvedPosts);
+			this.setState({
+				approvedPosts: R.append(last, postRemoved)
+			});
+		}
+		else {
+			var first = this.state.approvedPosts[this.state.approvedPosts.length-1],
+				postRemoved = R.dropLast(1, this.state.approvedPosts)
+			this.setState({
+				approvedPosts: R.prepend(first, postRemoved)
+			})
+		}
+	},
+
 
 	postToNetwork: function(dashId, postId, network) {
 		console.log('post id: ', postId);
@@ -271,7 +329,11 @@ RENDERING
 						updateTwitDash: this.updateTwitDash,
 						createDash: this.createDash,
 						deleteDash: this.deleteDash,
-						editPostBody: this.editPostBody
+						editPostBody: this.editPostBody,
+						fbOAuth: this.fbOAuth,
+						updatePassword: this.updatePassword,
+						selectedForEdit: this.selectedForEdit,
+						shiftPost: this.shiftPost
 						
 					})
 				}

@@ -15,7 +15,7 @@ module.exports = {
 				body: dataString
 		};
 
-		return new Promise((resolve, reject)=>{
+		return new Promise((resolve, reject) => {
 			request(options, function(error, response, body) {
 				if(error) {
 					console.error('Log In Error: ', error);
@@ -24,10 +24,8 @@ module.exports = {
 				if(response.statusCode === 200) {
 					resolve(JSON.parse(body).token)
 				}
-
 			})
-		}).then((token)=>{
-			console.log("IN API PROM VALUE: ", token);
+		}).then((token) => {
 			return token;
 		})
 	},
@@ -72,6 +70,39 @@ module.exports = {
 		
 	},
 
+	fbOAuth(jwt, dashId){
+		var headers = {'Authorization': jwt}
+		var options = { 
+			url: 'http://localhost:3000/dashes/'+dashId+'/fb_oauth',
+			method: 'GET' 
+		}
+		return new Promise((resolve, reject) => {
+			request(options, (error, response, body) => {
+				resolve(response)
+			})
+		})
+	},
+
+	updatePassword(jwt, password, password_confirmation){
+		var options = {
+			url: 'http://localhost:3000/users/password?password='+password+'&password_confirmation='+password_confirmation,
+			method: 'PUT' ,
+			headers: { 
+				'Authorization': jwt,
+				'Origin': 'http://localhost:4000', 
+				'Access-Control-Allow-Origin': 
+				'http://localhost:4000' 
+			},
+
+		}
+
+		return new Promise((resolve, reject) => {
+			request(options, (error, response, body) => {
+				resolve(response)
+			})
+		})
+	},
+
 
 /*************
 Scraper, post to netwrk
@@ -87,27 +118,29 @@ Scraper, post to netwrk
 			request(options, (error, response, body) => {	
 				resolve(JSON.parse(body).dashes)	
 			})
-		}).then((dashes)=>{
+		}).then((dashes) => {
 			return dashes;
 		})
-
 	},
 
-	scrapeForPics(jwt, dashId, network, term){
+	scrapeForPics(jwt, dashId, network, term, advanced){
+
+		//pass in params from unapproved page
 		var headers = { 'Authorization': jwt, 'Content-Type': 'application/json'};
 		var options = {
-			url: 'http://localhost:3000/dashes/'+dashId+'/pic-scrape.json?network='+network+'&search_term='+term,
+			url: advanced !== '' ? 'http://localhost:3000/dashes/'+dashId+'/pic-scrape.json?network='+network+'&search_term='+term +'&param_array='+advanced
+						  : 'http://localhost:3000/dashes/'+dashId+'/pic-scrape.json?network='+network+'&search_term='+term,
 			method: 'GET',
 			headers: headers
-		}
-		return new Promise( (resolve, reject) => {
+		};
+		return new Promise((resolve, reject) => {
 			request(options, function(error, response, body) {
 				if(error){
 					console.log('error getting pics: ', error)
 				}
 				resolve(response);
 			})
-		}).then((response)=>{
+		}).then((response) => {
 			return response;
 		})
 	},

@@ -1,6 +1,6 @@
 source 'https://rubygems.org'
 
-ruby '2.2.0'
+ruby '2.2.1'
 
 gem 'rails', '4.2.2'
 
@@ -8,6 +8,7 @@ gem 'rails-api'
 
 gem 'spring', :group => :development
 
+gem 'rake', '11.1.1'
 
 gem 'pg'
 
@@ -20,9 +21,13 @@ gem 'twitter', '~> 5.15'
 gem 'tumblr_client', '~> 0.8.5'
 gem "koala", "~> 2.2"
 gem 'postmark'
+<<<<<<< HEAD
+gem 'merit'
+=======
 
 gem 'stripe', :git => 'https://github.com/stripe/stripe-ruby'
 
+>>>>>>> stripe
 # To use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
 

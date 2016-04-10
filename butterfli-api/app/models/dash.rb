@@ -1,54 +1,62 @@
 class Dash < ActiveRecord::Base
 	belongs_to :user
 	has_many :posts
+	has_many :searches
 
 
 # Scraper Methods
 # - - - - - - - - - - - - - - - - - - - - -
-	def scraper(network, search)
-	    unless !network && !search
-	      case network
-	      when 'twitter'
-	      	parameters = ["en", 'images']
-	        self.twitter_pic_scrape(search, parameters)
-	      when 'giphy'
-	      	parameters = ['']
-	        self.giphy_scrape(search, parameters)
-	      when 'tumblr'
-	        self.tumblr_pic_scrape(search)
-	      when 'reddit'
-	        self.reddit_pic_scrape(search)
+	def scraper(search, parameters)
+		puts 'hello! from scraper'
+		if self.searches.where(term: search.to_s, network: parameters[0]) != []
+			puts 'this already exists!'
+			search_obj = self.searches.where(term: search.to_s).first
+		elsif self.searches.where(term: search.to_s, network: parameters[0]) == []
+			search_obj = Search.new(term: search, network: parameters[0])
+			self.searches << search_obj
+			puts 'made obj!'
+		end
+
+
+	    unless !parameters[0] && !search
+	      case search_obj.network
+		      when 'twitter'
+		      	ps = ["popular","en", 'images']
+		        self.twitter_pic_scrape(search_obj, ps)
+		      when 'giphy'
+				sub_params = parameters[1]
+		        self.giphy_scrape(search, sub_params)
+		      when 'tumblr'
+		        self.tumblr_pic_scrape(search)
+		      when 'reddit'
+		        self.reddit_pic_scrape(search)
 	      end
 	    end		
 	end
-	def giphy_scrape(search, type)
+
+	def giphy_scrape(search, parameters)
 		begin
 		    self.giphy_search = search.downcase
 		    self.save
 			search = search ? search : self.giphy_search
 			sanitize = search.tr(" ", "+");
-			puts search
-			
 			key = "dc6zaTOxFJmzC"
-			if type == 'stickers'
-				url = "http://api.giphy.com/v1/stickers/search?q=" + sanitize + "&api_key=" + key
-			elsif type == 'translate'
-				url = "http://api.giphy.com/v1/gifs/translate?q=" + sanitize + "&api_key=" + key
-			else
-				url = "http://api.giphy.com/v1/gifs/search?q=" + sanitize + "&api_key=" + key
-			end
+			type = parameters[0]
+			method = parameters[1]
+			url = self.giphy_search_controller(type, method, sanitize, key)
 			resp = Net::HTTP.get_response(URI.parse(url))
 			buffer = resp.body
 			result = JSON.parse(buffer)
-			puts "results: ", result['data']
 			temp = []
-			pic_limit = 0
-			pic_fail = 0
-			count = 0
-			result['data'].each do |x|
-				temp.push(x["images"]["fixed_height"]["url"])
-			end	
-			puts temp
+
+			# decided between multiple or singular gifs
+			if method == 'search'
+				result['data'].each do |x|
+					temp.push(x["images"]["fixed_height"]["url"])
+				end	
+			elsif method == 'translate' || method == 'random'
+				temp.push(result['data']["images"]['fixed_height']['url']);
+			end
 			temp.each do |post|
 				self.build_post("giphy", post, nil, post, "giphy", post)
 			end
@@ -57,6 +65,16 @@ class Dash < ActiveRecord::Base
 			return nil
 		end
 	end
+	def giphy_search_controller(type, method, sanitize, key)
+		puts 'giphy serach cronller has fired'
+		if method == 'search'
+			return url = "http://api.giphy.com/v1/"+type+"/search?q=" + sanitize + "&api_key=" + key
+		elsif method == 'translate'
+			return url = "http://api.giphy.com/v1/"+type+"/translate?s=" + sanitize + "&api_key=" + key
+		elsif method == 'random'
+			return url = "http://api.giphy.com/v1/"+type+"/random?api_key=" + key + '&tag=' + sanitize 
+		end
+	end	
 	def reddit_pic_scrape(sub)
 	    self.subreddit = sub.downcase
 	    # term_arr = search_term.split(",")
@@ -80,16 +98,25 @@ class Dash < ActiveRecord::Base
 		end
 		return count
 	end	
-	def twitter_pic_scrape(search, parameters)
-	    self.twitter_pic_search = search.downcase
+	# result_type: 'popular', max_id: '', lang: 'en',   filter: 'twimg'
+	def twitter_pic_scrape(search_obj, parameters)
+	    self.twitter_pic_search = search_obj.term.downcase
 	    puts "encoded: ", URI::encode(self.twitter_pic_search)
 	    self.save		
+	    result_type = parameters[0]
 		t = self.get_twit_client
-		search_var = search + " -rt"
+		search_var = search_obj.term + " -rt"
 		pic_limit = 0
 		pic_fail = 0
 		count = 0
-		t.search(search_var, options = {lang: parameters[0], filter: parameters[1], max_id: "708693400602550272"}).collect do |tweet|
+		if !search_obj.since_id
+			max_id = ''
+			puts 'max_id: ', max_id 
+		else
+			max_id = search_obj.since_id
+			puts 'max_id: ', max_id 
+		end
+		t.search(search_var, options = {result_type: result_type, max_id: max_id, lang: 'en',   filter: 'twimg'}).collect do |tweet|
 			puts 'tweet', tweet.to_json
 			puts 'index', count
 			count += 1
@@ -105,6 +132,10 @@ class Dash < ActiveRecord::Base
 					else
 						pic_fail += 1
 					end
+					search_obj.since_id = tweet.id.to_s
+					puts "trying this: " + search_obj.since_id
+					search_obj.save
+					puts 'saved!!   ~~ !@!!'
 				else
 					puts 'breakin out!'
 					break
@@ -119,6 +150,7 @@ class Dash < ActiveRecord::Base
 		end	 		
 	end
 	def tumblr_pic_scrape(search)
+		
 		sanitize = search.tr(" ", "+");
 		tum = self.get_tumblr_client
 		client = Tumblr::Client.new
@@ -174,11 +206,11 @@ class Dash < ActiveRecord::Base
 			else
 			  img
 			end		
-			post.twit_published += 1
-			post.save
 			body = post.body.to_s
 			body_short = self.shorten(body, 90)
 			res = twitCli.update_with_media(body_short, img)
+			post.twit_published =  res.id.to_s
+			post.save
 		rescue => e
 			puts e
 			return 'tried'
@@ -188,16 +220,20 @@ class Dash < ActiveRecord::Base
 		tumblr_client = self.get_tumblr_client
 		@post = Post.find(post)
 		@client = Tumblr::Client.new
+		puts @client
 		begin
 			url = @post.og_source
+
 			img = URI.parse(@post.image_src)
+			puts img
 			blog_name = self.tumblr_blog_name
 			uri = blog_name + ".tumblr.com"
 			res = @client.photo(uri, caption: @post.body, source: img)
+			puts res
 			if res["status"] == 401
 				return 'tried'
 			end
-			@post.tumblr_published += 1
+			@post.tumblr_published == res.id.to_s
 			@post.save
 		rescue
 			return 'tried'
@@ -286,7 +322,7 @@ class Dash < ActiveRecord::Base
 	def fb_oauth
 	    app_id = self.fb_app_id
 	    app_secret = self.fb_app_secret
-	    callback_url = "http://butterfli.herokuapp.com/dashes/#{self.id}/fb_set_token"
+	    callback_url = "http://localhost:4000/dashes/#{self.id}/fb_set_token"
 	    @oauth = Koala::Facebook::OAuth.new(app_id, app_secret, callback_url)
 	    oauth_url = @oauth.url_for_oauth_code
 	    puts oauth_url
@@ -295,7 +331,7 @@ class Dash < ActiveRecord::Base
 	def fb_set_token(code)
 	    app_id = self.fb_app_id
 	    app_secret = self.fb_app_secret
-	    callback_url = "http://butterfli.herokuapp.com/dashes/#{self.id}/fb_set_token"
+	    callback_url = "http://localhost:4000/dashes/#{self.id}/fb_set_token"
 	    @oauth = Koala::Facebook::OAuth.new(app_id, app_secret, callback_url)
 		access_token = @oauth.get_access_token(code)
 		self.fb_oauth_access_token = access_token

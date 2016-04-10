@@ -57,8 +57,19 @@ class DashesController < ApplicationController
     # Scraper Controller Action
   def scrape_for_pics
       network = params[:network]
+      search_param_str = params[:param_array]
+      # search_param_str = 'stickers,random'
+      if search_param_str
+        arr_reform = search_param_str.split(',').to_a
+      else
+        arr_reform = search_param_str.to_a
+      end
+      # parameters = ['stickers', 'gifs','search','translate','random']
+      param_array = [network, arr_reform]
       search_term = params[:search_term]
-      @dash.scraper(network, search_term)
+      
+      
+      @dash.scraper(search_term, param_array)
       @posts = @dash.posts.where(approved: nil)
       render json: @posts, status: 200
   end
@@ -70,24 +81,39 @@ class DashesController < ApplicationController
     # Post Queue page
   def post_queue
       @posts = @dash.posts.where(approved: true).order(created_at: :desc)
-      render json: @posts   
+      render json: @posts, status: 200   
   end
     # Posting Controller Actions
   def post_to_network
       network = params[:network]
-      post = params[:post_id]
-      puts 'post id: ' + post.to_s
-      @dash.post_content(post, network)
-      redirect_to dash_post_queue_path(@dash)
+      @post = params[:post_id]
+      puts 'post id: ' + @post.to_s
+      @dash.post_content(@post, network)
+      render json: @post, status: 200
   end
     # Edit post via AJAX
   def edit_post_body
-      post = params[:post_id]
+      @post = params[:post_id]
       body = params[:body_text]
-      @dash.edit_post_body_content(post, body)
-      redirect_to dash_post_queue_path(@dash)
+      @dash.edit_post_body_content(@post, body)
+      render json: @post, status: 200
   end
 
+  # Build Post
+  # - - - - - - - - - - - - - -   
+    # chrome extension
+
+  def add_chrome_post
+      link = params['link_url']
+      @dash = Dash.find(params['dash_id'])
+      @post = Post.new(title:'chrome ext', og_source: link)
+      @dash.posts << @post
+      puts @post.og_source
+      puts 'word!'
+      if @post 
+        render json: @post, status: 200
+      end
+  end
 
 
   # Auth Actions
@@ -95,13 +121,18 @@ class DashesController < ApplicationController
     # FB - get auth url
   def fb_oauth
       redirect_uri = @dash.fb_oauth
+<<<<<<< HEAD
+      puts redirect_uri
+      render json: redirect_uri.to_json, status: 200
+=======
       return redirect_uri 
+>>>>>>> stripe
   end
     # FB - set token for dash
   def fb_set_token
       code = params[:code]
       @dash.fb_set_token(code)
-      redirect_to dash_post_queue_path(@dash)
+      render json: @dash, status: 200
   end
 
 
