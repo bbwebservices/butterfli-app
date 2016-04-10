@@ -1,9 +1,19 @@
 Rails.application.routes.draw do
+<<<<<<< HEAD
+=======
+
+  get 'subscribe/new'
+
+>>>>>>> stripe
   devise_for :users, controllers: {
     sessions: 'users/sessions',
     registrations: 'users/registrations'
   }
+<<<<<<< HEAD
 
+=======
+  resources :subscribe
+>>>>>>> stripe
   resources :dashes do
     # Controller Action Routes
       # Scrape
