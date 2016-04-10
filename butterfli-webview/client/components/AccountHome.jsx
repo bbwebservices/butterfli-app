@@ -76,7 +76,7 @@ var AccountHome = React.createClass({
 		}
 		
 		return (
-			<div>
+			<div className="accountHomeCont">
 				<Navbar username={this.props.username} currentDash={this.props.currentDash}/>
 				<div className="uk-container uk-container-center uk-margin-top">
 					<div className="uk-grid">								

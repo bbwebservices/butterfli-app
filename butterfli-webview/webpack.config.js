@@ -8,6 +8,7 @@ var config = {
 		filename: PROD ? 'bundle.min.js' : 'bundle.js',
 		path: './dest/'
 	},
+	// loaders: ['hot-loader'],
 	module: {
 		loaders: [
 			{

@@ -82,7 +82,6 @@ var DashHome = React.createClass({
 		return (
 			<div>
 				<Navbar currentDash={this.props.currentDash} username={this.props.username}/>
-
 				<div className="uk-container uk-container-center uk-margin-top">
 					{this._showDashes()}
 				</div>

@@ -1,4 +1,5 @@
 var request = require('request');
+var Promise = require('bluebird');
 
 module.exports = {
 
@@ -307,5 +308,18 @@ Create and Update Dashes
 		    }
 		}
 		return url;
-	}
+	},
+
+	// testReq(jwt){
+	// 	var headers = { 'Authorization': jwt };
+	// 	var options = {
+	// 		url: 'http://localhost:4000/test',
+	// 		method: 'GET',
+	// 		headers: headers
+	// 	}
+	// 	return new Promise()
+	// 	request(options, (error, response, body) => {
+
+	// 	}) 
+	// }
 }
